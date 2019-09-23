@@ -10,5 +10,6 @@
 #define PCH_H
 
 // TODO: add headers that you want to pre-compile here
-
+#include "\Github\GameEngineWork\GameEngine\GameEngine\Scene's\Test.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\Scene's\Town.h"
 #endif //PCH_H

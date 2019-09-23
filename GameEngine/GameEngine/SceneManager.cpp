@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SceneManager.h"
-#include "Test.h"
-#include "Town.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\Scene's\Test.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\Scene's\Town.h"
 
 // PURPOSE: Handeling the transition and loading of scene's
 

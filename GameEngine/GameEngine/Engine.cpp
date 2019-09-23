@@ -2,8 +2,8 @@
 #include "Engine.h"
 #include "Debug.h"
 #include "MapCharacter.h"
-#include "Scene'sTest.h"
-#include "Champion.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\Scene's\Test.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\Character's\Character.h"
 
 Engine::Engine()
 {    
@@ -25,7 +25,7 @@ void Engine::start()
 	Clock clock;
 
 	//Create the party
-	Champion party[1];
+	//Character party[1];
 	
 	// Select inital scene
 

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef TEST_H
+#define TEST_H
+
 #include "Scene.h"
 
 class Test : public Scene
@@ -23,4 +26,5 @@ public:
 
 	MapCharacter playerCharacter;
 };
+#endif //TEST_H
 
