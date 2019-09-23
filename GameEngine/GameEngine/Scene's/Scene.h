@@ -2,8 +2,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 #include <SFML\Graphics.hpp>
-#include "MapCharacter.h"
-#include "SceneManager.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\MapCharacter.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\SceneManager.h"
 
 class Scene
 {

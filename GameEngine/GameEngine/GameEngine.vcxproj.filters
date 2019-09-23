@@ -13,14 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Champions">
-      <UniqueIdentifier>{cd8dd72b-8bd6-401b-8697-a40a519f5fce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Scene%27s">
       <UniqueIdentifier>{58ee0865-901e-4809-b7bf-b4f2acf7670a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Scene%27s">
       <UniqueIdentifier>{9fbe4438-7e61-4f1a-9e39-6e3ee891604a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Character">
+      <UniqueIdentifier>{d7fe6aee-d846-40eb-a0d3-27981ab4b2a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Character\Champions">
+      <UniqueIdentifier>{cd8dd72b-8bd6-401b-8697-a40a519f5fce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,15 +48,6 @@
     <ClInclude Include="Town.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Champion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Barbarian.h">
-      <Filter>Header Files\Champions</Filter>
-    </ClInclude>
     <ClInclude Include="Scene%27s\Test.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
@@ -62,6 +56,15 @@
     </ClInclude>
     <ClInclude Include="Scene%27s\Scene.h">
       <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Character%27s\Champion%27s\Champion.h">
+      <Filter>Header Files\Character\Champions</Filter>
+    </ClInclude>
+    <ClInclude Include="Character%27s\Champion%27s\Barbarian.h">
+      <Filter>Header Files\Character\Champions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
