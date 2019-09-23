@@ -1,4 +1,6 @@
 #pragma once
+#ifndef TOWN_H
+#define TOWN_H
 #include "Scene.h"
 
 class Town : public Scene
@@ -23,3 +25,4 @@ public:
 
 	MapCharacter playerCharacter;
 };
+#endif //!TEST_H

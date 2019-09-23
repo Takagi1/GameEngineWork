@@ -1,6 +1,5 @@
-#include "pch.h"
+#include "\Github\GameEngineWork\GameEngine\GameEngine\pch.h"
 #include "Test.h"
-#include "Debug.h"
 
 Test::Test() {}
 
@@ -11,7 +10,7 @@ bool Test::OnCreate() {
 	isMap = true;
 
 	//get background texture
-	m_BackgroundTexture.loadFromFile("background.png");
+	m_BackgroundTexture.loadFromFile("`background.png");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);

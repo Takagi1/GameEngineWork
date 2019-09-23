@@ -42,12 +42,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Town.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scene%27s\Test.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
