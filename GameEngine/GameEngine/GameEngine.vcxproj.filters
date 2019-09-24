@@ -25,6 +25,15 @@
     <Filter Include="Header Files\Character\Champions">
       <UniqueIdentifier>{cd8dd72b-8bd6-401b-8697-a40a519f5fce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Character\Monster">
+      <UniqueIdentifier>{88f7e298-e38e-4f4f-8b85-b7f24a693b90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character">
+      <UniqueIdentifier>{9f19184e-762d-439f-a5a4-2cb1da1be7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character\Champions">
+      <UniqueIdentifier>{b1b6fd30-f185-4396-993b-c25ca5e3288d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -45,17 +54,20 @@
     <ClInclude Include="Character.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Character%27s\Champion%27s\Champion.h">
-      <Filter>Header Files\Character\Champions</Filter>
-    </ClInclude>
-    <ClInclude Include="Character%27s\Champion%27s\Barbarian.h">
-      <Filter>Header Files\Character\Champions</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="Champion.h">
+      <Filter>Header Files\Character\Champions</Filter>
+    </ClInclude>
+    <ClInclude Include="Barbarian.h">
+      <Filter>Header Files\Character\Champions</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Header Files\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="Town.cpp">
       <Filter>Header Files\Scene%27s</Filter>
+    </ClCompile>
+    <ClCompile Include="Barbarian.cpp">
+      <Filter>Source Files\Character\Champions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

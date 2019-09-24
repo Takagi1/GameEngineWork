@@ -3,7 +3,7 @@
 #include "Debug.h"
 #include "MapCharacter.h"
 #include "Test.h"
-#include "Character.h"
+#include "Barbarian.h"
 
 Engine::Engine()
 {    
@@ -25,8 +25,9 @@ void Engine::start()
 	Clock clock;
 
 	//Create the party
-	//Character party[1];
+	Barbarian party;
 	
+	party.maxHealth -= 5;
 	// Select inital scene
 
 	//What if? the scene manager sets the engines current scene.  it has the engine stored so that if its function is called the scene would

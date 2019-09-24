@@ -160,8 +160,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Character%27s\Champion%27s\Barbarian.h" />
-    <ClInclude Include="Character%27s\Champion%27s\Champion.h" />
+    <ClInclude Include="Barbarian.h" />
+    <ClInclude Include="Champion.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Engine.h" />
@@ -169,10 +169,12 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Town.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Barbarian.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
