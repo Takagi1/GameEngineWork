@@ -2,8 +2,8 @@
 #include "Engine.h"
 #include "Debug.h"
 #include "MapCharacter.h"
-#include "\Github\GameEngineWork\GameEngine\GameEngine\Scene's\Test.h"
-#include "\Github\GameEngineWork\GameEngine\GameEngine\Character's\Character.h"
+#include "Test.h"
+#include "Character.h"
 
 Engine::Engine()
 {    

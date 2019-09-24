@@ -42,15 +42,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scene%27s\Test.h">
-      <Filter>Header Files\Scene%27s</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene%27s\Town.h">
-      <Filter>Header Files\Scene%27s</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene%27s\Scene.h">
-      <Filter>Header Files\Scene%27s</Filter>
-    </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
@@ -59,6 +50,12 @@
     </ClInclude>
     <ClInclude Include="Character%27s\Champion%27s\Barbarian.h">
       <Filter>Header Files\Character\Champions</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +77,14 @@
     <ClCompile Include="MapCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene%27s\Test.cpp">
+    <ClCompile Include="Test.cpp">
       <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
-    <ClCompile Include="Scene%27s\Town.cpp">
+    <ClCompile Include="Town.h">
       <Filter>Source Files\Scene%27s</Filter>
+    </ClCompile>
+    <ClCompile Include="Town.cpp">
+      <Filter>Header Files\Scene%27s</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
