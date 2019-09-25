@@ -1,11 +1,10 @@
 #include "pch.h"
 #include "Test.h"
 
+
 Test::Test() {}
 
-bool Test::OnCreate() {
-
-
+bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	//is this a map scene?
 	isMap = true;
 
@@ -15,6 +14,12 @@ bool Test::OnCreate() {
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
+	//Set up Pointers
+
+	partyPtr = _party;
+	managerPtr = _transfer;
+
+	partyPtr->party[0]->maxHealth -= 10;
 	return true;
 }
 
@@ -63,9 +68,15 @@ void Test::Input() {
 void Test::Update(float dtAsSeconds) {
 	playerCharacter.update(dtAsSeconds);
 
+	//Example of changing scene
 	if (playerCharacter.position.y <= 400) {
+
 		//Test call prototype scene change
-		trans = SceneManager::TOWN;
+		managerPtr->BuildScene(SceneManager::TOWN);
+
+		//Test battle call
+		//battle = new Battle();
+		//battle->OnCreate(partyPtr,&isMap);
 	}
 }
 
@@ -80,9 +91,4 @@ void Test::Draw(sf::RenderWindow& r_Window){
 
 	// Show everything we have just drawn
 	r_Window.display();
-}
-
-SceneManager::SCENE_NUMBER Test::ScreenT() {
-
-	return trans;
 }

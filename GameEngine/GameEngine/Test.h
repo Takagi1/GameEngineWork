@@ -10,21 +10,25 @@ public:
 
 	explicit Test();
 
-	virtual bool OnCreate() override;
+	virtual bool OnCreate(Party* const &_party, SceneManager* const &_transfer) override;
 	//virtual void OnDestroy();
 	virtual void Update(const float dtAsSeconds) override ;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual void Input() override;
-	virtual SceneManager::SCENE_NUMBER ScreenT() override;
-
-	SceneManager::SCENE_NUMBER trans = SceneManager::HOLD;
 
 	sf::Sprite m_BackgroundSprite;
 	sf::Texture m_BackgroundTexture;
 
-	bool isMap = false;
+	bool isMap;
 
 	MapCharacter playerCharacter;
+
+	//Pointers
+
+	SceneManager* managerPtr;
+	Party* partyPtr;
+
+	Battle* battle;
 };
 #endif //TEST_H
 

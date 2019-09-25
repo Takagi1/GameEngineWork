@@ -3,7 +3,8 @@
 
 Town::Town() {}
 
-bool Town::OnCreate() {
+
+bool Town::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 
 	//is this a map scene?
 	isMap = true;
@@ -13,6 +14,8 @@ bool Town::OnCreate() {
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
+
+	partyPtr = _party;
 
 	return true;
 }
@@ -79,9 +82,4 @@ void Town::Draw(sf::RenderWindow& r_Window) {
 
 	// Show everything we have just drawn
 	r_Window.display();
-}
-
-SceneManager::SCENE_NUMBER Town::ScreenT() {
-
-	return trans;
 }

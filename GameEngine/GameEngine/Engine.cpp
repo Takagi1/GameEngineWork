@@ -2,8 +2,7 @@
 #include "Engine.h"
 #include "Debug.h"
 #include "MapCharacter.h"
-#include "Test.h"
-#include "Barbarian.h"
+#include "Town.h"
 
 Engine::Engine()
 {    
@@ -24,27 +23,19 @@ void Engine::start()
 	//Timing
 	Clock clock;
 
-	//Create the party
-	Barbarian party;
-	
-	party.maxHealth -= 5;
-	// Select inital scene
+	// this is here beacuse of an error that occurs when scene is trying to function with a nullptr
+	currentScene = new Town();
 
+	
 	//What if? the scene manager sets the engines current scene.  it has the engine stored so that if its function is called the scene would
 	//change.  This could allow for scene changes to occur in the scene.  however on create must then be done in the scene manager meaning
 	//that the window would have to be there as well.  this could be achived by creating the window in main mabye and then lowering it into
 	// the engine.
 
-	//overall goal: allow for currentScene to be changed from a call within scene to allow for scene changes based on distance
-
-	//Current Logic: when sceneManager is created make a call of a Init function to set currentScene and window
-	//Stoped here becasue current logic does not make sense.  Must re-evaluate method of implimination.  must ask teachers or classmates
-	//if any solution comes to mind 
-
-	SceneManager *sceneManager = new SceneManager();
-
-	//sceneManager->SceneSet(currentScene, r_Window);
-	currentScene = sceneManager->BuildScene(sceneManager->TEST);
+	//This might be the location for building the inital load system
+	SceneManager *sceneManager = new SceneManager(currentScene);
+	sceneManager->ScenePtrSet(sceneManager);
+	sceneManager->BuildScene(sceneManager->TEST);
 	
 	while (r_Window.isOpen())
 	{
@@ -69,16 +60,5 @@ void Engine::start()
 
 		//Call scene draw
 		currentScene->Draw(r_Window);
-
-
-		//Current interation of scene change code solves some problems but is still rough
-		//best implimintation would be to be able to call a version of sceneManager change and effect the code in 
-		//the scene
-		//Logic: current scene->buildScene on SceneManager from engine which changes the current scene dirrectly
-
-		if (currentScene->ScreenT() != SceneManager::HOLD) {
-			//Load new Scene
-			currentScene = sceneManager->BuildScene(currentScene->ScreenT());
-		}
 	}
 }

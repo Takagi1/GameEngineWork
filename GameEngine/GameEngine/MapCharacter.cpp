@@ -11,8 +11,8 @@ MapCharacter::MapCharacter()
 	speed = 400;
 
 	//Set Starting position
-	position.x = 500;
-	position.y = 500;
+	position.x = 700;
+	position.y = 700;
 	
 }
 

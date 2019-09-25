@@ -22,7 +22,8 @@ private:
 	// For changing scene's
 	//SceneManager* sceneManager;
 
-	Scene* currentScene;
+
+	Scene* currentScene ;
 
 public:
 	//the Engine constructor

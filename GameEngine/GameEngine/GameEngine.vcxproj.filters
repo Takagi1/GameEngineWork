@@ -69,6 +69,15 @@
     <ClInclude Include="Monster.h">
       <Filter>Header Files\Character\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="Town.h">
+      <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="Party.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -92,14 +101,14 @@
     <ClCompile Include="Test.cpp">
       <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
-    <ClCompile Include="Town.h">
-      <Filter>Source Files\Scene%27s</Filter>
-    </ClCompile>
-    <ClCompile Include="Town.cpp">
-      <Filter>Header Files\Scene%27s</Filter>
-    </ClCompile>
     <ClCompile Include="Barbarian.cpp">
       <Filter>Source Files\Character\Champions</Filter>
+    </ClCompile>
+    <ClCompile Include="Town.cpp">
+      <Filter>Source Files\Scene%27s</Filter>
+    </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
