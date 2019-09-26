@@ -11,7 +11,8 @@ public:
 	explicit Test();
 
 	virtual bool OnCreate(Party* const &_party, SceneManager* const &_transfer) override;
-	//virtual void OnDestroy();
+	virtual bool Init(Party* const &_party, Encounter* const &_encounter, SceneManager* const &_transfer) override;
+	virtual void OnDestroy() override;
 	virtual void Update(const float dtAsSeconds) override ;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual void Input() override;
@@ -28,7 +29,7 @@ public:
 	SceneManager* managerPtr;
 	Party* partyPtr;
 
-	Battle* battle;
+	//Battle* battle;
 };
 #endif //TEST_H
 

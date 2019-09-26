@@ -2,7 +2,12 @@
 #include "Engine.h"
 #include "Debug.h"
 #include "MapCharacter.h"
-#include "Town.h"
+#include "Test.h"
+
+//BIG NOTE: find out what your doing wrong with pointers and references
+//the goal is to make it so that you can change the currentScene from 
+//others locations.  this seems to not be working as 
+
 
 Engine::Engine()
 {    
@@ -24,7 +29,7 @@ void Engine::start()
 	Clock clock;
 
 	// this is here beacuse of an error that occurs when scene is trying to function with a nullptr
-	currentScene = new Town();
+	currentScene = new Test();
 
 	
 	//What if? the scene manager sets the engines current scene.  it has the engine stored so that if its function is called the scene would
@@ -35,10 +40,24 @@ void Engine::start()
 	//This might be the location for building the inital load system
 	SceneManager *sceneManager = new SceneManager(currentScene);
 	sceneManager->ScenePtrSet(sceneManager);
-	sceneManager->BuildScene(sceneManager->TEST);
-	
+	sceneManager->BuildScene(sceneManager->TOWN);
+
+
+	//Important Note: if OnCreate is not called from the engine then scenes party and manager will become null
+	currentScene->OnCreate(sceneManager->party, sceneManager);
+
 	while (r_Window.isOpen())
 	{
+
+		//May need to change logic if battle needs to be sperated from 
+		//Scene because of the way input's are handeled
+
+		//somthing like a button could be used for input though 
+		//visual design for battle is still not complete as of yet.
+
+		//selection should make a outline around the target 
+		 
+
 		//Restart the clock adn save the elapsed time into dt
 		Time dt = clock.restart();
 

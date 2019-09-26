@@ -1,19 +1,24 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "Party.h"
+#include "Scene.h"
 
-class Battle
+
+
+class Battle : public Scene
 {
 public:
 
 
-	bool OnCreate(Party* const &_party, bool* const &_isMap);
-	//virtual void OnDestroy();
-	//virtual void Update(const float dtAsSeconds) override;
-	//virtual void Draw(sf::RenderWindow& window) override;
-	//virtual void Input() override;
-	
+	virtual bool OnCreate(Party* const &_party,SceneManager* const &_transfer) override;
+	virtual bool Init(Party* const &_party, Encounter* const &_encounter, SceneManager* const &_transfer) override;
+	virtual void OnDestroy() override;
+	virtual void Input() override;
+	virtual void Update(const float dtAsSeconds) override;
+	virtual void Draw(sf::RenderWindow& r_Window) override;
 
-	bool *isMapPtr;
+	//current turn
+	int turn;
+
+	//turn order
+	Character* turnOrder;
 
 };

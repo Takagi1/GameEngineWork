@@ -20,6 +20,17 @@ bool Town::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	return true;
 }
 
+bool Town::Init(Party * const & _party, Encounter * const & _encounter, SceneManager * const & _transfer)
+{
+	return false;
+}
+
+void Town::OnDestroy()
+{
+	if (partyPtr) delete partyPtr;//, partyPtr = nullptr;
+	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
+}
+
 void Town::Input() {
 
 	// Handle the player moving

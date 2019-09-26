@@ -2,6 +2,7 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 #include "Party.h"
+#include "Encounter.h"
 
 class SceneManager {
 public:
@@ -13,15 +14,18 @@ public:
 	};
 	
 	//Constructor
-	SceneManager(class Scene* _currentScene);
+	SceneManager(class Scene* const &_currentScene);
 
 	void ScenePtrSet(SceneManager* const &_sceneManager);
-	Party party;
+	Party* party;
 
 	class Scene* currentScenePtr;
 	SceneManager* managerPtr;
+
+	class Scene* saveScene;
+
 	void BuildScene(SCENE_NUMBER scene_);
-	void BuildBattle();
+	void BuildBattle(Encounter* const &_encouter);
 
 
 };

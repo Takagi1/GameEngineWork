@@ -25,4 +25,31 @@ public:
 	int wisdom = 1;
 	int defense = 0;
 	int speed = 0;
+
+	//is unit dead
+	bool isDead = false;
+
+	//need to make an equation to set isDead to true if health = 0
+
+
+	//test function for basic character attack
+	int BasicAttack(Character* target) {
+		int damage = round(strength * 1.5) + round(dexterity * 0.5);
+
+		return damage;
+	}
+
+	//test function for handeling damage
+	void Damage(int damage) {
+		health - damage;
+
+		//Handles character death
+		if (health <= 0) {
+			health = 0;
+			isDead = true;
+		}
+	}
+
+	//for drawing character in battle
+	virtual void Draw() = 0;
 };

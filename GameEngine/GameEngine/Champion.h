@@ -9,8 +9,15 @@ public:
 	//Constructer
 	Champion() {};
 
+	//Champions current level
 	int level = 0;
 
-	//int& Health = Character::Health;
+	//current exp
+	int exp;
 
+	//current position for distance calc
+	int distance = 0;
+
+	//resource for champion
+	int resource = 0;
 };
