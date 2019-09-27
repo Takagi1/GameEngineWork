@@ -22,4 +22,6 @@ public:
 	int& wisdom = Character::wisdom;
 	int& defense = Character::defense;
 	int& speed = Character::speed;
+
+	virtual void Draw() override;
 };

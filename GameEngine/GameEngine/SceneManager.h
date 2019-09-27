@@ -4,6 +4,8 @@
 #include "Party.h"
 #include "Encounter.h"
 
+
+
 class SceneManager {
 public:
 	//HOLD is there to allow for the scene change system to work
@@ -14,18 +16,29 @@ public:
 	};
 	
 	//Constructor
-	SceneManager(class Scene* const &_currentScene);
+	SceneManager();
 
 	void ScenePtrSet(SceneManager* const &_sceneManager);
-	Party* party;
+	Party party;
 
-	class Scene* currentScenePtr;
+	class Scene* currentScene;
 	SceneManager* managerPtr;
 
 	class Scene* saveScene;
 
 	void BuildScene(SCENE_NUMBER scene_);
-	void BuildBattle(Encounter* const &_encouter);
+	void BuildBattle(Encounter &_encouter);
+
+	//call current scene input
+	void callInput() {
+		currentScene->Input();
+	}
+
+	//call current scene update
+	void callUpdate(float dtAsSeconds) {
+		currentScene->Update(dtAsSeconds);
+	}
+private:
 
 
 };

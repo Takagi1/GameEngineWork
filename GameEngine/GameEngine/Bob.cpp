@@ -14,6 +14,9 @@ Bob::Bob()
 	maxHealth = vitality * 3;
 
 	//set health to max
-
 	health = maxHealth;
+}
+
+void Bob::Draw() {
+
 }

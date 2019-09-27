@@ -4,13 +4,14 @@
 #include "Town.h"
 #include "Battle.h"
 
+
 // PURPOSE: Handeling the transition and loading of scene's
 
-SceneManager::SceneManager(Scene* const &_currentScene) {
+SceneManager::SceneManager() {
 	//Create/load party here
-	currentScenePtr = _currentScene;
+	currentScene = nullptr;
 	
-	party = new Party();
+	party;
 }
 
 //Loads Scene 
@@ -18,28 +19,29 @@ SceneManager::SceneManager(Scene* const &_currentScene) {
 void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 
 	//Destroy scene if moveing to another
-	if (currentScenePtr != NULL) {
+	if (currentScene != NULL) {
 		//need to safely remove the previous scene
 
-		currentScenePtr->OnDestroy();
+		currentScene->OnDestroy();
 		//delete currentScenePtr??;
-		currentScenePtr = NULL;
+		currentScene = NULL;
 	}
-
-
+	
+	//int ti = &party->party.size;
 	switch (scene_) {
 	case TEST:
-		currentScenePtr = new Test();
-		currentScenePtr->OnCreate(party, managerPtr);
+		currentScene = new Test();
+		currentScene->OnCreate(&party, managerPtr);
+
 		break;
 	case TOWN:
-		currentScenePtr = new Town();
-		currentScenePtr->OnCreate(party, managerPtr);
+		currentScene = new Town();
+		currentScene->OnCreate(&party, managerPtr);
 		break;
 
 	default:
 		//Debug::Error("Incorrect scene number assigned in the manager", __FILE__, __LINE__);
-		currentScenePtr = nullptr;
+		currentScene = nullptr;
 		break;
 	}
 
@@ -53,12 +55,14 @@ void SceneManager::ScenePtrSet(SceneManager* const &_sceneManager)
 }
 
 //Transition to battle
-void SceneManager::BuildBattle(Encounter* const &_encouter) {
+void SceneManager::BuildBattle(Encounter &_encouter) {
 	//save the current scene 
-	saveScene = currentScenePtr;
+	saveScene = currentScene;
 
 	//set current scene to battle
-	currentScenePtr = new Battle();
-	currentScenePtr->Init(party, _encouter,managerPtr);
+	currentScene = new Battle();
+	currentScene->Init(party, _encouter,managerPtr);
 
 }
+
+

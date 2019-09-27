@@ -2,7 +2,6 @@
 #include "Engine.h"
 #include "Debug.h"
 #include "MapCharacter.h"
-#include "Test.h"
 
 //BIG NOTE: find out what your doing wrong with pointers and references
 //the goal is to make it so that you can change the currentScene from 
@@ -28,23 +27,15 @@ void Engine::start()
 	//Timing
 	Clock clock;
 
-	// this is here beacuse of an error that occurs when scene is trying to function with a nullptr
-	currentScene = new Test();
-
-	
 	//What if? the scene manager sets the engines current scene.  it has the engine stored so that if its function is called the scene would
 	//change.  This could allow for scene changes to occur in the scene.  however on create must then be done in the scene manager meaning
 	//that the window would have to be there as well.  this could be achived by creating the window in main mabye and then lowering it into
-	// the engine.
+	//the engine.
 
 	//This might be the location for building the inital load system
-	SceneManager *sceneManager = new SceneManager(currentScene);
+	SceneManager *sceneManager = new SceneManager();
 	sceneManager->ScenePtrSet(sceneManager);
-	sceneManager->BuildScene(sceneManager->TOWN);
-
-
-	//Important Note: if OnCreate is not called from the engine then scenes party and manager will become null
-	currentScene->OnCreate(sceneManager->party, sceneManager);
+	sceneManager->BuildScene(sceneManager->TEST);
 
 	while (r_Window.isOpen())
 	{
@@ -65,7 +56,7 @@ void Engine::start()
 		float dtAsSeconds = dt.asSeconds();
 
 		//Call scene input
-		currentScene->Input();
+		sceneManager->callInput();
 
 		//Temp escape function
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
@@ -75,9 +66,9 @@ void Engine::start()
 		//input battle input if in battle 
 
 		//Call scene update
-		currentScene->Update(dtAsSeconds);
+		sceneManager->callUpdate(dtAsSeconds);
 
 		//Call scene draw
-		currentScene->Draw(r_Window);
+		sceneManager->currentScene->Draw(r_Window);
 	}
 }

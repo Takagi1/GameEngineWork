@@ -1,6 +1,9 @@
 #pragma once
+#include <array>
+#include <math.h>
 
 //Point of existance: this is the base for all living things in the game.  they must all inherit from them.
+//include <array> here for party, encounter, and skills.
 class Character
 {
 private:
@@ -34,14 +37,14 @@ public:
 
 	//test function for basic character attack
 	int BasicAttack(Character* target) {
-		int damage = round(strength * 1.5) + round(dexterity * 0.5);
-
+		int damage = floor(strength * 1.5) + floor(dexterity * 0.5);
+		
 		return damage;
 	}
 
 	//test function for handeling damage
 	void Damage(int damage) {
-		health - damage;
+		health -= damage;
 
 		//Handles character death
 		if (health <= 0) {

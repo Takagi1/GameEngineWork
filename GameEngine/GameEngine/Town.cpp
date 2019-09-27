@@ -20,7 +20,7 @@ bool Town::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	return true;
 }
 
-bool Town::Init(Party * const & _party, Encounter * const & _encounter, SceneManager * const & _transfer)
+bool Town::Init(Party &_party, Encounter &_encounter, SceneManager * const & _transfer)
 {
 	return false;
 }

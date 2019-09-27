@@ -19,12 +19,12 @@ bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	partyPtr = _party;
 	managerPtr = _transfer;
 
-	//test for party interaction
-	//partyPtr->party[0]->maxHealth -= 10;
+	//set up where the player starts
+
 	return true;
 }
 
-bool Test::Init(Party * const & _party, Encounter * const & _encounter, SceneManager * const & _transfer)
+bool Test::Init(Party &_party, Encounter &_encounter, SceneManager * const & _transfer)
 {
 	return false;
 }
@@ -84,14 +84,11 @@ void Test::Update(float dtAsSeconds) {
 	//Example of changing scene
 	if (playerCharacter.position.y <= 400) {
 
-
-
 		//Test call prototype scene change
 		//managerPtr->BuildScene(SceneManager::TOWN);
 
 		//Test battle call
-
-		Encounter* encounterPtr = new Encounter();
+		Encounter encounterPtr;
 		
 		managerPtr->BuildBattle(encounterPtr);
 	}

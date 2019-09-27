@@ -82,7 +82,7 @@
       <Filter>Header Files\Character\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Encounter.h">
-      <Filter>Header Files\Scene%27s</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

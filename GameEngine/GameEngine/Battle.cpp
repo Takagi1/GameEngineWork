@@ -7,14 +7,25 @@ bool Battle::OnCreate(Party * const & _party, SceneManager * const & _transfer)
 	return true;
 }
 
-bool Battle::Init(Party * const & _party, Encounter * const & _encounter, SceneManager * const & _transfer)
+bool Battle::Init(Party &_party, Encounter &_encounter, SceneManager * const & _transfer)
 {
 	//set turn to zero
 
 	turn = 0;
 
+		
+	//set turn order here
+	size = _party.getSize() + _encounter.getSize();
+	turnOrder.resize(size);
+	turnOrder[0] = _party.party[0];
+	turnOrder[1] = _encounter.encounter[0];
 
-	//combine the party and the encounter into one character array
+	//get background texture
+	backgroundTexture.loadFromFile("`background.png");
+
+	// Associate the sprite with the texture
+	backgroundSprite.setTexture(backgroundTexture);
+
 	//they should be ordered by the speed equation.
 	//after all go then turn should increase by 1
 
@@ -23,9 +34,6 @@ bool Battle::Init(Party * const & _party, Encounter * const & _encounter, SceneM
 
 	//theory code for battle
 	/*
-	//set turnOrder length to current battle amount (single so 2 + encounter)
-	Character turnOrder;
-
 
 	this is a example of an attack 
 	the variable for the attack is the target
@@ -72,13 +80,22 @@ void Battle::Input()
 		//how this will be impleminted i dont know but the attack 
 		//should return the damage to this equation(i think this may be the 
 		//best version of this but it can be changed.
+		
+		//create theoretical target system.  example of attack is bellow
+		
 
+		turnOrder[0]->BasicAttack(turnOrder[1]);
 		
 	}
 }
 
 void Battle::Update(const float dtAsSeconds)
 {
+
+	//test for battle resolution
+	if (turnOrder[1]->isDead) {
+
+	}
 }
 
 void Battle::Draw(sf::RenderWindow& r_Window)

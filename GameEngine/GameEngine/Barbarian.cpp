@@ -10,3 +10,7 @@ Barbarian::Barbarian() {
 	maxHealth = 100;
 	health = maxHealth;
 }
+
+void Barbarian::Draw() {
+
+}

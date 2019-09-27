@@ -3,10 +3,15 @@
 
 class Encounter {
 public:
-	Monster* encounter[1];
+	std::array<Character*, 1> encounter;
 
 	Encounter() {
 		encounter[0] = new Bob();
 	}
+
+	int getSize() {
+		return encounter.size();
+	}
+private:
 
 };
