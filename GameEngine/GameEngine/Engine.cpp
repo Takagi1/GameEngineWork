@@ -2,24 +2,49 @@
 #include "Engine.h"
 #include "Debug.h"
 #include "MapCharacter.h"
+#include <thread>
 
 //BIG NOTE: find out what your doing wrong with pointers and references
 //the goal is to make it so that you can change the currentScene from 
 //others locations.  this seems to not be working as 
 
+// A regular RenderWindow
+RenderWindow r_Window;
+
+// For changing scene's
+SceneManager* sceneManager;
 
 Engine::Engine()
 {    
+
+}
+
+
+//Thread for drawing 
+void DrawThread() {
 	// Get the screen resolution and create an SFML window and View
 	Vector2f resolution;
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
 
-	RenderWindow window;
+	//RenderWindow window;
 
 	r_Window.create(VideoMode(1280, 720),
 		"Simple Game Engine",
 		Style::Default);
+
+	
+	while (r_Window.isOpen()) {
+		sceneManager->currentScene->Draw(r_Window);
+
+		//Temp escape function
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			r_Window.close();
+		}
+	}
+	
+
 }
 
 void Engine::start()
@@ -33,11 +58,16 @@ void Engine::start()
 	//the engine.
 
 	//This might be the location for building the inital load system
-	SceneManager *sceneManager = new SceneManager();
+	sceneManager = new SceneManager();
 	sceneManager->ScenePtrSet(sceneManager);
 	sceneManager->BuildScene(sceneManager->TEST);
 
-	while (r_Window.isOpen())
+
+	//create DrawThread
+	std::thread test(DrawThread);
+
+	bool hold = true;
+	while (hold)
 	{
 
 		//May need to change logic if battle needs to be sperated from 
@@ -57,18 +87,11 @@ void Engine::start()
 
 		//Call scene input
 		sceneManager->callInput();
-
-		//Temp escape function
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
-			r_Window.close();
-		}
+		
 		//input battle input if in battle 
 
 		//Call scene update
 		sceneManager->callUpdate(dtAsSeconds);
 
-		//Call scene draw
-		sceneManager->currentScene->Draw(r_Window);
 	}
 }

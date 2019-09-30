@@ -15,6 +15,15 @@ Bob::Bob()
 
 	//set health to max
 	health = maxHealth;
+
+	//set exp value 
+	exp = 5;
+
+	isMonster = true;
+}
+
+int Bob::GetExp() {
+	return exp;
 }
 
 void Bob::Draw() {

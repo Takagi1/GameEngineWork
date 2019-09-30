@@ -30,14 +30,10 @@ public:
 	void BuildBattle(Encounter &_encouter);
 
 	//call current scene input
-	void callInput() {
-		currentScene->Input();
-	}
+	void callInput();
 
 	//call current scene update
-	void callUpdate(float dtAsSeconds) {
-		currentScene->Update(dtAsSeconds);
-	}
+	void callUpdate(float dtAsSeconds);
 private:
 
 

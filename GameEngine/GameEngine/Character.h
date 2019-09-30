@@ -32,19 +32,29 @@ public:
 	//is unit dead
 	bool isDead = false;
 
+	//is this unit a monster(set to true if monster)
+	bool isMonster = false;
+
 	//need to make an equation to set isDead to true if health = 0
 
 
 	//test function for basic character attack
 	int BasicAttack(Character* target) {
-		int damage = floor(strength * 1.5) + floor(dexterity * 0.5);
+		int damage = ceil(strength * 1.5) + ceil(dexterity * 0.5);
 		
 		return damage;
 	}
 
 	//test function for handeling damage
 	void Damage(int damage) {
-		health -= damage;
+		//if damage is not less then 1
+		if (damage - defense > 1) {
+			//get random
+			float random = ((rand() % 51 + 50) / 100);
+			health -= ceil((damage - defense)  * random);
+		}
+
+		
 
 		//Handles character death
 		if (health <= 0) {

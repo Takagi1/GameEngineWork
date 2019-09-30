@@ -10,7 +10,7 @@
 SceneManager::SceneManager() {
 	//Create/load party here
 	currentScene = nullptr;
-	
+
 	party;
 }
 
@@ -62,7 +62,12 @@ void SceneManager::BuildBattle(Encounter &_encouter) {
 	//set current scene to battle
 	currentScene = new Battle();
 	currentScene->Init(party, _encouter,managerPtr);
-
 }
 
+void SceneManager::callInput() {
+	currentScene->Input();
+}
 
+void SceneManager::callUpdate(float dtAsSeconds) {
+	currentScene->Update(dtAsSeconds);
+}

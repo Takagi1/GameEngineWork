@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include <vector>
+#include <thread>
 
 
 
@@ -24,11 +25,18 @@ public:
 
 	//turn order
 	std::vector<Character*> turnOrder;
+
+	//what character's turn is it.
+	int chaSel = 0;
 	
 	Texture backgroundTexture;
 	Sprite backgroundSprite;
 
+
 	//mabye keep the indivual party and 
 	//encounter to streamline check
+
+	Party party;
+	Encounter encounter;
 
 };

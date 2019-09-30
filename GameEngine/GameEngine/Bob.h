@@ -23,5 +23,11 @@ public:
 	int& defense = Character::defense;
 	int& speed = Character::speed;
 
+	int& exp = Monster::exp;
+
+	bool& mons = Character::isMonster;
+
 	virtual void Draw() override;
+
+	int GetExp() override;
 };

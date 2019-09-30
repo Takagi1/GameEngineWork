@@ -13,14 +13,8 @@ private:
 
 	//private functions for internal use only
 
-	// A regular RenderWindow
-	RenderWindow r_Window;
-
 	// For player input while in battle
 	void battleInput();
-
-	// For changing scene's
-	//SceneManager* sceneManager;
 
 public:
 	//the Engine constructor
@@ -28,8 +22,6 @@ public:
 
 	//start will call all the private functions
 	void start();
-
-
 	
 
 };

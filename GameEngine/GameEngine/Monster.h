@@ -11,4 +11,8 @@ public:
 
 	int Health = 5;
 
+	int exp = 5;
+
+	virtual int GetExp() = 0;
+
 };
