@@ -17,6 +17,10 @@ int Guide::BasicAttack(Character* target) {
 	return damage;
 }
 
-void Guide::Draw() {
+sf::Sprite Guide::getSprite() {
+	return characterSprite;
+}
 
+void Guide::setSpritePos(int x, int y) {
+	characterSprite.setPosition(x, y);
 }

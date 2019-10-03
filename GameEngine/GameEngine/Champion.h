@@ -16,6 +16,7 @@ public:
 	int exp;
 
 	//current position for distance calc
+	//change to enum as there is set distance
 	int distance = 0;
 
 	//resource for champion

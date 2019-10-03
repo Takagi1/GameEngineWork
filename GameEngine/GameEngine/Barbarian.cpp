@@ -17,6 +17,10 @@ int Barbarian::BasicAttack(Character* target) {
 	return damage;
 }
 
-void Barbarian::Draw() {
+sf::Sprite Barbarian::getSprite() {
+	return characterSprite;
+}
 
+void Barbarian::setSpritePos(int x, int y) {
+	characterSprite.setPosition(x, y);
 }

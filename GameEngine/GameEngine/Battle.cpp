@@ -77,7 +77,9 @@ bool Battle::Init(Party &_party, Encounter &_encounter, SceneManager * const & _
 	encounterPtr = _encounter;
 	managerPtr = _transfer;
 
-	//Set up the menu here
+	//Set up the visuals here
+
+	encounterPtr.encounter[0]->setSpritPos(600, 200);
 
 	rectangle.setOutlineColor(sf::Color::Red);
 	rectangle.setOutlineThickness(5);
@@ -97,10 +99,10 @@ void Battle::Input(sf::RenderWindow& r_Window)
 
 	while (r_Window.pollEvent(input)) {
 		if (input.type == sf::Event::KeyPressed) {
-
-
 			if (input.key.code == sf::Keyboard::X)
 			{
+				//there needs to be somthing here that allows for 
+				//the selection of targets
 				if (targ1) {
 					int damage = turnOrder[chaSel]->BasicAttack(turnOrder[1]);
 					//cout << damage << endl;
@@ -109,7 +111,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 					turnComp = true;
 				}
 			}
-			if (input.key.code == sf::Keyboard::Z) {
+			if (input.key.code == sf::Keyboard::Left || input.key.code == sf::Keyboard::Right) {
 				if (targ1) {
 					targ1 = false;
 					targ2 = true;
@@ -142,9 +144,78 @@ void Battle::Input(sf::RenderWindow& r_Window)
 		turnComp = false;
 	}	
 }
+	
+void Battle::Update(const float dtAsSeconds)
+{
 
-void CombatThread() {
-	//This is a experiment to see if multithreading battle may be the 
+}
+
+void Battle::Draw(sf::RenderWindow& r_Window)
+{
+	r_Window.clear();
+
+	// Draw the background
+	r_Window.draw(backgroundSprite);
+
+
+	float setX = r_Window.getSize().x;
+	float setY = r_Window.getSize().y;
+
+	rectangle.setSize(sf::Vector2f(setX, setY/2));
+	rectangle.setPosition(0, setY / 2);
+
+	r_Window.draw(rectangle);
+
+	// Declare and load a font
+	sf::Font font;
+	font.loadFromFile("OpenSans-Light.ttf");
+
+
+	// Create a text
+	sf::Text text("Attack", font);
+	text.setCharacterSize(30);
+	text.setStyle(sf::Text::Bold);
+	text.setFillColor(sf::Color::Red);
+	text.setPosition(200, 500);
+
+	if (targ1) {
+		text.setOutlineThickness(5);
+		text.setOutlineColor(sf::Color::Blue);
+	}
+	else {
+		text.setOutlineThickness(0);
+	}
+
+	// Draw it
+	r_Window.draw(text);
+
+	// Create a text
+	sf::Text text2("Skill", font);
+	text2.setCharacterSize(30);
+	text2.setStyle(sf::Text::Bold);
+	text2.setFillColor(sf::Color::Red);
+	text2.setPosition(500, 500);
+	if (targ2) {
+		text2.setOutlineThickness(5);
+		text2.setOutlineColor(sf::Color::Blue);
+	}
+	else {
+		text2.setOutlineThickness(0);
+	}
+
+	// Draw it
+	r_Window.draw(text2);
+
+	r_Window.draw(turnOrder[1]->getSprite());
+	//Render all characters here 
+	//add in test render for attack check.
+
+	//display the menu
+
+	r_Window.display();
+}
+
+//This is a experiment to see if multithreading battle may be the 
 	//best idea.
 
 	//combat calucalations could be held in this thread?
@@ -190,74 +261,3 @@ void CombatThread() {
 	*/
 
 	//cout << "hi";
-
-}
-void Battle::Update(const float dtAsSeconds)
-{
-
-}
-
-void Battle::Draw(sf::RenderWindow& r_Window)
-{
-	r_Window.clear();
-
-	// Draw the background
-	r_Window.draw(backgroundSprite);
-
-
-	float setX = r_Window.getSize().x;
-	float setY = r_Window.getSize().y;
-
-	rectangle.setSize(sf::Vector2f(setX, setY/2));
-	rectangle.setPosition(0, setY / 2);
-
-	r_Window.draw(rectangle);
-
-	// Declare and load a font
-	sf::Font font;
-	font.loadFromFile("OpenSans-Light.ttf");
-
-
-	// Create a text
-	sf::Text text("Attack", font);
-	text.setCharacterSize(30);
-	text.setStyle(sf::Text::Bold);
-	text.setFillColor(sf::Color::Red);
-	text.setPosition(200, 500);
-	if (targ1) {
-		text.setOutlineThickness(5);
-		text.setOutlineColor(sf::Color::Blue);
-	}
-	else {
-		text.setOutlineThickness(0);
-	}
-
-	// Draw it
-	r_Window.draw(text);
-
-	// Create a text
-	sf::Text text2("Skill", font);
-	text2.setCharacterSize(30);
-	text2.setStyle(sf::Text::Bold);
-	text2.setFillColor(sf::Color::Red);
-	text2.setPosition(500, 500);
-	if (targ2) {
-		text2.setOutlineThickness(5);
-		text2.setOutlineColor(sf::Color::Blue);
-	}
-	else {
-		text2.setOutlineThickness(0);
-	}
-
-	// Draw it
-	r_Window.draw(text2);
-
-
-	//Render all characters here 
-	//add in test render for attack check.
-
-	//display the menu
-
-	r_Window.display();
-}
-

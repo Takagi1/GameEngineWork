@@ -5,6 +5,8 @@
 class Guide: public Champion
 {
 private:
+	sf::Texture characterTexture;
+	sf::Sprite characterSprite;
 
 public:
 
@@ -32,6 +34,8 @@ public:
 	virtual int BasicAttack(Character* target) override;
 
 	//for drawing character
-	virtual void Draw() override;
+	virtual sf::Sprite getSprite() override;
+
+	virtual void setSpritePos(int x, int y) override;
 };
 

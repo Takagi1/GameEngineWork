@@ -1,8 +1,12 @@
 #pragma once
 #include "Monster.h"
+
 class Bob : public Monster
 {
 private:
+
+	sf::Texture characterTexture;
+	sf::Sprite characterSprite;
 
 public:
 
@@ -29,7 +33,9 @@ public:
 
 	virtual int BasicAttack(Character* target) override;
 
-	virtual void Draw() override;
+	virtual sf::Sprite getSprite() override;
 
 	int GetExp() override;
+
+	virtual void setSpritePos(int x, int y) override;
 };

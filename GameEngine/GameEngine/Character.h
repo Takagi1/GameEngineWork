@@ -1,4 +1,5 @@
 #pragma once
+#include "SFML/Graphics.hpp"
 #include <array>
 #include <math.h>
 
@@ -67,5 +68,7 @@ public:
 	}
 
 	//for drawing character in battle
-	virtual void Draw() = 0;
+	virtual sf::Sprite getSprite() = 0;
+
+	virtual void setSpritePos(int x, int y) = 0;
 };

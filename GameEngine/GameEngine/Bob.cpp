@@ -22,6 +22,12 @@ Bob::Bob()
 	exp = 5;
 
 	isMonster = true;
+
+	//get background texture
+	characterTexture.loadFromFile("Choas.png");
+
+	// Associate the sprite with the texture
+	characterSprite.setTexture(characterTexture);
 }
 
 int Bob::BasicAttack(Character* target) {
@@ -30,11 +36,14 @@ int Bob::BasicAttack(Character* target) {
 	return damage;
 }
 
-void Bob::Draw() {
-
+sf::Sprite Bob::getSprite() {
+	return characterSprite;
 }
 
 int Bob::GetExp() {
 	return exp;
 }
 
+void Bob::setSpritePos(int x, int y) {
+	characterSprite.setPosition(x, y);
+}
