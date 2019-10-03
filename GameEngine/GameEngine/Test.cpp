@@ -9,7 +9,7 @@ bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	isMap = true;
 
 	//get background texture
-	m_BackgroundTexture.loadFromFile("`background.png");
+	m_BackgroundTexture.loadFromFile("background.png");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
@@ -36,7 +36,7 @@ void Test::OnDestroy()
 	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }
 
-void Test::Input() {
+void Test::Input(sf::RenderWindow& window) {
 
 	// Handle the player moving
 	if (Keyboard::isKeyPressed(Keyboard::A))
@@ -98,6 +98,7 @@ void Test::Draw(sf::RenderWindow& r_Window){
 	
 	// Rub out the last frame
 	r_Window.clear(sf::Color::White);
+
 	// Draw the background
 	r_Window.draw(m_BackgroundSprite);
 

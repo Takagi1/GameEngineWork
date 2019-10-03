@@ -17,7 +17,7 @@ public:
 	virtual void OnDestroy() = 0;
 	virtual void Update(const float dtAsSeconds) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;
-	virtual void Input() = 0;
+	virtual void Input(sf::RenderWindow& window) = 0;
 
 
 	//Things that must be included in inheriting scenes

@@ -29,9 +29,6 @@ public:
 	void BuildScene(SCENE_NUMBER scene_);
 	void BuildBattle(Encounter &_encouter);
 
-	//call current scene input
-	void callInput();
-
 	//call current scene update
 	void callUpdate(float dtAsSeconds);
 private:

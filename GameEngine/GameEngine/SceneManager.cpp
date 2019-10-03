@@ -3,6 +3,7 @@
 #include "Test.h"
 #include "Town.h"
 #include "Battle.h"
+#include "Debug.h"
 
 
 // PURPOSE: Handeling the transition and loading of scene's
@@ -40,7 +41,7 @@ void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 		break;
 
 	default:
-		//Debug::Error("Incorrect scene number assigned in the manager", __FILE__, __LINE__);
+		Debug::Error("Incorrect scene number assigned in the manager", __FILE__, __LINE__);
 		currentScene = nullptr;
 		break;
 	}
@@ -64,9 +65,7 @@ void SceneManager::BuildBattle(Encounter &_encouter) {
 	currentScene->Init(party, _encouter,managerPtr);
 }
 
-void SceneManager::callInput() {
-	currentScene->Input();
-}
+
 
 void SceneManager::callUpdate(float dtAsSeconds) {
 	currentScene->Update(dtAsSeconds);

@@ -14,7 +14,7 @@ public:
 	virtual void OnDestroy() override;
 	virtual void Update(const float dtAsSeconds) override;
 	virtual void Draw(sf::RenderWindow& window) override;
-	virtual void Input() override;
+	virtual void Input(sf::RenderWindow& window) override;
 
 	sf::Sprite m_BackgroundSprite;
 	sf::Texture m_BackgroundTexture;

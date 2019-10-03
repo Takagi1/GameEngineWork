@@ -84,6 +84,9 @@
     <ClInclude Include="Encounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Guide.h">
+      <Filter>Header Files\Character\Champions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -117,6 +120,9 @@
       <Filter>Source Files\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Barbarian.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Guide.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
   </ItemGroup>

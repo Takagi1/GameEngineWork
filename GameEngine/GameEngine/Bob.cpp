@@ -10,6 +10,8 @@ Bob::Bob()
 	inteligence = 5;
 	wisdom = 5;
 
+	defense = 1;
+
 	//calculate max health
 	maxHealth = vitality * 3;
 
@@ -22,10 +24,17 @@ Bob::Bob()
 	isMonster = true;
 }
 
-int Bob::GetExp() {
-	return exp;
+int Bob::BasicAttack(Character* target) {
+	int damage = ceil(strength * 1.5) + ceil(dexterity * 0.5);
+
+	return damage;
 }
 
 void Bob::Draw() {
 
 }
+
+int Bob::GetExp() {
+	return exp;
+}
+

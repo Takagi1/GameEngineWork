@@ -39,20 +39,23 @@ public:
 
 
 	//test function for basic character attack
-	int BasicAttack(Character* target) {
-		int damage = ceil(strength * 1.5) + ceil(dexterity * 0.5);
-		
-		return damage;
-	}
+	virtual int BasicAttack(Character* target) = 0;
 
 	//test function for handeling damage
 	void Damage(int damage) {
-		//if damage is not less then 1
-		if (damage - defense > 1) {
-			//get random
-			float random = ((rand() % 51 + 50) / 100);
-			health -= ceil((damage - defense)  * random);
+		
+		damage -= defense;
+		if (damage <= 0) {
+			damage = 0;
 		}
+		//get random
+		float random = rand() % 51 + 50;
+		random = random / 100.0f;
+
+		//multipling int by float is unsafe
+
+		health -= ceil((damage - defense)  * random);
+		
 
 		
 

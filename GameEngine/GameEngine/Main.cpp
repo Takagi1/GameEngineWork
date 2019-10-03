@@ -5,14 +5,15 @@
 #include "Engine.h"
 #include "Debug.h"
 
+
 int main()
 {
-	std::string name = { "Graphics Game Engine" };
+	std::string name = { "Game Engine" };
 	Debug::DebugInit(name + "_Log");
-	Debug::Info("Starting the GameSceneManager", __FILE__, __LINE__);
+	Debug::Info("Starting the Engine", __FILE__, __LINE__);
+
 	// Declare an instance of Engine
 	Engine engine;
-
 
 	// Start the engine
 	engine.start();

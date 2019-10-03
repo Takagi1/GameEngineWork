@@ -29,6 +29,10 @@ public:
 
 	int& rage = Champion::resource;
 
+	virtual int BasicAttack(Character* target) override;
+
+
+
 	//for drawing character
 	virtual void Draw() override;
 };

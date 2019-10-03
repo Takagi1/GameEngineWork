@@ -31,7 +31,7 @@ void Town::OnDestroy()
 	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }
 
-void Town::Input() {
+void Town::Input(sf::RenderWindow& window) {
 
 	// Handle the player moving
 	if (Keyboard::isKeyPressed(Keyboard::A))

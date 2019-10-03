@@ -1,18 +1,22 @@
 #pragma once
-#include "Monster.h"
-class Bob : public Monster
+#include "Champion.h"
+
+
+class Guide: public Champion
 {
 private:
 
 public:
 
 	//Constructor
-	Bob();
+	Guide();
 
 	//References
 
+	//max health
 	int& maxHealth = Character::maxHealth;
 
+	//current health
 	int& health = Character::health;
 
 	int& strength = Character::strength;
@@ -23,13 +27,11 @@ public:
 	int& defense = Character::defense;
 	int& speed = Character::speed;
 
-	int& exp = Monster::exp;
-
-	bool& mons = Character::isMonster;
+	int& rage = Champion::resource;
 
 	virtual int BasicAttack(Character* target) override;
 
+	//for drawing character
 	virtual void Draw() override;
-
-	int GetExp() override;
 };
+

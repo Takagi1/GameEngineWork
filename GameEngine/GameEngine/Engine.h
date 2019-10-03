@@ -1,7 +1,4 @@
 #pragma once
-//#include "MapMovement.h"
-//#include "Character.h"
-//#include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "SceneManager.h"
 
@@ -16,6 +13,12 @@ private:
 	// For player input while in battle
 	void battleInput();
 
+	// A regular RenderWindow
+	RenderWindow r_Window;
+
+	// For changing scene's
+	SceneManager* sceneManager;
+
 public:
 	//the Engine constructor
 	Engine();
@@ -23,5 +26,5 @@ public:
 	//start will call all the private functions
 	void start();
 	
-
+	void DrawThread();
 };

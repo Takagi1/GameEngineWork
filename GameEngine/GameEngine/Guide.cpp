@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "Barbarian.h"
+#include "Guide.h"
 
-Barbarian::Barbarian() {
+Guide::Guide() {
 
 	strength = 20;
 
@@ -11,12 +11,12 @@ Barbarian::Barbarian() {
 	health = maxHealth;
 }
 
-int Barbarian::BasicAttack(Character* target) {
+int Guide::BasicAttack(Character* target) {
 	int damage = ceil(strength * 1.5) + ceil(dexterity * 0.5);
 
 	return damage;
 }
 
-void Barbarian::Draw() {
+void Guide::Draw() {
 
 }
