@@ -39,5 +39,6 @@ public:
 
 	Party partyPtr;
 	Encounter encounterPtr;
+	SceneManager* managerPtr;
 
 };

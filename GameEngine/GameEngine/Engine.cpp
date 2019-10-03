@@ -70,6 +70,7 @@ void Engine::start()
 		}
 
 		//this does not break but needs <Windows.h> to work
+		//also not soution to problem
 		if (Keyboard::isKeyPressed(Keyboard::BackSpace)) {
 			ShowWindow(r_Window.getSystemHandle(), SW_RESTORE);
 		}

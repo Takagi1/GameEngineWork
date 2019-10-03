@@ -66,6 +66,10 @@ void SceneManager::BuildBattle(Encounter &_encouter) {
 }
 
 
+void SceneManager::endBattle() {
+	currentScene->OnDestroy();
+	currentScene = saveScene;
+}
 
 void SceneManager::callUpdate(float dtAsSeconds) {
 	currentScene->Update(dtAsSeconds);

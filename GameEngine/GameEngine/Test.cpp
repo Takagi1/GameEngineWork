@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "Test.h"
+#include "Debug.h"
 
+Encounter* encounterPtr;
 
 Test::Test() {}
 
 bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
+
 	//is this a map scene?
 	isMap = true;
 
@@ -74,14 +77,30 @@ void Test::Input(sf::RenderWindow& window) {
 	{
 		playerCharacter.stopDown();
 	}
+
+	if (Keyboard::isKeyPressed(Keyboard::B)) {
+		//Test call prototype scene change
+	//managerPtr->BuildScene(SceneManager::TOWN);
+
+		//create a new encounterPtr every time this is called
+		
+
+		//delete previous encounter
+		delete(encounterPtr);
+		//create new one
+		encounterPtr = new Encounter;
+		//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
+		
+
+		managerPtr->BuildBattle(*encounterPtr);
+	}
 }
 
 // Move Bob based on the input this frame,
 // the time elapsed, and the speed.
 void Test::Update(float dtAsSeconds) {
 	playerCharacter.update(dtAsSeconds);
-
-	//Example of changing scene
+	/*//Example of changing scene
 	if (playerCharacter.position.y <= 400) {
 
 		//Test call prototype scene change
@@ -89,9 +108,10 @@ void Test::Update(float dtAsSeconds) {
 
 		//Test battle call
 		Encounter encounterPtr;
-		
+
 		managerPtr->BuildBattle(encounterPtr);
 	}
+	*/
 }
 
 void Test::Draw(sf::RenderWindow& r_Window){

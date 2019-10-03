@@ -75,6 +75,7 @@ bool Battle::Init(Party &_party, Encounter &_encounter, SceneManager * const & _
 
 	partyPtr = _party;
 	encounterPtr = _encounter;
+	managerPtr = _transfer;
 
 	//Set up the menu here
 
@@ -86,6 +87,7 @@ bool Battle::Init(Party &_party, Encounter &_encounter, SceneManager * const & _
 
 void Battle::OnDestroy()
 {
+	chaSel = NULL;
 }
 
 
@@ -100,12 +102,11 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			if (input.key.code == sf::Keyboard::X)
 			{
 				if (targ1) {
-					//int damage = turnOrder[chaSel]->BasicAttack(turnOrder[1]);
+					int damage = turnOrder[chaSel]->BasicAttack(turnOrder[1]);
 					//cout << damage << endl;
 					//target resolution for damage
-					//turnOrder[1]->Damage(damage);
-					//turnComp = true;
-					cout << "Hello!" << endl;
+					turnOrder[1]->Damage(damage);
+					turnComp = true;
 				}
 			}
 			if (input.key.code == sf::Keyboard::Z) {
@@ -126,6 +127,8 @@ void Battle::Input(sf::RenderWindow& r_Window)
 
 		//test for battle resolution
 		if (encounterPtr.encounter[0]->isDead) {
+			turnOrder.clear();
+			managerPtr->endBattle();
 		}
 
 		//next character
@@ -135,6 +138,8 @@ void Battle::Input(sf::RenderWindow& r_Window)
 		if (chaSel > 5) {
 
 		}
+
+		turnComp = false;
 	}	
 }
 
