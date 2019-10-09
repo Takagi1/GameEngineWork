@@ -3,12 +3,20 @@
 
 Barbarian::Barbarian() {
 
+	name = "Barbarian";
+
 	strength = 20;
 
 	speed = 10;
 
 	maxHealth = 100;
 	health = maxHealth;
+
+	//get background texture
+	characterTexture.loadFromFile("Robo.png");
+
+	// Associate the sprite with the texture
+	characterSprite.setTexture(characterTexture);
 }
 
 int Barbarian::BasicAttack(Character* target) {
@@ -24,3 +32,4 @@ sf::Sprite Barbarian::getSprite() {
 void Barbarian::setSpritePos(int x, int y) {
 	characterSprite.setPosition(x, y);
 }
+

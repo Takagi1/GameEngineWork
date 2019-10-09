@@ -1,6 +1,6 @@
 #include "pch.h"
 #include <iostream>
-//#include <event>
+#include <algorithm>
 #include "Battle.h"
 
 //is the battle continuing?
@@ -15,34 +15,43 @@ sf::Event input;
 bool targ1 = true;
 bool targ2 = false;
 
+//who is being targeted
+int target = 0;
+
+
+
 //thread for combat 
 //exit when combat is resolved
 
+Battle::Battle(const Party& party_) : partyPtr(party_){}
 
-bool Battle::OnCreate(Party * const & _party, SceneManager * const & _transfer)
+bool Battle::OnCreate(SceneManager * const & _transfer)
 {
 	return true;
 }
 
-bool Battle::Init(Party &_party, Encounter &_encounter, SceneManager * const & _transfer)
+bool Battle::Init(Encounter &_encounter, SceneManager * const & _transfer)
 {
-
 
 	//set turn to zero
 	turn = 0;
 
-		
+	menu_ = MAIN;
 	//could you set up the game to start at 0 and then run every time a 
 	//line is completed.  it runs up skiping if character is dead. 
 	//and increasing turn if the number is going to be higher then the max
 	//amount of characters.
 
+	//size should be 3 always (guide, champ, mons)
+	//size = partyPtr.getSize() + _encounter.getSize();
+
+	turnOrder.resize(3);
+
 	//set turn order here
 
-	size = _party.getSize() + _encounter.getSize();
-	turnOrder.resize(size);
-	turnOrder[0] = _party.party[0];
-	turnOrder[1] = _encounter.encounter[0];
+	turnOrder[0] = partyPtr.party[0];
+	turnOrder[1] = partyPtr.party[1];
+	turnOrder[2] = _encounter.encounter[0];
 
 	//get background texture
 	backgroundTexture.loadFromFile("background.png");
@@ -73,16 +82,63 @@ bool Battle::Init(Party &_party, Encounter &_encounter, SceneManager * const & _
 
 	*/
 
-	partyPtr = _party;
 	encounterPtr = _encounter;
 	managerPtr = _transfer;
 
 	//Set up the visuals here
 
-	encounterPtr.encounter[0]->setSpritPos(600, 200);
+	//Set up character sprite positions
+	sf::IntRect(50, 50, 50, 50);
+	partyPtr.party[0]->setSpritePos(400, 200);
+	encounterPtr.encounter[0]->setSpritePos(600, 200);
 
-	rectangle.setOutlineColor(sf::Color::Red);
-	rectangle.setOutlineThickness(5);
+	//Set up the menu box
+	menu.setOutlineColor(sf::Color::Red);
+	menu.setOutlineThickness(5);
+
+	//Set font for text
+	font.loadFromFile("OpenSans-Light.ttf");
+
+	//Set up guide name display
+	characterName1.setString(partyPtr.party[1]->name);
+	characterName1.setFont(font);
+	characterName1.setCharacterSize(30);
+	characterName1.setStyle(sf::Text::Bold);
+	characterName1.setFillColor(sf::Color::Black);
+	characterName1.setPosition(200, 400);
+
+	//Set up Guide current health
+	healthDisplay1.setString(std::to_string(partyPtr.party[1]->health) + " / " + std::to_string(partyPtr.party[1]->maxHealth));
+	healthDisplay1.setFont(font);
+	healthDisplay1.setCharacterSize(30);
+	healthDisplay1.setStyle(sf::Text::Bold);
+	healthDisplay1.setFillColor(sf::Color::Black);
+	healthDisplay1.setPosition(200, 450);
+
+	//Set up attack menu option
+	attack.setString("Attack");
+	attack.setFont(font);
+	attack.setCharacterSize(30);
+	attack.setStyle(sf::Text::Bold);
+	attack.setFillColor(sf::Color::Red);
+	attack.setPosition(500, 500);
+
+
+	//Set up skill menu option
+	skill.setString("Skill");
+	skill.setFont(font);
+	skill.setCharacterSize(30);
+	skill.setStyle(sf::Text::Bold);
+	skill.setFillColor(sf::Color::Red);
+	skill.setPosition(800, 500);
+
+	targSel1.setString("badguy");
+	targSel1.setFont(font);
+	targSel1.setCharacterSize(30);
+	targSel1.setStyle(sf::Text::Bold);
+	targSel1.setFillColor(sf::Color::Red);
+	targSel1.setPosition(500, 500);
+
 
 	return true;
 }
@@ -98,51 +154,77 @@ void Battle::Input(sf::RenderWindow& r_Window)
 	//this is used for the turn order and for handeling the battle's info
 
 	while (r_Window.pollEvent(input)) {
-		if (input.type == sf::Event::KeyPressed) {
-			if (input.key.code == sf::Keyboard::X)
-			{
-				//there needs to be somthing here that allows for 
-				//the selection of targets
-				if (targ1) {
-					int damage = turnOrder[chaSel]->BasicAttack(turnOrder[1]);
+		switch (menu_)
+		{
+		case MAIN:
+			if (input.type == sf::Event::KeyPressed) {
+				if (input.key.code == sf::Keyboard::X)
+				{
+					
+					if (targ1) {
+						//set up target type
+						for_each(turnOrder.begin(), turnOrder.end(), [](Character* chara) {
+
+						});
+						menu_ = TARGET;
+					}
+				}
+				if (input.key.code == sf::Keyboard::Left || input.key.code == sf::Keyboard::Right) {
+					if (targ1) {
+						targ1 = false;
+						targ2 = true;
+					}
+					else {
+						targ1 = true;
+						targ2 = false;
+					}
+				}
+
+				break;
+			}
+		case TARGET:
+
+			if (input.type == sf::Event::KeyPressed) {
+				if (input.key.code == sf::Keyboard::X) {
+					
+					int damage = turnOrder[chaSel]->BasicAttack(turnOrder[target]);
 					//cout << damage << endl;
 					//target resolution for damage
-					turnOrder[1]->Damage(damage);
+					turnOrder[target]->Damage(damage);
 					turnComp = true;
 				}
-			}
-			if (input.key.code == sf::Keyboard::Left || input.key.code == sf::Keyboard::Right) {
-				if (targ1) {
-					targ1 = false;
-					targ2 = true;
-				}
-				else {
-					targ1 = true;
-					targ2 = false;
+				if (input.key.code == sf::Keyboard::D) {
+
 				}
 			}
+
+			break;
+
+		default:
+			//error here
+			break;
 		}
-		
+
+		if (turnComp) {
+
+			//test for battle resolution
+			if (encounterPtr.encounter[0]->isDead) {
+				turnOrder.clear();
+				managerPtr->endBattle();
+			}
+
+			//if all character have gone increase turn and go back to 0
+			if (chaSel == 2) {
+				chaSel = 0;
+				turn += 1;
+			}
+			else {
+				chaSel += 1;
+			}
+
+			turnComp = false;
+		}
 	}
-
-	if (turnComp) {
-
-		//test for battle resolution
-		if (encounterPtr.encounter[0]->isDead) {
-			turnOrder.clear();
-			managerPtr->endBattle();
-		}
-
-		//next character
-		chaSel += 1;
-
-		//if all character have gone increase turn and go back to 0
-		if (chaSel > 5) {
-
-		}
-
-		turnComp = false;
-	}	
 }
 	
 void Battle::Update(const float dtAsSeconds)
@@ -161,53 +243,64 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	float setX = r_Window.getSize().x;
 	float setY = r_Window.getSize().y;
 
-	rectangle.setSize(sf::Vector2f(setX, setY/2));
-	rectangle.setPosition(0, setY / 2);
+	menu.setSize(sf::Vector2f(setX, setY/2));
+	menu.setPosition(0, setY / 2);
 
-	r_Window.draw(rectangle);
+	r_Window.draw(menu);
+	r_Window.draw(characterName1);
+	r_Window.draw(healthDisplay1);
 
-	// Declare and load a font
-	sf::Font font;
-	font.loadFromFile("OpenSans-Light.ttf");
+	switch (menu_) {
+
+	case MAIN:
 
 
-	// Create a text
-	sf::Text text("Attack", font);
-	text.setCharacterSize(30);
-	text.setStyle(sf::Text::Bold);
-	text.setFillColor(sf::Color::Red);
-	text.setPosition(200, 500);
 
-	if (targ1) {
-		text.setOutlineThickness(5);
-		text.setOutlineColor(sf::Color::Blue);
+		if (targ1) {
+			attack.setOutlineThickness(5);
+			attack.setOutlineColor(sf::Color::Blue);
+		}
+		else {
+			attack.setOutlineThickness(0);
+		}
+
+		// Draw it
+		r_Window.draw(attack);
+
+		if (targ2) {
+			skill.setOutlineThickness(5);
+			skill.setOutlineColor(sf::Color::Blue);
+		}
+		else {
+			skill.setOutlineThickness(0);
+		}
+		// Draw it
+		r_Window.draw(skill);
+		break;
+
+	case TARGET:
+
+		r_Window.draw(targSel1);
+
+
+		break;
+
+	case SKILL:
+
+		break;
+
+	default:
+		//put error here
+		break;
+
 	}
-	else {
-		text.setOutlineThickness(0);
-	}
 
-	// Draw it
-	r_Window.draw(text);
-
-	// Create a text
-	sf::Text text2("Skill", font);
-	text2.setCharacterSize(30);
-	text2.setStyle(sf::Text::Bold);
-	text2.setFillColor(sf::Color::Red);
-	text2.setPosition(500, 500);
-	if (targ2) {
-		text2.setOutlineThickness(5);
-		text2.setOutlineColor(sf::Color::Blue);
-	}
-	else {
-		text2.setOutlineThickness(0);
-	}
-
-	// Draw it
-	r_Window.draw(text2);
-
-	r_Window.draw(turnOrder[1]->getSprite());
 	//Render all characters here 
+
+	r_Window.draw(turnOrder[0]->getSprite());
+	r_Window.draw(turnOrder[1]->getSprite());
+	r_Window.draw(turnOrder[2]->getSprite());
+
 	//add in test render for attack check.
 
 	//display the menu
@@ -215,22 +308,16 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	r_Window.display();
 }
 
-//This is a experiment to see if multithreading battle may be the 
-	//best idea.
+void Battle::TargetSetup(Character* current) {
+	
+}
+//Todo for battle
 
-	//combat calucalations could be held in this thread?
-
-	//turn should start here
 	//if monster then attack ai should be called here instead
 	/*
 	if (turnOrder[chaSel]->isMonster){
 	//call monster ai here
 	}
-
-	if character is a champion then the menu should apear
-	//make battle ui appear
-	then allow for inputs to select between attack and skill.
-	the cursor should start at attack
 
 	for now the test should be for player to select attack and then
 	for the game to transition to the target phase where the ui disapears
@@ -241,8 +328,6 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	will then run, basic attack in this case, with the monster that was
 	targeted as the target variable.
 
-	damage will then run through and then resoultion should occur
-
 	if battle is not finished then increase the character selector
 	if charactor selector is higher then the number of combatents then
 	reset it back to 0 and increase the turn by 1.
@@ -250,14 +335,4 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	this has created a note that at the start of a characters turn
 	buffs should be updated accordingly/
 
-	//for going to the next character/turn.
-
-	chaSel++ unless
-	if (chaSel > size){
-	chaSel = 0;
-	turn += 1;
-	}
-
 	*/
-
-	//cout << "hi";

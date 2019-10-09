@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "Town.h"
 
-Town::Town() {}
+Town::Town(const Party& party_) : partyPtr(party_) {}
 
 
-bool Town::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
+bool Town::OnCreate(SceneManager* const &_transfer) {
 
 	//is this a map scene?
 	isMap = true;
@@ -15,19 +15,18 @@ bool Town::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
-	partyPtr = _party;
 
 	return true;
 }
 
-bool Town::Init(Party &_party, Encounter &_encounter, SceneManager * const & _transfer)
+bool Town::Init(Encounter &_encounter, SceneManager * const & _transfer)
 {
 	return false;
 }
 
 void Town::OnDestroy()
 {
-	if (partyPtr) delete partyPtr;//, partyPtr = nullptr;
+	//if (partyPtr) delete partyPtr;//, partyPtr = nullptr;
 	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }
 

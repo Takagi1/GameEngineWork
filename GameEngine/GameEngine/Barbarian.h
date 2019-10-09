@@ -36,7 +36,7 @@ public:
 
 	//for drawing character
 	virtual sf::Sprite getSprite() override;
-
+	
 	virtual void setSpritePos(int x, int y) override;
 };
 

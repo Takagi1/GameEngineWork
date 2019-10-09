@@ -4,9 +4,9 @@
 
 Encounter* encounterPtr;
 
-Test::Test() {}
+Test::Test(const Party& party_) : partyPtr(party_){}
 
-bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
+bool Test::OnCreate(SceneManager* const &_transfer) {
 
 	//is this a map scene?
 	isMap = true;
@@ -19,7 +19,6 @@ bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 
 	//Set up Pointers
 
-	partyPtr = _party;
 	managerPtr = _transfer;
 
 	//set up where the player starts
@@ -27,14 +26,14 @@ bool Test::OnCreate(Party* const &_party, SceneManager* const &_transfer) {
 	return true;
 }
 
-bool Test::Init(Party &_party, Encounter &_encounter, SceneManager * const & _transfer)
+bool Test::Init(Encounter &_encounter, SceneManager * const & _transfer)
 {
 	return false;
 }
 
 void Test::OnDestroy()
 {
-	if (partyPtr) delete partyPtr;// , partyPtr = nullptr;
+	//if (partyPtr) delete partyPtr;// , partyPtr = nullptr;
 
 	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }

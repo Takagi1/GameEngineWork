@@ -9,11 +9,11 @@
 class Scene
 {
 public:
-	explicit Scene() {};
+	//explicit Scene(const Party &party_) {};
 
-	virtual bool OnCreate(Party* const &_party, SceneManager* const &_transfer) = 0;
+	virtual bool OnCreate(SceneManager* const &_transfer) = 0;
 	//placeholder becuase of battle being a scene
-	virtual bool Init(Party &_party, Encounter &_encounter, SceneManager* const &_transfer) = 0;
+	virtual bool Init(Encounter &_encounter, SceneManager* const &_transfer) = 0;
 	virtual void OnDestroy() = 0;
 	virtual void Update(const float dtAsSeconds) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;

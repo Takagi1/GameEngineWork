@@ -15,6 +15,9 @@ public:
 
 	//References
 
+	//name
+	//std::string& name = Character::name;
+
 	//max health
 	int& maxHealth = Character::maxHealth;
 

@@ -31,13 +31,13 @@ void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 	//int ti = &party->party.size;
 	switch (scene_) {
 	case TEST:
-		currentScene = new Test();
-		currentScene->OnCreate(&party, managerPtr);
+		currentScene = new Test(party);
+		currentScene->OnCreate(this);
 
 		break;
 	case TOWN:
-		currentScene = new Town();
-		currentScene->OnCreate(&party, managerPtr);
+		currentScene = new Town(party);
+		currentScene->OnCreate(this);
 		break;
 
 	default:
@@ -61,8 +61,8 @@ void SceneManager::BuildBattle(Encounter &_encouter) {
 	saveScene = currentScene;
 
 	//set current scene to battle
-	currentScene = new Battle();
-	currentScene->Init(party, _encouter,managerPtr);
+	currentScene = new Battle(party);
+	currentScene->Init(_encouter,managerPtr);
 }
 
 

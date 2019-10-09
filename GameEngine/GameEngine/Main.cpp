@@ -4,6 +4,8 @@
 #include "pch.h"
 #include "Engine.h"
 #include "Debug.h"
+#include "Party.h"
+#include "Sec1.h"
 
 
 int main()
@@ -17,7 +19,18 @@ int main()
 
 	// Start the engine
 	engine.start();
+	Party party;
+	Sec1 sec(party);
+	sec.testing();
+	sec.Hurt(5);
+	sec.testing();
 
+	Sec1 sec2(party);
+	sec2.testing();
+	sec2.Hurt(5);
+	sec2.testing();
+
+	getchar();
 	// Quit the game
 	return 0;
 }

@@ -11,8 +11,11 @@ private:
 
 public:
 	//Constructer
-	Character() {
-	};
+	Character() {}
+
+	//Character name
+	std::string name = "";
+
 
 	//Characters max health
 	int maxHealth = 0;
@@ -45,7 +48,7 @@ public:
 	//test function for handeling damage
 	void Damage(int damage) {
 		
-		damage -= defense;
+		damage = damage - defense;
 		if (damage <= 0) {
 			damage = 0;
 		}
@@ -57,9 +60,6 @@ public:
 
 		health -= ceil((damage - defense)  * random);
 		
-
-		
-
 		//Handles character death
 		if (health <= 0) {
 			health = 0;

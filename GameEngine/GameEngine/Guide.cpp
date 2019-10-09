@@ -3,6 +3,8 @@
 
 Guide::Guide() {
 
+	name = "Guide";
+
 	strength = 20;
 
 	speed = 10;

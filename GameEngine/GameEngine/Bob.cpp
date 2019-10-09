@@ -24,7 +24,10 @@ Bob::Bob()
 	isMonster = true;
 
 	//get background texture
-	characterTexture.loadFromFile("Choas.png");
+	if (!characterTexture.loadFromFile("Choas.png")) {
+		//put error here 
+	}
+
 
 	// Associate the sprite with the texture
 	characterSprite.setTexture(characterTexture);
