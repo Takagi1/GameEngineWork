@@ -12,27 +12,11 @@ public:
 	//Constructor
 	Barbarian();
 
-	//References
+	virtual void turnStart(int turn) override;
 
-	//max health
-	int& maxHealth = Character::maxHealth;
+	virtual void BasicAction(class Monster& monster) override;
 
-	//current health
-	int& health = Character::health;
-
-	int& strength = Character::strength;
-	int& dexterity = Character::dexterity;
-	int& vitality = Character::vitality;
-	int& inteligence = Character::inteligence;
-	int& wisdom = Character::wisdom;
-	int& defense = Character::defense;
-	int& speed = Character::speed;
-
-	int& rage = Champion::resource;
-
-	virtual int BasicAttack(Character* target) override;
-
-
+	virtual void Guard() override;
 
 	//for drawing character
 	virtual sf::Sprite getSprite() override;

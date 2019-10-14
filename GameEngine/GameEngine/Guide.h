@@ -1,44 +1,90 @@
 #pragma once
 #include "Champion.h"
 
-
-class Guide: public Champion
+class Guide
 {
 private:
 	sf::Texture characterTexture;
 	sf::Sprite characterSprite;
 
 public:
-
 	//Constructor
 	Guide();
 
 	//References
+	std::array<Champion*, 4> party;
 
-	//name
-	//std::string& name = Character::name;
+	//create draw of current 
 
-	//max health
-	int& maxHealth = Character::maxHealth;
+	int currentChampion = 0;
 
-	//current health
-	int& health = Character::health;
+	//Champions current level
+	int level = 0;
 
-	int& strength = Character::strength;
-	int& dexterity = Character::dexterity;
-	int& vitality = Character::vitality;
-	int& inteligence = Character::inteligence;
-	int& wisdom = Character::wisdom;
-	int& defense = Character::defense;
-	int& speed = Character::speed;
+	//current exp
+	int exp = 0;
 
-	int& rage = Champion::resource;
+	//Character name
+	std::string name = "";
 
-	virtual int BasicAttack(Character* target) override;
+	int resource = 100;
+
+	int maxResource = 100;
+
+	int speed = 0;
+
+	//current location min 0, max 7 
+	int location = 0;
+
+//Guide options
+
+	//Move
+	void Move(int direction);
+
+	//Charge
+	void Charge();
+
+	//Guide skills
+
+//Champion options 
+
+	//Champions basic action
+	void ChampionAttack(class Monster& monster);
+
+	//Guard
+	void callGuard() {
+		party[currentChampion]->Guard();
+	}
+
+	//Champion skills
 
 	//for drawing character
-	virtual sf::Sprite getSprite() override;
+	sf::Sprite getSprite();
 
-	virtual void setSpritePos(int x, int y) override;
+	void setSpritePos(int x, int y);
+
+	//get current champions name
+	std::string getChampionName() {
+		return party[currentChampion]->name;
+	}
+
+	//get current champions health
+	int getChampionHealth() {
+		return party[currentChampion]->health;
+	}
+
+	//get current champions maxHealth
+	int getChampionMaxHealth() {
+		return party[currentChampion]->maxHealth;
+	}
+
+	//make current champions take damage
+	void takeDamage(int damage) {
+		party[currentChampion]->takeDamage(damage);
+	};
+
+	//for drawing champions
+	sf::Sprite getChampionSprite();
+
 };
 

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Town.h"
 
-Town::Town(const Party& party_) : partyPtr(party_) {}
+Town::Town(Guide& party_) : partyPtr(party_) {}
 
 
 bool Town::OnCreate(SceneManager* const &_transfer) {
@@ -17,11 +17,6 @@ bool Town::OnCreate(SceneManager* const &_transfer) {
 
 
 	return true;
-}
-
-bool Town::Init(Encounter &_encounter, SceneManager * const & _transfer)
-{
-	return false;
 }
 
 void Town::OnDestroy()

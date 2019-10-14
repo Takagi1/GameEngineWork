@@ -8,10 +8,9 @@ class Test : public Scene
 {
 public:
 
-	explicit Test(const Party& party_);
+	explicit Test(Guide& party_);
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
-	virtual bool Init(Encounter &_encounter, SceneManager* const &_transfer) override;
 	virtual void OnDestroy() override;
 	virtual void Update(const float dtAsSeconds) override ;
 	virtual void Draw(sf::RenderWindow& window) override;
@@ -26,8 +25,8 @@ public:
 
 	//Pointers
 
+	Guide& partyPtr;
 	SceneManager* managerPtr;
-	const Party& partyPtr;
 
 	//Battle* battle;
 };

@@ -1,10 +1,8 @@
 #pragma once
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
-#include "Party.h"
-#include "Encounter.h"
-
-
+#include "Guide.h"
+#include "Monster.h"
 
 class SceneManager {
 public:
@@ -19,7 +17,7 @@ public:
 	SceneManager();
 
 	void ScenePtrSet(SceneManager* const &_sceneManager);
-	Party party;
+	Guide guide;
 
 	class Scene* currentScene;
 	SceneManager* managerPtr;
@@ -27,7 +25,7 @@ public:
 	class Scene* saveScene;
 
 	void BuildScene(SCENE_NUMBER scene_);
-	void BuildBattle(Encounter &_encouter);
+	void BuildBattle(Monster &_encouter);
 
 	//return to scene after battle
 	void endBattle();

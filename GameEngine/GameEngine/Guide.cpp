@@ -1,22 +1,32 @@
 #include "pch.h"
 #include "Guide.h"
-
+#include "Barbarian.h"
+#include "Monster.h"
+ 
 Guide::Guide() {
+	party[0] = new Barbarian();
 
 	name = "Guide";
 
-	strength = 20;
-
 	speed = 10;
-
-	maxHealth = 100;
-	health = maxHealth;
 }
 
-int Guide::BasicAttack(Character* target) {
-	int damage = ceil(strength * 1.5) + ceil(dexterity * 0.5);
+void Guide::Move(int direction) {
+	//increase or decrease location
+	location += direction;
+}
 
-	return damage;
+void Guide::Charge()
+{
+	resource += 10;
+	if (resource > maxResource) {
+		resource = maxResource;
+	}
+}
+
+void Guide::ChampionAttack(Monster & monster)
+{
+	party[currentChampion]->BasicAction(monster);
 }
 
 sf::Sprite Guide::getSprite() {
@@ -26,3 +36,9 @@ sf::Sprite Guide::getSprite() {
 void Guide::setSpritePos(int x, int y) {
 	characterSprite.setPosition(x, y);
 }
+
+sf::Sprite Guide::getChampionSprite()
+{
+	return party[currentChampion]->getSprite();
+}
+

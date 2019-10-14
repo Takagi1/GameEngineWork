@@ -12,7 +12,7 @@ SceneManager::SceneManager() {
 	//Create/load party here
 	currentScene = nullptr;
 
-	party;
+	guide;
 }
 
 //Loads Scene 
@@ -31,12 +31,12 @@ void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 	//int ti = &party->party.size;
 	switch (scene_) {
 	case TEST:
-		currentScene = new Test(party);
+		currentScene = new Test(guide);
 		currentScene->OnCreate(this);
 
 		break;
 	case TOWN:
-		currentScene = new Town(party);
+		currentScene = new Town(guide);
 		currentScene->OnCreate(this);
 		break;
 
@@ -56,13 +56,13 @@ void SceneManager::ScenePtrSet(SceneManager* const &_sceneManager)
 }
 
 //Transition to battle
-void SceneManager::BuildBattle(Encounter &_encouter) {
+void SceneManager::BuildBattle(Monster &_encouter) {
 	//save the current scene 
 	saveScene = currentScene;
 
 	//set current scene to battle
-	currentScene = new Battle(party);
-	currentScene->Init(_encouter,managerPtr);
+	currentScene = new Battle(guide, _encouter);
+	currentScene->OnCreate(this);
 }
 
 

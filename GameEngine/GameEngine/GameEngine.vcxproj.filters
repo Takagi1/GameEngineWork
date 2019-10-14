@@ -51,13 +51,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files\Scene%27s</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
     <ClInclude Include="Champion.h">
@@ -72,23 +66,20 @@
     <ClInclude Include="Town.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
-    <ClInclude Include="Party.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Battle.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
     <ClInclude Include="Bob.h">
       <Filter>Header Files\Character\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="Encounter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Guide.h">
       <Filter>Header Files\Character\Champions</Filter>
     </ClInclude>
-    <ClInclude Include="Sec1.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Test.h">
+      <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="MonList.h">
+      <Filter>Header Files\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="Guide.cpp">
       <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Sec1.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

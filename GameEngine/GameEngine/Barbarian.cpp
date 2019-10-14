@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "Barbarian.h"
+#include "Guide.h"
+#include "Monster.h"
 
 Barbarian::Barbarian() {
 
 	name = "Barbarian";
 
-	strength = 20;
-
-	speed = 10;
+	power = 5;
 
 	maxHealth = 100;
 	health = maxHealth;
@@ -19,10 +19,18 @@ Barbarian::Barbarian() {
 	characterSprite.setTexture(characterTexture);
 }
 
-int Barbarian::BasicAttack(Character* target) {
-	int damage = ceil(strength * 1.5) + ceil(dexterity * 0.5);
+void Barbarian::turnStart(int turn)
+{
+}
 
-	return damage;
+void Barbarian::BasicAction(Monster& monster) {
+	int damage = power * 2;
+	monster.takeDamage(damage);
+}
+
+void Barbarian::Guard()
+{
+	guard1 = true;
 }
 
 sf::Sprite Barbarian::getSprite() {
@@ -32,4 +40,5 @@ sf::Sprite Barbarian::getSprite() {
 void Barbarian::setSpritePos(int x, int y) {
 	characterSprite.setPosition(x, y);
 }
+
 

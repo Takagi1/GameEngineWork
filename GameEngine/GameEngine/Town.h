@@ -7,10 +7,9 @@ class Town : public Scene
 {
 public:
 
-	explicit Town(const Party& party_);
+	explicit Town(Guide& party_);
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
-	virtual bool Init(Encounter &_encounter, SceneManager* const &_transfer) override;
 	virtual void OnDestroy() override;
 	virtual void Update(const float dtAsSeconds) override;
 	virtual void Draw(sf::RenderWindow& window) override;
@@ -25,7 +24,7 @@ public:
 
 	//Pointers
 
-	const Party& partyPtr;
+	Guide& partyPtr;
 	SceneManager* managerPtr;
 };
 #endif //!TEST_H

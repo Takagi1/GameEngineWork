@@ -1,10 +1,12 @@
 #include "pch.h"
 #include "Test.h"
 #include "Debug.h"
+#include "Guide.h"
+#include "Bob.h"
 
-Encounter* encounterPtr;
+Monster* encounterPtr;
 
-Test::Test(const Party& party_) : partyPtr(party_){}
+Test::Test(Guide& party_) : partyPtr(party_){}
 
 bool Test::OnCreate(SceneManager* const &_transfer) {
 
@@ -24,11 +26,6 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	//set up where the player starts
 
 	return true;
-}
-
-bool Test::Init(Encounter &_encounter, SceneManager * const & _transfer)
-{
-	return false;
 }
 
 void Test::OnDestroy()
@@ -87,7 +84,7 @@ void Test::Input(sf::RenderWindow& window) {
 		//delete previous encounter
 		delete(encounterPtr);
 		//create new one
-		encounterPtr = new Encounter;
+		encounterPtr = new Bob();
 		//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
 		
 
