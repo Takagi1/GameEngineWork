@@ -7,6 +7,7 @@ class Battle : public Scene
 
 public:
 	explicit Battle(Guide& party_, Monster& monster_);
+
 	enum CURRENT_MENU {
 		GUIDE = 0,
 		CHAMPION,
@@ -21,26 +22,28 @@ public:
 	virtual void Input(sf::RenderWindow& window) override;
 	virtual void Update(const float dtAsSeconds) override;
 	virtual void Draw(sf::RenderWindow& r_Window) override;
-  
-	//current turn
-	int turn;
+ 
+	void SwitchOutline(Text& current, Text& selected);
 
-	int turnSize;
+	void TurnComplete();
+	
+	int turn; //Current turn
 
-	//what character's turn is it.
-	int chaSel = 0;
+	int turnSize; //Max turn size
+
+	int chaSel = 0;	//what character's turn is it.
 	
 	Texture backgroundTexture;
 	Sprite backgroundSprite;
 
-	//For drawing the menu and characters
-	CURRENT_MENU current_menu;
+	CURRENT_MENU current_menu; //For determining what input should be used and what should be drawn
+
+	CURRENT_MENU previous_menu; //What menu was previous to this (should be set to null at turn comp)
 
 
-	// Declare and load a font
-	sf::Font font;
+//Visual Components
 
-	//Text
+	sf::Font font; // Declare and load a font
 
 	sf::Text characterName0;
 	sf::Text healthDisplay0;
@@ -48,14 +51,15 @@ public:
 	sf::Text characterName1;
 	sf::Text healthDisplay1;
 
-	sf::Text option1;
-	sf::Text option2;
-	sf::Text option3;
+	std::array<sf::Text, 3> options; //For displaying main battle menu options
+	std::array<sf::Text, 5> skills; //For displaying skills
+
+	
+
 	sf::RectangleShape menu;
 
 
-	//mabye keep the indivual party and 
-	//encounter to streamline check
+	//The party, monster, and sceneManager
 
 	Guide& partyPtr;
 	Monster& monsterPtr;

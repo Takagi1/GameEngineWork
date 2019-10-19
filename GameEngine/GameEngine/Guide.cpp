@@ -2,13 +2,17 @@
 #include "Guide.h"
 #include "Barbarian.h"
 #include "Monster.h"
- 
+
+
+
 Guide::Guide() {
 	party[0] = new Barbarian();
 
 	name = "Guide";
 
 	speed = 10;
+
+	AddSkill("Heal");
 }
 
 void Guide::Move(int direction) {
@@ -18,10 +22,15 @@ void Guide::Move(int direction) {
 
 void Guide::Charge()
 {
-	resource += 10;
-	if (resource > maxResource) {
-		resource = maxResource;
+	energy += 10;
+	if (energy > maxEnergy) {
+		energy = maxEnergy;
 	}
+}
+
+void Guide::CallSkill(Monster & monster, int skill_number)
+{
+	skills[skill_number]->Effect(monster);
 }
 
 void Guide::ChampionAttack(Monster & monster)
@@ -29,16 +38,97 @@ void Guide::ChampionAttack(Monster & monster)
 	party[currentChampion]->BasicAction(monster);
 }
 
-sf::Sprite Guide::getSprite() {
-	return characterSprite;
+void Guide::callGuard()
+{
+	party[currentChampion]->Guard();
+}
+
+void Guide::ChampionSkills(Monster & monster, int skill_number)
+{
+	party[currentChampion]->CallSkill(monster, skill_number);
+}
+
+sf::Sprite Guide::getSprite() 
+{ 
+	return characterSprite; 
+}
+
+sf::Sprite Guide::getChampionSprite()
+{
+	return party[currentChampion]->getSprite();
 }
 
 void Guide::setSpritePos(int x, int y) {
 	characterSprite.setPosition(x, y);
 }
 
-sf::Sprite Guide::getChampionSprite()
+void Guide::setChampionSpritePos(int x, int y)
 {
-	return party[currentChampion]->getSprite();
+	party[currentChampion]->setSpritePos(x, y);
+}
+
+std::string Guide::getChampionName()
+{
+	return party[currentChampion]->name;
+}
+
+int Guide::getChampionHealth()
+{
+	return party[currentChampion]->health;
+}
+
+int Guide::getChampionMaxHealth()
+{
+	return party[currentChampion]->maxHealth;
+}
+
+void Guide::takeDamage(int damage)
+{
+	party[currentChampion]->takeDamage(damage);
+}
+
+class Heal : public Guide::Skill {
+public:
+	Heal(Guide * guide_) {
+		guide = guide_;
+		name = "Heal";
+	};
+
+	virtual void Effect(Monster& monster) {
+		guide->party[guide->currentChampion]->health += 10;
+
+		//if health is greater then max reduce to max
+		if (guide->party[guide->currentChampion]->health > guide->party[guide->currentChampion]->maxHealth) {
+			guide->party[guide->currentChampion]->health = guide->party[guide->currentChampion]->maxHealth;
+		}
+	}
+};
+
+//Always put new skills above this line
+
+
+void Guide::AddSkill(std::string skill_name) {
+	int check = 0;
+	bool doesHave = false;
+	for (std::vector<Skill*>::iterator it = skills.begin(); it != skills.end(); ++it){
+		if (skills[check]->name == skill_name) doesHave = true;
+	}
+		
+	if (!doesHave)
+	{
+		if (skill_name == "Heal") {
+			skills.push_back(new Heal(this));
+		}
+	}
+	else {
+		//error. character already has skill_name
+		//put error here
+	}
+	
+}
+
+size_t Guide::GetSkillSize()
+{
+	return skills.size();
 }
 

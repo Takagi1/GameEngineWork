@@ -6,16 +6,15 @@
 //is the battle continuing?
 bool battleStatus = false;
 
-//turn completed?
-bool turnComp = false;
-
 //for inputs
 sf::Event input;
 
-bool targ1 = false;
-bool targ2 = false;
-bool targ3 = false;
+int optionPointer; //Used to determine what is being pointed at on the first menu, 0 is first, 1 is second, 2 is third(is always skills)
 
+int skillPointer; //Used to indicate what skill your pointing at
+int skillOffset; //Used to scroll down the list of skills
+
+size_t number_of_skills;
 
 //thread for combat 
 //exit when combat is resolved
@@ -24,15 +23,15 @@ Battle::Battle(Guide& party_, Monster& monster_) : partyPtr(party_), monsterPtr(
 
 bool Battle::OnCreate(SceneManager * const & _transfer)
 {
-	//set turn to zero
+	//Set up variables
+
 	turn = 0;
+	optionPointer = 0;
+	number_of_skills = 0;
+	skillPointer = 0;
+	skillOffset = 0;
 
-	//set turn size to 2 plus the monsters max actions
-	turnSize = 2 + monsterPtr.actions;
-
-	turnComp = false;
-	targ1 = true;
-	
+	turnSize = 2 + monsterPtr.actions; 	//Set turn size to 2 plus the monsters max actions
 
 	//set inital locations 
 
@@ -40,31 +39,33 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	monsterPtr.location = 4;
 
 	//Who goes first 
-	if (partyPtr.speed > monsterPtr.speed)
+	if (partyPtr.speed >= monsterPtr.speed)
 	{
 		current_menu = GUIDE;
+	}
+	else {
+		current_menu = MONSTER;
 	}
 
 
 	//building buffs
 	//when characters turn comes buffs should internal 
 
-	//connection to SceneManager
-	managerPtr = _transfer;
+	managerPtr = _transfer;	//connection to SceneManager
 
 //Set up the visuals here
 
-	//get background texture
+	//Get background texture
 	backgroundTexture.loadFromFile("background.png");
 
-	// Associate the sprite with the texture
+	//Associate the sprite with the texture
 	backgroundSprite.setTexture(backgroundTexture);
 
 	//Set up character sprite positions
-	sf::IntRect(50, 50, 50, 50);
+	sf::IntRect(50, 50, 50, 50); //This is a test 
 
 	partyPtr.setSpritePos(200, 400);
-	partyPtr.party[0]->setSpritePos(400, 200);
+	partyPtr.setChampionSpritePos(400, 200);
 	monsterPtr.setSpritePos(600, 200);
 
 	//Set up the menu box
@@ -91,33 +92,69 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	healthDisplay1.setPosition(200, 450);
 
 	//Set up first option
-	option1.setString("Move");
-	option1.setFont(font);
-	option1.setCharacterSize(30);
-	option1.setStyle(sf::Text::Bold);
-	option1.setFillColor(sf::Color::Red);
-	option1.setPosition(300, 500);
-	option1.setOutlineColor(sf::Color::Blue);
-	option1.setOutlineThickness(5);
+	options[0].setString("Move");
+	options[0].setFont(font);
+	options[0].setCharacterSize(30);
+	options[0].setStyle(sf::Text::Bold);
+	options[0].setFillColor(sf::Color::Red);
+	options[0].setPosition(300, 500);
+	options[0].setOutlineColor(sf::Color::Blue);
+	options[0].setOutlineThickness(5);
 
 
 	//Set up second option
-	option2.setString("Skill");
-	option2.setFont(font);
-	option2.setCharacterSize(30);
-	option2.setStyle(sf::Text::Bold);
-	option2.setFillColor(sf::Color::Red);
-	option2.setPosition(500, 500);
-	option2.setOutlineColor(sf::Color::Blue);
+	options[1].setString("Skill");
+	options[1].setFont(font);
+	options[1].setCharacterSize(30);
+	options[1].setStyle(sf::Text::Bold);
+	options[1].setFillColor(sf::Color::Red);
+	options[1].setPosition(500, 500);
+	options[1].setOutlineColor(sf::Color::Blue);
 
 	//Set up skills
-	option3.setString("Skills");
-	option3.setFont(font);
-	option3.setCharacterSize(30);
-	option3.setStyle(sf::Text::Bold);
-	option3.setFillColor(sf::Color::Red);
-	option3.setPosition(700, 500);
-	option3.setOutlineColor(sf::Color::Blue);
+	options[2].setString("Skills");
+	options[2].setFont(font);
+	options[2].setCharacterSize(30);
+	options[2].setStyle(sf::Text::Bold);
+	options[2].setFillColor(sf::Color::Red);
+	options[2].setPosition(700, 500);
+	options[2].setOutlineColor(sf::Color::Blue);
+
+	//Set up skill display
+	skills[0].setFont(font);
+	skills[0].setCharacterSize(20);
+	skills[0].setStyle(sf::Text::Bold);
+	skills[0].setFillColor(sf::Color::Red);
+	skills[0].setPosition(300, 750);
+	skills[0].setOutlineColor(sf::Color::Blue);
+
+	skills[1].setFont(font);
+	skills[1].setCharacterSize(20);
+	skills[1].setStyle(sf::Text::Bold);
+	skills[1].setFillColor(sf::Color::Red);
+	skills[1].setPosition(300, 600);
+	skills[1].setOutlineColor(sf::Color::Blue);
+
+	skills[2].setFont(font);
+	skills[2].setCharacterSize(20);
+	skills[2].setStyle(sf::Text::Bold);
+	skills[2].setFillColor(sf::Color::Red);
+	skills[2].setPosition(300, 450);
+	skills[2].setOutlineColor(sf::Color::Blue);
+
+	skills[3].setFont(font);
+	skills[3].setCharacterSize(20);
+	skills[3].setStyle(sf::Text::Bold);
+	skills[3].setFillColor(sf::Color::Red);
+	skills[3].setPosition(300, 300);
+	skills[3].setOutlineColor(sf::Color::Blue);
+
+	skills[4].setFont(font);
+	skills[4].setCharacterSize(20);
+	skills[4].setStyle(sf::Text::Bold);
+	skills[4].setFillColor(sf::Color::Red);
+	skills[4].setPosition(300, 150);
+	skills[4].setOutlineColor(sf::Color::Blue);
 
 	return true;
 }
@@ -140,119 +177,80 @@ void Battle::Input(sf::RenderWindow& r_Window)
 
 		//Guide inputs
 		case GUIDE:
+
 			if (input.type == sf::Event::KeyPressed) {
 				if (input.key.code == sf::Keyboard::X)
 				{
 					//select move
-					if (targ1) {
+					if (optionPointer == 0) {
+						previous_menu = GUIDE;
 						current_menu = MOVE;
 					}
 					//select charge
-					if (targ2) {
+					if (optionPointer == 1) {
 						partyPtr.Charge();
-						turnComp = true;
+						TurnComplete();
 					}
 					//select skills
-					if (targ3) {
-						//skills
+					if (optionPointer == 2) {
+						previous_menu = GUIDE;
+						current_menu = SKILL;
+						number_of_skills = partyPtr.GetSkillSize();
 					}
-
 				}
-				if (input.key.code == sf::Keyboard::Left) {
-					if (targ1) {
-						targ1 = false;
-						targ3 = true;
-						option1.setOutlineThickness(0);
-						option3.setOutlineThickness(5);
+				else if (input.key.code == sf::Keyboard::Left) {
+					if (optionPointer == 0) {
+						optionPointer = 2;
+						SwitchOutline(options[0], options[2]);
 					} 
-					
-					else if (targ2) {
-						targ2 = false;
-						targ1 = true;
-						option2.setOutlineThickness(0);
-						option1.setOutlineThickness(5);
-					}
-
-					else if (targ3) {
-						targ3 = false;
-						targ2 = true;
-						option3.setOutlineThickness(0);
-						option2.setOutlineThickness(5);
+					else {
+						SwitchOutline(options[optionPointer], options[optionPointer-1]);
+						optionPointer -= 1;
 					}
 				}
 
 				else if (input.key.code == sf::Keyboard::Right) {
-					if (targ1) {
-						targ1 = false;
-						targ2 = true;
-						option1.setOutlineThickness(0);
-						option2.setOutlineThickness(5);
+					if (optionPointer == 2) {
+						optionPointer = 0;
+						SwitchOutline(options[2], options[0]);
 					}
-
-					else if (targ2) {
-						targ2 = false;
-						targ3 = true;
-						option2.setOutlineThickness(0);
-						option3.setOutlineThickness(5);
-					}
-
-					else if (targ3) {
-						targ3 = false;
-						targ1 = true;
-						option3.setOutlineThickness(0);
-						option1.setOutlineThickness(5);
+					else {
+						SwitchOutline(options[optionPointer], options[optionPointer + 1]);
+						optionPointer += 1;
 					}
 				}
 			}
+
 			break;
+
 		case MOVE: 
+
 			if (input.type == sf::Event::KeyPressed) {
 				if (input.key.code == sf::Keyboard::X) {
 					//move right
-					if (targ1 && partyPtr.location != 7) {
+					if (optionPointer == 0 && partyPtr.location != 7) {
 						partyPtr.Move(1);
 						current_menu = GUIDE;
-						turnComp = true;
+						TurnComplete();
 					}
 					//move left
-					else if (targ2 && partyPtr.location != 0) {
+					else if (optionPointer == 1 && partyPtr.location != 0) {
 						partyPtr.Move(-1);
 						current_menu = GUIDE;
-						turnComp = true;
+						TurnComplete();
 					}
 				}
-
-				if (input.key.code == sf::Keyboard::Left) {
-					if (targ1) {
-						targ1 = false;
-						targ2 = true;
-
-						option1.setOutlineThickness(0);
-						option2.setOutlineThickness(5);
-					}
-					else if (targ2) {
-						targ2 = false; 
-						targ1 = true;
-
-						option2.setOutlineThickness(0);
-						option1.setOutlineThickness(5);
-					}
+				else if (input.key.code == sf::Keyboard::Backspace) {
+					current_menu = previous_menu;
 				}
-				
-				else if (input.key.code == sf::Keyboard::Right) {
-					if (targ1) {
-						targ1 = false;
-						targ2 = true;
-
-						option1.setOutlineThickness(0);
-						option2.setOutlineThickness(5);
+				else if (input.key.code == sf::Keyboard::Left || input.key.code == sf::Keyboard::Right) {
+					if (optionPointer == 0) {
+						SwitchOutline(options[0], options[1]);
+						optionPointer = 1;
 					}
-					else if (targ2) {
-						targ2 = false;
-						targ1 = true;
-
-						option2.setOutlineThickness(0);
-						option1.setOutlineThickness(5);
+					else {
+						SwitchOutline(options[1], options[0]);
+						optionPointer = 0;
 					}
 				}
 			}
@@ -263,67 +261,83 @@ void Battle::Input(sf::RenderWindow& r_Window)
 				if (input.key.code == sf::Keyboard::X)
 				{
 					//select attack
-					if (targ1) {
+					if (optionPointer == 0) {
 						partyPtr.ChampionAttack(monsterPtr);
-						turnComp = true;
+						TurnComplete();
 					}
 					//select guard
-					else if (targ2) {
+					else if (optionPointer == 1) {
 						partyPtr.callGuard();
-						turnComp = true;
+						TurnComplete();
 					}
 					//select skills
-					else if (targ3) {
-						//skills
+					else if (optionPointer ==  2) {
+						previous_menu = CHAMPION;
+						current_menu = SKILL;
 					}
 				}
-				if (input.key.code == sf::Keyboard::Left) {
-					if (targ1) {
-						targ1 = false;
-						targ3 = true;
-						option1.setOutlineThickness(0);
-						option3.setOutlineThickness(5);
+				else if (input.key.code == sf::Keyboard::Left) {
+					if (optionPointer == 0) {
+						optionPointer = 2;
+						SwitchOutline(options[0], options[2]);
 					}
-
-					else if (targ2) {
-						targ2 = false;
-						targ1 = true;
-						option2.setOutlineThickness(0);
-						option1.setOutlineThickness(5);
-					}
-
-					else if (targ3) {
-						targ3 = false;
-						targ2 = true;
-						option3.setOutlineThickness(0);
-						option2.setOutlineThickness(5);
+					else {
+						SwitchOutline(options[optionPointer], options[optionPointer - 1]);
+						optionPointer -= 1;
 					}
 				}
+
 				else if (input.key.code == sf::Keyboard::Right) {
-					if (targ1) {
-						targ1 = false;
-						targ2 = true;
-						option1.setOutlineThickness(0);
-						option2.setOutlineThickness(5);
+					if (optionPointer == 2) {
+						optionPointer = 0;
+						SwitchOutline(options[2], options[0]);
 					}
-
-					else if (targ2) {
-						targ2 = false;
-						targ3 = true;
-						option2.setOutlineThickness(0);
-						option3.setOutlineThickness(5);
-					}
-
-					else if (targ3) {
-						targ3 = false;
-						targ1 = true;
-						option3.setOutlineThickness(0);
-						option1.setOutlineThickness(5);
+					else {
+						SwitchOutline(options[optionPointer], options[optionPointer + 1]);
+						optionPointer += 1;
 					}
 				}
 			}
 			break;
-		
+
+		case SKILL:
+
+			if (input.type == sf::Event::KeyPressed) {
+				if (input.key.code == sf::Keyboard::X) {
+
+				}
+				else if (input.key.code == sf::Keyboard::Backspace) 
+				{
+					current_menu = previous_menu;
+				}
+				else if (input.key.code == sf::Keyboard::Left) 
+				{
+					if (skillPointer != 0) 
+					{
+						SwitchOutline(skills[skillPointer], skills[skillPointer - 1]);
+						skillPointer -= 1;
+					}
+					else if (skillOffset != 0) 
+					{
+						skillOffset -= 1;
+					}
+				}
+
+				else if (input.key.code == sf::Keyboard::Right) 
+				{
+					if (skillPointer != 4 && skillPointer < number_of_skills) 
+					{
+						SwitchOutline(skills[skillPointer], skills[skillPointer + 1]);
+						skillPointer += 1;
+					}
+					else if (skillOffset + 4 < number_of_skills) {
+						skillOffset += 1;
+					}
+				}
+			}
+
+			break;
+
 		case MONSTER:
 
 			break;
@@ -331,56 +345,9 @@ void Battle::Input(sf::RenderWindow& r_Window)
 		default:
 			//error here
 			break;
-			
-
-			if (turnComp) {
-				
-				//test for battle resolution
-				if (monsterPtr.isDead) {
-					managerPtr->endBattle();
-				}
-
-				//check if all champions are dead
-
-				if (current_menu == GUIDE) {
-					current_menu = CHAMPION;
-				}
-
-				else if (current_menu == CHAMPION) {
-					current_menu == MONSTER;
-				}
-				
-				else if (current_menu == MONSTER && monsterPtr.actionsLeft == 0) {
-					current_menu = GUIDE;
-				} 
-				
-
-				//reset options if they were invalid
-				if (option1.getFillColor() == sf::Color::Black) option1.setFillColor(sf::Color::Red);
-				if (option2.getFillColor() == sf::Color::Black) option2.setFillColor(sf::Color::Red);
-
-				//reset menu pointers 
-				targ1 = true;
-				option1.setOutlineThickness(5);
-				option2.setOutlineThickness(0);
-				option3.setOutlineThickness(0);
-
-				//if all character have gone increase turn and go back to 0
-				if (chaSel == turnSize) {
-					chaSel = 0;
-					monsterPtr.actionsLeft = monsterPtr.actions;
-					turn += 1;
-				}
-				else {
-					chaSel += 1;
-				}
-
-
-
-				turnComp = false;
-			}
 		}
 	}
+	std::cout << optionPointer << std::endl;
 }
 	
 void Battle::Update(const float dtAsSeconds)
@@ -403,48 +370,62 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	menu.setPosition(0, setY / 2);
 
 	r_Window.draw(menu);
-	r_Window.draw(characterName1);
-	r_Window.draw(healthDisplay1);
 
 	switch (current_menu) {
 	case GUIDE:
 
-		option1.setString("Move");
-		option2.setString("Charge");
+		options[0].setString("Move");
+		options[1].setString("Charge");
 		
-		r_Window.draw(option1);
-		r_Window.draw(option2);
-		r_Window.draw(option3);
+		r_Window.draw(characterName1);
+		r_Window.draw(healthDisplay1);
+
+		r_Window.draw(options[0]);
+		r_Window.draw(options[1]);
+		r_Window.draw(options[2]);
+
 		break;  
 
 	case CHAMPION:
 
-		option1.setString("Attack");
-		option2.setString("Guard");
+		options[0].setString("Attack");
+		options[1].setString("Guard");
 
-		r_Window.draw(option1);
-		r_Window.draw(option2);
-		r_Window.draw(option3);
+		r_Window.draw(characterName1);
+		r_Window.draw(healthDisplay1);
+
+		r_Window.draw(options[0]);
+		r_Window.draw(options[1]);
+		r_Window.draw(options[2]);
+
 		break;
 
 	case MOVE:
 
-		option1.setString("Left");
-		option2.setString("Right");
+		options[0].setString("Left");
+		options[1].setString("Right");
 
 		if (partyPtr.location == 0) {
-			option1.setFillColor(sf::Color::Black);
+			options[0].setFillColor(sf::Color::Black);
 		}
 		if (partyPtr.location == 7) {
-			option2.setFillColor(sf::Color::Black);
+			options[1].setFillColor(sf::Color::Black);
 		}
 
 
-		r_Window.draw(option1);
-		r_Window.draw(option2);
+		r_Window.draw(options[0]);
+		r_Window.draw(options[1]);
 		break;
 
 	case SKILL:
+
+		//Should display 5 skills at once 
+
+		r_Window.draw(skills[0]);
+		r_Window.draw(skills[1]);
+		r_Window.draw(skills[2]);
+		r_Window.draw(skills[3]);
+		r_Window.draw(skills[4]);
 
 		break;
 
@@ -466,6 +447,56 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 
 	r_Window.display();
 }
+
+void Battle::SwitchOutline(Text& current,Text& selected)
+{
+	current.setOutlineThickness(0);
+	selected.setOutlineThickness(5);
+}
+
+void Battle::TurnComplete() {
+	//test for battle resolution
+	if (monsterPtr.isDead) {
+		managerPtr->endBattle();
+	}
+
+	//check if all champions are dead
+
+	if (current_menu == GUIDE) {
+		current_menu = CHAMPION;
+	}
+
+	else if (current_menu == CHAMPION) {
+		current_menu = MONSTER;
+	}
+
+	else if (current_menu == MONSTER && monsterPtr.actionsLeft == 0) {
+		current_menu = GUIDE;
+	}
+
+
+	//reset options if they were invalid
+	if (options[0].getFillColor() == sf::Color::Black) options[0].setFillColor(sf::Color::Red);
+	if (options[1].getFillColor() == sf::Color::Black) options[1].setFillColor(sf::Color::Red);
+
+	//reset menu pointers 
+	optionPointer = 0;
+	options[0].setOutlineThickness(5);
+	options[1].setOutlineThickness(0);
+	options[2].setOutlineThickness(0);
+
+	//if all character have gone increase turn and go back to 0
+	if (chaSel == turnSize) {
+		chaSel = 0;
+		monsterPtr.actionsLeft = monsterPtr.actions;
+		turn += 1;
+	}
+	else {
+		chaSel += 1;
+	}
+}
+
+
 //Todo for battle
 
 	//if monster then attack ai should be called here instead

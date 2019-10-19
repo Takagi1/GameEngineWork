@@ -31,7 +31,10 @@
     <Filter Include="Source Files\Character">
       <UniqueIdentifier>{9f19184e-762d-439f-a5a4-2cb1da1be7f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Monster">
+    <Filter Include="Source Files\Character\Champions">
+      <UniqueIdentifier>{af5a3ddb-0709-4739-b06e-be80151a84d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character\Monster">
       <UniqueIdentifier>{9282b6b4-d36d-4938-9977-d58bd580be58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -72,14 +75,14 @@
     <ClInclude Include="Bob.h">
       <Filter>Header Files\Character\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="Guide.h">
-      <Filter>Header Files\Character\Champions</Filter>
-    </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
     <ClInclude Include="MonList.h">
       <Filter>Header Files\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Guide.h">
+      <Filter>Header Files\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,13 +114,13 @@
       <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
     <ClCompile Include="Bob.cpp">
-      <Filter>Source Files\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Barbarian.cpp">
-      <Filter>Source Files\Character</Filter>
+      <Filter>Source Files\Character\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Guide.cpp">
       <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Barbarian.cpp">
+      <Filter>Source Files\Character\Champions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

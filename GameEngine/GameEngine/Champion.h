@@ -1,7 +1,10 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <array>
+#include <vector>
 
+//Forward declerations
+class Monster;
 
 class Champion
 {
@@ -10,59 +13,70 @@ private:
 
 public:
 
-	//Constructer
-	Champion() {};
+	Champion() {}; //Constructor
 
-	//Champions current level
-	int level = 0;
+//Variables
 
-	//current exp
-	int exp = 0;
+	int level = 0; //Champions current level
 
-	//Character name
-	std::string name = "";
+	int exp = 0; //Current exp
 
-	//Characters max health
-	int maxHealth = 0;
+	std::string name = ""; //Character name
 
-	//Character current health
-	int health = 0;
+	int maxHealth = 0; 	//Characters max health
 
-	//resource for champion
-	int resource = 0;
+	int health = 0;  //Character current health
 
-	int maxResource = 0;
+	int resource = 0; //Resource for champion
 
-	//The strength of abilites 
-	int power = 0;
+	int maxResource = 0; //Maximum resource for champion
+ 
+	int power = 0;	//The strength of abilites
 
-	//Reduces damage
-	int defense = 0;
+	int defense = 0;  //Reduces damage
 
-	//increases turn order
-	int speed = 0;
+	int speed = 0; //Increases turn order
 
-	//is unit dead
-	bool isDead = false;
+	bool isDead = false; //Is unit dead
 
-	bool guard1 = false;
+	bool guard1 = false; //Basic guard flag. 
 
-	//reference for guide and monster
-	class Guide* guideRef;
+	class Guide* guideRef; //Reference for guide
 
-	//for resolving changes on turn start
-	virtual void turnStart(int turn) = 0; //use a vector array?? or somthing.  idea is effect, turnLeft when turnLeft reverse effect ie +5 becomes -5 and
-										  //true becomes falses... mabye a struct could work with this. look into it.
+//Abstract skill for Champions
+	class Skill {
+
+	public:
+		Guide* guide;
+		Champion* champion;
+
+		std::string name;
+		virtual void Effect(Monster& monster) = 0;
+	};
+
+
+	std::vector<Skill*> skills; //Champions skills
+
+	virtual void AddSkill(std::string skill_name) = 0; //Add a skill to the guide
+
+	virtual void turnStart(int turn) = 0; //for resolving changes on turn start
+	//use a vector array?? or somthing.  idea is effect, turnLeft when turnLeft reverse effect ie +5 becomes -5 and
+    //true becomes falses... mabye a struct could work with this. look into it.
 
 	 virtual void setGuide(class Guide* guideRef_) {
 		 guideRef = guideRef_;
 	 };
 
-	virtual void BasicAction(class Monster& monster) = 0;
+//Champion options
+
+	virtual void BasicAction(Monster& monster) = 0;
 
 	virtual void Guard() = 0;
 
-	//for drawing character in battle
+	virtual void CallSkill(Monster& monster, int skill_number) = 0;
+
+//Drawing Functions
+
 	virtual sf::Sprite getSprite() = 0;
 
 	virtual void setSpritePos(int x, int y) = 0;
@@ -88,4 +102,8 @@ public:
 
 		}
 	}
+
+
 };
+
+

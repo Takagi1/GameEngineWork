@@ -1,90 +1,100 @@
 #pragma once
-#include "Champion.h"
+#include "SFML/Graphics.hpp"
+#include <array>
+#include <vector>
+
+//Forward decleration
+
+class Champion;
+class Monster;
 
 class Guide
 {
 private:
+
 	sf::Texture characterTexture;
+
 	sf::Sprite characterSprite;
 
 public:
-	//Constructor
-	Guide();
 
-	//References
-	std::array<Champion*, 4> party;
+	Guide(); //Constructor
 
-	//create draw of current 
+//Variables
 
-	int currentChampion = 0;
+	std::array<Champion*, 4> party; //Current battle champions in party
 
-	//Champions current level
-	int level = 0;
+	int currentChampion = 0; //Which champion is out
 
-	//current exp
-	int exp = 0;
+	int level = 0; //Champions current level
 
-	//Character name
-	std::string name = "";
+	int exp = 0; //Current exp
 
-	int resource = 100;
+	std::string name = ""; //Character name
 
-	int maxResource = 100;
+	int energy = 100; //Current energy
 
-	int speed = 0;
+	int maxEnergy = 100; //Maximum Energy
 
-	//current location min 0, max 7 
-	int location = 0;
+	int speed = 0; //Used to determine who goes first
+
+	int location = 0; //Current location. min 0, max 7.
+
+//Setup Skill for guide
+
+	class Skill {
+		//constructor
+	public: Skill() {};
+
+			Guide * guide;
+
+			std::string name;
+			virtual void Effect(Monster& monster) = 0;
+	};
+
+	std::vector<Skill*> skills; //Guide skills
+
+	void AddSkill(std::string skill_name); //Add a skill to the guide
+
+	size_t GetSkillSize(); //Get the number of skill the guide has
 
 //Guide options
 
-	//Move
-	void Move(int direction);
+	void Move(int direction); //Move
+	
+	void Charge(); //Charge
+	
+	void CallSkill(Monster& monster, int skill_number); //Skill
 
-	//Charge
-	void Charge();
+//Champion Options 
 
-	//Guide skills
+	void ChampionAttack(Monster& monster); //Champions basic action
 
-//Champion options 
+	void callGuard(); //Champion guard
+	
+	void ChampionSkills(Monster& monster, int skill_number); //Champion skills
 
-	//Champions basic action
-	void ChampionAttack(class Monster& monster);
+//Drawing Functions
 
-	//Guard
-	void callGuard() {
-		party[currentChampion]->Guard();
-	}
+	sf::Sprite getSprite();	//For drawing character
 
-	//Champion skills
+	sf::Sprite getChampionSprite();	//For drawing champions
 
-	//for drawing character
-	sf::Sprite getSprite();
+	void setSpritePos(int x, int y); //Set the characters sprite position
 
-	void setSpritePos(int x, int y);
+	void setChampionSpritePos(int x, int y); //Set the champions sprite position
 
-	//get current champions name
-	std::string getChampionName() {
-		return party[currentChampion]->name;
-	}
+//Get variable/functions from champion
 
-	//get current champions health
-	int getChampionHealth() {
-		return party[currentChampion]->health;
-	}
+	std::string getChampionName(); //Get current champions name
 
-	//get current champions maxHealth
-	int getChampionMaxHealth() {
-		return party[currentChampion]->maxHealth;
-	}
+	int getChampionHealth(); //Get current champions health
 
-	//make current champions take damage
-	void takeDamage(int damage) {
-		party[currentChampion]->takeDamage(damage);
-	};
+	int getChampionMaxHealth(); //Get current champions maxHealth
 
-	//for drawing champions
-	sf::Sprite getChampionSprite();
+	void takeDamage(int damage); //Call the damage function on the current champion
+
 
 };
+
 
