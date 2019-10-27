@@ -37,11 +37,18 @@ public:
 
 	int speed = 0; //Increases turn order
 
-	bool isDead = false; //Is unit dead
-
-	bool guard1 = false; //Basic guard flag. 
+	int basicRange = 0; //Range of basic action
 
 	class Guide* guideRef; //Reference for guide
+
+//Flags for status effects
+
+	//could make these into somthing that is created from the TurnStart funtion stored in a vector array to change size and move add/remove effects as wanted.
+	bool isDead = false; //Is unit dead
+
+	bool guard1 = false; //Guard level 1.  Provides 10% decrease in damage 
+
+	bool guard2 = false; //Guard level 2.  Provides 20% decrease in damage
 
 //Abstract skill for Champions
 	class Skill {
@@ -49,11 +56,12 @@ public:
 	public:
 		Guide* guide;
 		Champion* champion;
-
+		int range;
+		bool isRanged;
 		std::string name;
+
 		virtual void Effect(Monster& monster) = 0;
 	};
-
 
 	std::vector<Skill*> skills; //Champions skills
 

@@ -2,11 +2,13 @@
 #include "SFML/Graphics.hpp"
 #include <array>
 #include <vector>
+#include <forward_list>
 
 //Forward decleration
 
 class Champion;
 class Monster;
+class StatusEffect;
 
 class Guide
 {
@@ -40,16 +42,31 @@ public:
 
 	int location = 0; //Current location. min 0, max 7.
 
+	std::forward_list<StatusEffect>::iterator itCondition; //Iterator for conditions
+
+//Turn Start
+	void TurnStart();
+
+//Status Effects
+
+	std::forward_list<StatusEffect> conditions;
+
+	void InflictStatus(StatusEffect effect); //Use to inflict status effect on character
+
+	bool stuck = false; //Will stop the character from moveing
+
 //Setup Skill for guide
 
 	class Skill {
-		//constructor
-	public: Skill() {};
 
-			Guide * guide;
+	public:
 
-			std::string name;
-			virtual void Effect(Monster& monster) = 0;
+		Guide * guide;
+		int range; //How far can it go?
+		bool ranged; //True if used on monster
+		std::string name;
+
+		virtual void Effect(Monster& monster) = 0;
 	};
 
 	std::vector<Skill*> skills; //Guide skills
@@ -91,6 +108,12 @@ public:
 	int getChampionHealth(); //Get current champions health
 
 	int getChampionMaxHealth(); //Get current champions maxHealth
+
+	int GetBasicRange(); //Get current cahmpions basic action range
+
+	int GetSkillRange(int skill_number); //Get current champions skill range
+
+	std::string GetSkillName(int skill_number); //Get current champions skill names
 
 	void takeDamage(int damage); //Call the damage function on the current champion
 

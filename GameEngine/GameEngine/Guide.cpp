@@ -2,6 +2,7 @@
 #include "Guide.h"
 #include "Barbarian.h"
 #include "Monster.h"
+#include "StatusEffect.h"
 
 
 
@@ -13,6 +14,19 @@ Guide::Guide() {
 	speed = 10;
 
 	AddSkill("Heal");
+}
+
+void Guide::TurnStart()
+{
+	for (itCondition = conditions.begin(); itCondition != conditions.end(); ++itCondition) {
+		itCondition->StatusTick();
+		conditions.remove_if(itCondition->timeLeft == 0);
+	}
+}
+
+void Guide::InflictStatus(StatusEffect effect)
+{
+	conditions.push_front(effect);
 }
 
 void Guide::Move(int direction) {
@@ -82,6 +96,20 @@ int Guide::getChampionMaxHealth()
 	return party[currentChampion]->maxHealth;
 }
 
+int Guide::GetBasicRange()
+{
+	return party[currentChampion]->basicRange;
+}
+
+int Guide::GetSkillRange(int skill_number) {
+	return party[currentChampion]->skills[skill_number]->range;
+}
+
+std::string Guide::GetSkillName(int skill_number)
+{
+	return party[currentChampion]->skills[skill_number]->name;
+}
+
 void Guide::takeDamage(int damage)
 {
 	party[currentChampion]->takeDamage(damage);
@@ -91,6 +119,8 @@ class Heal : public Guide::Skill {
 public:
 	Heal(Guide * guide_) {
 		guide = guide_;
+		range = 0;
+		ranged = false;
 		name = "Heal";
 	};
 
@@ -110,7 +140,8 @@ public:
 void Guide::AddSkill(std::string skill_name) {
 	int check = 0;
 	bool doesHave = false;
-	for (std::vector<Skill*>::iterator it = skills.begin(); it != skills.end(); ++it){
+	for (std::vector<Skill*>::iterator its = skills.begin(); its != skills.end(); ++its){
+		
 		if (skills[check]->name == skill_name) doesHave = true;
 	}
 		

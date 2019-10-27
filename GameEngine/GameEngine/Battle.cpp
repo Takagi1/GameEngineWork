@@ -16,8 +16,6 @@ int skillOffset; //Used to scroll down the list of skills
 
 size_t number_of_skills;
 
-//thread for combat 
-//exit when combat is resolved
 
 Battle::Battle(Guide& party_, Monster& monster_) : partyPtr(party_), monsterPtr(monster_){}
 
@@ -241,6 +239,8 @@ void Battle::Input(sf::RenderWindow& r_Window)
 					}
 				}
 				else if (input.key.code == sf::Keyboard::Backspace) {
+					if (options[0].getFillColor() == sf::Color::Black) options[0].setFillColor(sf::Color::Red);
+					if (options[1].getFillColor() == sf::Color::Black) options[1].setFillColor(sf::Color::Red);
 					current_menu = previous_menu;
 				}
 				else if (input.key.code == sf::Keyboard::Left || input.key.code == sf::Keyboard::Right) {
@@ -261,7 +261,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 				if (input.key.code == sf::Keyboard::X)
 				{
 					//select attack
-					if (optionPointer == 0) {
+					if (optionPointer == 0 && partyPtr.GetBasicRange >= LocationCompare()) {
 						partyPtr.ChampionAttack(monsterPtr);
 						TurnComplete();
 					}
@@ -320,6 +320,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 					else if (skillOffset != 0) 
 					{
 						skillOffset -= 1;
+						SkillDisplayChange();
 					}
 				}
 
@@ -332,6 +333,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 					}
 					else if (skillOffset + 4 < number_of_skills) {
 						skillOffset += 1;
+						SkillDisplayChange();
 					}
 				}
 			}
@@ -339,7 +341,8 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			break;
 
 		case MONSTER:
-
+			monsterPtr.MonsterAction(partyPtr);
+			TurnComplete();
 			break;
 
 		default:
@@ -347,7 +350,6 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			break;
 		}
 	}
-	std::cout << optionPointer << std::endl;
 }
 	
 void Battle::Update(const float dtAsSeconds)
@@ -391,6 +393,10 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 		options[0].setString("Attack");
 		options[1].setString("Guard");
 
+		if (partyPtr.GetBasicRange() < LocationCompare()) {
+			options[0].setFillColor(sf::Color::Black);
+		}
+
 		r_Window.draw(characterName1);
 		r_Window.draw(healthDisplay1);
 
@@ -420,6 +426,8 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	case SKILL:
 
 		//Should display 5 skills at once 
+		
+
 
 		r_Window.draw(skills[0]);
 		r_Window.draw(skills[1]);
@@ -430,6 +438,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 		break;
 
 	default:
+
 		//put error here
 		break;
 
@@ -496,29 +505,37 @@ void Battle::TurnComplete() {
 	}
 }
 
+int Battle::LocationCompare()
+{
+	int diff;
+	diff = partyPtr.location - monsterPtr.location;
+	if (diff < 0) {
+		diff *= -1;
+	}
+	return diff;
+}
+
+void Battle::SkillDisplayChange() {
+	if (previous_menu == GUIDE) {
+		for (size_t i = 0; i < 4 || i < number_of_skills; i++)
+		{
+			skills[i].setString(partyPtr.skills[i + skillOffset]->name);
+		}
+	}
+
+	if (previous_menu == CHAMPION) {
+		for (size_t i = 0; i < 4 || i < number_of_skills; i++)
+		{
+			skills[i].setString(partyPtr.GetSkillName(i + skillPointer));
+		}
+	}
+}
 
 //Todo for battle
 
-	//if monster then attack ai should be called here instead
 	/*
-	if (turnOrder[chaSel]->isMonster){
-	//call monster ai here
-	}
+	1. Create Skill display
 
-	for now the test should be for player to select attack and then
-	for the game to transition to the target phase where the ui disapears
-	and the cursour apears on the furthest to the right (the monster on the
-	rightmost side of the screen who isMonster variable is true if attack)
-
-	if player inputs X again then that selects the monster and the attack
-	will then run, basic attack in this case, with the monster that was
-	targeted as the target variable.
-
-	if battle is not finished then increase the character selector
-	if charactor selector is higher then the number of combatents then
-	reset it back to 0 and increase the turn by 1.
-
-	this has created a note that at the start of a characters turn
-	buffs should be updated accordingly/
+	2. Create and test the sprite positioning system.
 
 	*/

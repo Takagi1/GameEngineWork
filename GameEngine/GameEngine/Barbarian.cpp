@@ -10,6 +10,8 @@ Barbarian::Barbarian() {
 	name = "Barbarian";
 
 	power = 5;
+
+	defense = 5;
 	 
 	maxHealth = 100;
 	health = maxHealth;
@@ -55,6 +57,8 @@ public:
 	ORA(Guide * guide_, Champion * champion_) {
 		guide = guide_;
 		champion = champion_;
+		range = 1;
+		isRanged = true;
 		name = "ORA";
 	};
 

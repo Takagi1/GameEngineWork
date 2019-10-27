@@ -24,8 +24,9 @@ public:
 	virtual void Draw(sf::RenderWindow& r_Window) override;
  
 	void SwitchOutline(Text& current, Text& selected);
-
 	void TurnComplete();
+	int LocationCompare();
+	void SkillDisplayChange();
 	
 	int turn; //Current turn
 
