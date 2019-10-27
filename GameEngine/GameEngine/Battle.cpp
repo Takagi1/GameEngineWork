@@ -123,7 +123,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	skills[0].setCharacterSize(20);
 	skills[0].setStyle(sf::Text::Bold);
 	skills[0].setFillColor(sf::Color::Red);
-	skills[0].setPosition(300, 750);
+	skills[0].setPosition(300, 500);
 	skills[0].setOutlineColor(sf::Color::Blue);
 
 	skills[1].setFont(font);
@@ -261,7 +261,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 				if (input.key.code == sf::Keyboard::X)
 				{
 					//select attack
-					if (optionPointer == 0 && partyPtr.GetBasicRange >= LocationCompare()) {
+					if (optionPointer == 0 && partyPtr.GetBasicRange() >= LocationCompare()) {
 						partyPtr.ChampionAttack(monsterPtr);
 						TurnComplete();
 					}
@@ -427,8 +427,6 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 
 		//Should display 5 skills at once 
 		
-
-
 		r_Window.draw(skills[0]);
 		r_Window.draw(skills[1]);
 		r_Window.draw(skills[2]);

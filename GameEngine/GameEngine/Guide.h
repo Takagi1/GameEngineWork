@@ -3,12 +3,12 @@
 #include <array>
 #include <vector>
 #include <forward_list>
+#include "StatusEffect.h"
 
 //Forward decleration
 
 class Champion;
 class Monster;
-class StatusEffect;
 
 class Guide
 {
@@ -41,8 +41,6 @@ public:
 	int speed = 0; //Used to determine who goes first
 
 	int location = 0; //Current location. min 0, max 7.
-
-	std::forward_list<StatusEffect>::iterator itCondition; //Iterator for conditions
 
 //Turn Start
 	void TurnStart();

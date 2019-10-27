@@ -2,7 +2,6 @@
 #include "Guide.h"
 #include "Barbarian.h"
 #include "Monster.h"
-#include "StatusEffect.h"
 
 
 
@@ -18,9 +17,9 @@ Guide::Guide() {
 
 void Guide::TurnStart()
 {
-	for (itCondition = conditions.begin(); itCondition != conditions.end(); ++itCondition) {
+	for (std::forward_list<StatusEffect>::iterator itCondition = conditions.begin(); itCondition != conditions.end(); ++itCondition) {
 		itCondition->StatusTick();
-		conditions.remove_if(itCondition->timeLeft == 0);
+		//conditions.remove_if(itCondition->timeLeft == 0);
 	}
 }
 

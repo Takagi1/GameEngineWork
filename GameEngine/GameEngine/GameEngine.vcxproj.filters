@@ -125,9 +125,6 @@
     <ClCompile Include="Barbarian.cpp">
       <Filter>Source Files\Character\Champions</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StatusEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

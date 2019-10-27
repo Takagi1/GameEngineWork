@@ -55,8 +55,6 @@ public:
 	std::array<sf::Text, 3> options; //For displaying main battle menu options
 	std::array<sf::Text, 5> skills; //For displaying skills
 
-	
-
 	sf::RectangleShape menu;
 
 

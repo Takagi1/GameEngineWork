@@ -1,6 +1,8 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <array>
+#include <forward_list>
+#include "StatusEffect.h"
 
 //Forward delcarations
 
