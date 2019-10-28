@@ -1,14 +1,15 @@
 #pragma once
 #ifndef TEST_H
 #define TEST_H
-
 #include "Scene.h"
+
+//Forward declarations
 
 class Test : public Scene
 {
 public:
 
-	explicit Test(Guide& party_);
+	explicit Test(Blob& blob_);
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
 	virtual void OnDestroy() override;
@@ -25,7 +26,7 @@ public:
 
 	//Pointers
 
-	Guide& partyPtr;
+	Blob& playerPtr;
 	SceneManager* managerPtr;
 
 	//Battle* battle;

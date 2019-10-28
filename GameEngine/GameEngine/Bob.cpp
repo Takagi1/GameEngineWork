@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "Bob.h"
-#include "Guide.h"
+#include "Blob.h"
 
 Bob::Bob()
 {
 	//Set attributes 
 
-	power = 1;
+	strength = 1;
 
 	defense = 1;
 
@@ -18,24 +18,34 @@ Bob::Bob()
 
 	speed = 1;
 
-	actions = 1;
-	actionsLeft = actions;
-
 	//set exp value 
 	exp = 5;
 
 	//get background texture
-	if (!characterTexture.loadFromFile("Choas.png")) {
-		//put error here 
-	}
+	setTexture("Choas.png");
 
 	// Associate the sprite with the texture
-	characterSprite.setTexture(characterTexture);
+	setSprite();
 }
 
-void Bob::MonsterAction(Guide & guide_)
+void Bob::Attack(Character & target)
 {
-	//AI should figure out what it is going to do. for now make it simple
+}
+
+void Bob::MonsterAction(Character & blob_)
+{
+}
+void Bob::AddSkill(Skill * skill)
+{
+}
+size_t Bob::GetSkillSize()
+{
+	return size_t();
+}
+void Bob::Run()
+{
+}
+	/*AI should figure out what it is going to do. for now make it simple
 	BasicAction(guide_);
 	if (guide_.location > location) {
 		Move(1);
@@ -44,23 +54,4 @@ void Bob::MonsterAction(Guide & guide_)
 		Move(-1);
 	}
 	actionsLeft -= 1;
-}
-
-void Bob::BasicAction(Guide & guide_)
-{
-	int damage = power * 2;
-	guide_.takeDamage(damage);
-}
-
-void Bob::Move(int direction)
-{
-	location += direction;
-}
-
-sf::Sprite Bob::getSprite() {
-	return characterSprite;
-}
-
-void Bob::setSpritePos(int x, int y) {
-	characterSprite.setPosition(x, y);
-}
+*/

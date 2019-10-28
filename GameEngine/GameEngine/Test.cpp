@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "Test.h"
 #include "Debug.h"
-#include "Guide.h"
+#include "Blob.h"
 #include "Bob.h"
 
 Monster* encounterPtr;
 
-Test::Test(Guide& party_) : partyPtr(party_){}
+Test::Test(Blob& player_) : playerPtr(player_){}
 
 bool Test::OnCreate(SceneManager* const &_transfer) {
 

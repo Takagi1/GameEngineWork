@@ -19,23 +19,17 @@
     <Filter Include="Header Files\Scene%27s">
       <UniqueIdentifier>{9fbe4438-7e61-4f1a-9e39-6e3ee891604a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Character">
-      <UniqueIdentifier>{d7fe6aee-d846-40eb-a0d3-27981ab4b2a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Character\Champions">
-      <UniqueIdentifier>{cd8dd72b-8bd6-401b-8697-a40a519f5fce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Character\Monster">
+    <Filter Include="Header Files\Monster">
       <UniqueIdentifier>{88f7e298-e38e-4f4f-8b85-b7f24a693b90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Character">
-      <UniqueIdentifier>{9f19184e-762d-439f-a5a4-2cb1da1be7f8}</UniqueIdentifier>
+    <Filter Include="Header Files\Skills">
+      <UniqueIdentifier>{d7fe6aee-d846-40eb-a0d3-27981ab4b2a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Character\Champions">
-      <UniqueIdentifier>{af5a3ddb-0709-4739-b06e-be80151a84d6}</UniqueIdentifier>
+    <Filter Include="Source Files\Skills">
+      <UniqueIdentifier>{e4f9b9ba-6477-4c9d-947d-9c3fde3182a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Character\Monster">
-      <UniqueIdentifier>{9282b6b4-d36d-4938-9977-d58bd580be58}</UniqueIdentifier>
+    <Filter Include="Source Files\Monsters">
+      <UniqueIdentifier>{7960dd80-30f3-48f1-b1eb-fd0f8146bce1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,15 +51,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
-    <ClInclude Include="Champion.h">
-      <Filter>Header Files\Character\Champions</Filter>
-    </ClInclude>
-    <ClInclude Include="Barbarian.h">
-      <Filter>Header Files\Character\Champions</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Header Files\Character\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="Town.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
@@ -73,22 +58,31 @@
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
     <ClInclude Include="Bob.h">
-      <Filter>Header Files\Character\Monster</Filter>
+      <Filter>Header Files\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Header Files\Scene%27s</Filter>
     </ClInclude>
     <ClInclude Include="MonList.h">
-      <Filter>Header Files\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Guide.h">
-      <Filter>Header Files\Character</Filter>
+      <Filter>Header Files\Monster</Filter>
     </ClInclude>
     <ClInclude Include="StatusEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ranger.h">
-      <Filter>Header Files\Character\Champions</Filter>
+    <ClInclude Include="Blob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire1.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Header Files\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,16 +113,19 @@
     <ClCompile Include="Battle.cpp">
       <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
-    <ClCompile Include="Bob.cpp">
-      <Filter>Source Files\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Guide.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Barbarian.cpp">
-      <Filter>Source Files\Character\Champions</Filter>
-    </ClCompile>
     <ClCompile Include="StatusEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire1.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Bob.cpp">
+      <Filter>Source Files\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="Blob.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

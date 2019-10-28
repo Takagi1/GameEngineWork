@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "Barbarian.h"
-#include "Guide.h"
 #include "Monster.h"
 
 
@@ -16,11 +14,7 @@ Barbarian::Barbarian() {
 	maxHealth = 100;
 	health = maxHealth;
 
-	//get background texture
-	texture.loadFromFile("Robo.png");
 
-	// Associate the sprite with the texture
-	sprite.setTexture(texture);
 
 	AddSkill("ORA");
 }

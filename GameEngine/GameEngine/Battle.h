@@ -1,21 +1,19 @@
 #pragma once
 #include "Scene.h"
-#include <vector>
+#include <array>
+
 
 class Battle : public Scene
 {
 
 public:
-	explicit Battle(Guide& party_, Monster& monster_);
+	explicit Battle(Blob& blob_, Monster& monster_);
 
 	enum CURRENT_MENU {
-		GUIDE = 0,
-		CHAMPION,
+		BLOB = 0,
 		MONSTER,
-		MOVE,
 		SKILL
 	};
-
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
 	virtual void OnDestroy() override;
@@ -23,24 +21,18 @@ public:
 	virtual void Update(const float dtAsSeconds) override;
 	virtual void Draw(sf::RenderWindow& r_Window) override;
  
-	void SwitchOutline(Text& current, Text& selected);
+	void SwitchOutline(sf::Text& current, sf::Text& selected);
 	void TurnComplete();
-	int LocationCompare();
 	void SkillDisplayChange();
 	
 	int turn; //Current turn
 
-	int turnSize; //Max turn size
-
-	int chaSel = 0;	//what character's turn is it.
-	
-	Texture backgroundTexture;
-	Sprite backgroundSprite;
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
 
 	CURRENT_MENU current_menu; //For determining what input should be used and what should be drawn
 
-	CURRENT_MENU previous_menu; //What menu was previous to this (should be set to null at turn comp)
-
+	int first; //Who went first? 0 is player, 1 is monster
 
 //Visual Components
 
@@ -60,11 +52,7 @@ public:
 
 	//The party, monster, and sceneManager
 
-	Guide& partyPtr;
+	Blob& playerPtr;
 	Monster& monsterPtr;
 	SceneManager* managerPtr;
-
-private: 
-	//who can be targeted
-	std::vector<int> Targetable;
 };

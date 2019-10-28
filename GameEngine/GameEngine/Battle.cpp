@@ -3,9 +3,6 @@
 #include <algorithm>
 #include "Battle.h"
 
-//is the battle continuing?
-bool battleStatus = false;
-
 //for inputs
 sf::Event input;
 
@@ -16,32 +13,26 @@ int skillOffset; //Used to scroll down the list of skills
 
 size_t number_of_skills;
 
-Battle::Battle(Guide& party_, Monster& monster_) : partyPtr(party_), monsterPtr(monster_){}
+Battle::Battle(Blob& blob_, Monster& monster_) : playerPtr(blob_), monsterPtr(monster_){}
 
 bool Battle::OnCreate(SceneManager * const & _transfer)
 {
 	//Set up variables
-
 	turn = 0;
 	optionPointer = 0;
 	number_of_skills = 0;
 	skillPointer = 0;
 	skillOffset = 0;
 
-	turnSize = 2 + monsterPtr.actions; 	//Set turn size to 2 plus the monsters max actions
-
-	//set inital locations 
-
-	partyPtr.location = 3;
-	monsterPtr.location = 4;
-
 	//Who goes first 
-	if (partyPtr.speed >= monsterPtr.speed)
+	if (playerPtr.speed >= monsterPtr.speed)
 	{
-		current_menu = GUIDE;
+		current_menu = BLOB;
+		first = 0;
 	}
 	else {
 		current_menu = MONSTER;
+		first = 1;
 	}
 
 
@@ -61,8 +52,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	//Set up character sprite positions
 	sf::IntRect(50, 50, 50, 50); //This is a test 
 
-	partyPtr.setSpritePos(200, 400);
-	partyPtr.setChampionSpritePos(400, 200);
+	playerPtr.setSpritePos(200, 400);
 	monsterPtr.setSpritePos(600, 200);
 
 	//Set up the menu box
@@ -73,7 +63,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	font.loadFromFile("OpenSans-Light.ttf");
 
 	//Set up guide name display
-	characterName1.setString(partyPtr.getChampionName());
+	characterName1.setString(playerPtr.name);
 	characterName1.setFont(font);
 	characterName1.setCharacterSize(30);
 	characterName1.setStyle(sf::Text::Bold);
@@ -81,7 +71,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	characterName1.setPosition(200, 400);
 
 	//Set up Guide current health
-	healthDisplay1.setString(std::to_string(partyPtr.getChampionHealth()) + " / " + std::to_string(partyPtr.getChampionMaxHealth()));
+	healthDisplay1.setString(std::to_string(playerPtr.health) + " / " + std::to_string(playerPtr.maxHealth));
 	healthDisplay1.setFont(font);
 	healthDisplay1.setCharacterSize(30);
 	healthDisplay1.setStyle(sf::Text::Bold);
@@ -89,7 +79,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	healthDisplay1.setPosition(200, 450);
 
 	//Set up first option
-	options[0].setString("Move");
+	options[0].setString("Attack");
 	options[0].setFont(font);
 	options[0].setCharacterSize(30);
 	options[0].setStyle(sf::Text::Bold);
@@ -99,7 +89,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	options[0].setOutlineThickness(5);
 
 
-	//Set up second option
+	//Set up skills
 	options[1].setString("Skill");
 	options[1].setFont(font);
 	options[1].setCharacterSize(30);
@@ -108,8 +98,8 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	options[1].setPosition(500, 500);
 	options[1].setOutlineColor(sf::Color::Blue);
 
-	//Set up skills
-	options[2].setString("Skills");
+	//Set up run
+	options[2].setString("Run");
 	options[2].setFont(font);
 	options[2].setCharacterSize(30);
 	options[2].setStyle(sf::Text::Bold);
@@ -158,7 +148,6 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 
 void Battle::OnDestroy()
 {
-	chaSel = NULL;
 }
 
 
@@ -173,26 +162,23 @@ void Battle::Input(sf::RenderWindow& r_Window)
 
 
 		//Guide inputs
-		case GUIDE:
+		case BLOB:
 
 			if (input.type == sf::Event::KeyPressed) {
 				if (input.key.code == sf::Keyboard::X)
 				{
-					//select move
+					//select attack
 					if (optionPointer == 0) {
-						previous_menu = GUIDE;
-						current_menu = MOVE;
-					}
-					//select charge
-					if (optionPointer == 1) {
-						partyPtr.Charge();
-						TurnComplete();
+						playerPtr.Attack(monsterPtr);
 					}
 					//select skills
-					if (optionPointer == 2) {
-						previous_menu = GUIDE;
+					if (optionPointer == 1) {
 						current_menu = SKILL;
-						number_of_skills = partyPtr.GetSkillSize();
+						number_of_skills = playerPtr.GetSkillSize();
+					}
+					//select run
+					if (optionPointer == 2) {
+						//Run option here
 					}
 				}
 				else if (input.key.code == sf::Keyboard::Left) {
@@ -220,85 +206,6 @@ void Battle::Input(sf::RenderWindow& r_Window)
 
 			break;
 
-		case MOVE: 
-
-			if (input.type == sf::Event::KeyPressed) {
-				if (input.key.code == sf::Keyboard::X) {
-					//move right
-					if (optionPointer == 0 && partyPtr.location != 7) {
-						partyPtr.Move(1);
-						current_menu = GUIDE;
-						TurnComplete();
-					}
-					//move left
-					else if (optionPointer == 1 && partyPtr.location != 0) {
-						partyPtr.Move(-1);
-						current_menu = GUIDE;
-						TurnComplete();
-					}
-				}
-				else if (input.key.code == sf::Keyboard::Backspace) {
-					if (options[0].getFillColor() == sf::Color::Black) options[0].setFillColor(sf::Color::Red);
-					if (options[1].getFillColor() == sf::Color::Black) options[1].setFillColor(sf::Color::Red);
-					current_menu = previous_menu;
-				}
-				else if (input.key.code == sf::Keyboard::Left || input.key.code == sf::Keyboard::Right) {
-					if (optionPointer == 0) {
-						SwitchOutline(options[0], options[1]);
-						optionPointer = 1;
-					}
-					else {
-						SwitchOutline(options[1], options[0]);
-						optionPointer = 0;
-					}
-				}
-			}
-			break;
-
-		case CHAMPION:
-			if (input.type == sf::Event::KeyPressed) {
-				if (input.key.code == sf::Keyboard::X)
-				{
-					//select attack
-					if (optionPointer == 0 && partyPtr.GetBasicRange() >= LocationCompare()) {
-						partyPtr.ChampionAttack(monsterPtr);
-						TurnComplete();
-					}
-					//select guard
-					else if (optionPointer == 1) {
-						partyPtr.callGuard();
-						TurnComplete();
-					}
-					//select skills
-					else if (optionPointer ==  2) {
-						previous_menu = CHAMPION;
-						current_menu = SKILL;
-					}
-				}
-				else if (input.key.code == sf::Keyboard::Left) {
-					if (optionPointer == 0) {
-						optionPointer = 2;
-						SwitchOutline(options[0], options[2]);
-					}
-					else {
-						SwitchOutline(options[optionPointer], options[optionPointer - 1]);
-						optionPointer -= 1;
-					}
-				}
-
-				else if (input.key.code == sf::Keyboard::Right) {
-					if (optionPointer == 2) {
-						optionPointer = 0;
-						SwitchOutline(options[2], options[0]);
-					}
-					else {
-						SwitchOutline(options[optionPointer], options[optionPointer + 1]);
-						optionPointer += 1;
-					}
-				}
-			}
-			break;
-
 		case SKILL:
 
 			if (input.type == sf::Event::KeyPressed) {
@@ -307,7 +214,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 				}
 				else if (input.key.code == sf::Keyboard::Backspace) 
 				{
-					current_menu = previous_menu;
+					current_menu = BLOB;
 				}
 				else if (input.key.code == sf::Keyboard::Left) 
 				{
@@ -340,7 +247,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			break;
 
 		case MONSTER:
-			monsterPtr.MonsterAction(partyPtr);
+			monsterPtr.MonsterAction(playerPtr);
 			TurnComplete();
 			break;
 
@@ -373,10 +280,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	r_Window.draw(menu);
 
 	switch (current_menu) {
-	case GUIDE:
-
-		options[0].setString("Move");
-		options[1].setString("Charge");
+	case BLOB:
 		
 		r_Window.draw(characterName1);
 		r_Window.draw(healthDisplay1);
@@ -386,41 +290,6 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 		r_Window.draw(options[2]);
 
 		break;  
-
-	case CHAMPION:
-
-		options[0].setString("Attack");
-		options[1].setString("Guard");
-
-		if (partyPtr.GetBasicRange() < LocationCompare()) {
-			options[0].setFillColor(sf::Color::Black);
-		}
-
-		r_Window.draw(characterName1);
-		r_Window.draw(healthDisplay1);
-
-		r_Window.draw(options[0]);
-		r_Window.draw(options[1]);
-		r_Window.draw(options[2]);
-
-		break;
-
-	case MOVE:
-
-		options[0].setString("Left");
-		options[1].setString("Right");
-
-		if (partyPtr.location == 0) {
-			options[0].setFillColor(sf::Color::Black);
-		}
-		if (partyPtr.location == 7) {
-			options[1].setFillColor(sf::Color::Black);
-		}
-
-
-		r_Window.draw(options[0]);
-		r_Window.draw(options[1]);
-		break;
 
 	case SKILL:
 
@@ -443,8 +312,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 
 	//Render all characters here 
 
-	r_Window.draw(partyPtr.getSprite());
-	r_Window.draw(partyPtr.getChampionSprite());
+	r_Window.draw(playerPtr.getSprite());
 	r_Window.draw(monsterPtr.getSprite());
 
 	//add in test render for attack check.
@@ -454,7 +322,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	r_Window.display();
 }
 
-void Battle::SwitchOutline(Text& current,Text& selected)
+void Battle::SwitchOutline(sf::Text& current,sf::Text& selected)
 {
 	current.setOutlineThickness(0);
 	selected.setOutlineThickness(5);
@@ -468,16 +336,18 @@ void Battle::TurnComplete() {
 
 	//check if all champions are dead
 
-	if (current_menu == GUIDE) {
-		current_menu = CHAMPION;
-	}
-
-	else if (current_menu == CHAMPION) {
+	if (current_menu == BLOB) {
 		current_menu = MONSTER;
+		if (first == 1) {
+			turn += 1;
+		}
 	}
 
-	else if (current_menu == MONSTER && monsterPtr.actionsLeft == 0) {
-		current_menu = GUIDE;
+	else if (current_menu == MONSTER) {
+		current_menu = BLOB;
+		if (first == 0) {
+			turn += 1;
+		}
 	}
 
 
@@ -490,41 +360,13 @@ void Battle::TurnComplete() {
 	options[0].setOutlineThickness(5);
 	options[1].setOutlineThickness(0);
 	options[2].setOutlineThickness(0);
-
-	//if all character have gone increase turn and go back to 0
-	if (chaSel == turnSize) {
-		chaSel = 0;
-		monsterPtr.actionsLeft = monsterPtr.actions;
-		turn += 1;
-	}
-	else {
-		chaSel += 1;
-	}
-}
-
-int Battle::LocationCompare()
-{
-	int diff;
-	diff = partyPtr.location - monsterPtr.location;
-	if (diff < 0) {
-		diff *= -1;
-	}
-	return diff;
 }
 
 void Battle::SkillDisplayChange() {
-	if (previous_menu == GUIDE) {
-		for (size_t i = 0; i < 4 || i < number_of_skills; i++)
-		{
-			skills[i].setString(partyPtr.skills[i + skillOffset]->name);
-		}
-	}
-
-	if (previous_menu == CHAMPION) {
-		for (size_t i = 0; i < 4 || i < number_of_skills; i++)
-		{
-			skills[i].setString(partyPtr.GetSkillName(i + skillPointer));
-		}
+	for (size_t i = 0; i < 4 || i < number_of_skills; i++)
+	{
+		
+		skills[i].setString(playerPtr.skills[i + skillOffset]->name);
 	}
 }
 

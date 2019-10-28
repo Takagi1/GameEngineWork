@@ -1,7 +1,7 @@
 #pragma once
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
-#include "Guide.h"
+#include "Blob.h"
 #include "Monster.h"
 
 class SceneManager {
@@ -17,7 +17,7 @@ public:
 	SceneManager();
 
 	void ScenePtrSet(SceneManager* const &_sceneManager);
-	Guide guide;
+	Blob blob;
 
 	class Scene* currentScene;
 	SceneManager* managerPtr;
@@ -25,7 +25,7 @@ public:
 	class Scene* saveScene;
 
 	void BuildScene(SCENE_NUMBER scene_);
-	void BuildBattle(Monster &_encouter);
+	void BuildBattle(Monster& _encouter);
 
 	//return to scene after battle
 	void endBattle();

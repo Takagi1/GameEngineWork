@@ -7,7 +7,7 @@ class Town : public Scene
 {
 public:
 
-	explicit Town(Guide& party_);
+	explicit Town(Blob& player_);
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
 	virtual void OnDestroy() override;
@@ -24,7 +24,7 @@ public:
 
 	//Pointers
 
-	Guide& partyPtr;
+	Blob& playerPtr;
 	SceneManager* managerPtr;
 };
 #endif //!TEST_H

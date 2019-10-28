@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Town.h"
 
-Town::Town(Guide& party_) : partyPtr(party_) {}
+Town::Town(Blob& player_) : playerPtr(player_) {}
 
 
 bool Town::OnCreate(SceneManager* const &_transfer) {
