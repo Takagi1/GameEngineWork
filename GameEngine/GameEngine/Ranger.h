@@ -1,18 +1,18 @@
 #pragma once
 #include "Champion.h"
 
-class Barbarian : public Champion
+class Ranger : public Champion
 {
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 public:
 
-	Barbarian(); //Constructor
+	Ranger(); //Constructor
 
 	virtual void turnStart(int turn) override;
 
-//Barbarian Options
+	//Barbarian Options
 
 	virtual void BasicAction(class Monster& monster) override;
 
@@ -20,10 +20,10 @@ public:
 
 	virtual void CallSkill(Monster& monster, int skill_number) override;
 
-//Drawing Functions
+	//Drawing Functions
 
 	virtual sf::Sprite getSprite() override; //Get sprite
-	
+
 	virtual void setSpritePos(int x, int y) override; //Set sprite position
 
 //Skills

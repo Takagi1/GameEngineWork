@@ -16,7 +16,6 @@ int skillOffset; //Used to scroll down the list of skills
 
 size_t number_of_skills;
 
-
 Battle::Battle(Guide& party_, Monster& monster_) : partyPtr(party_), monsterPtr(monster_){}
 
 bool Battle::OnCreate(SceneManager * const & _transfer)

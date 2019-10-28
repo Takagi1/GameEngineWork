@@ -172,6 +172,7 @@
     <ClInclude Include="MonList.h" />
     <ClInclude Include="MapCharacter.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Ranger.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StatusEffect.h" />
     <ClInclude Include="Test.h" />

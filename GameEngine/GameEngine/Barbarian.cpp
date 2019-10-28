@@ -17,10 +17,10 @@ Barbarian::Barbarian() {
 	health = maxHealth;
 
 	//get background texture
-	characterTexture.loadFromFile("Robo.png");
+	texture.loadFromFile("Robo.png");
 
 	// Associate the sprite with the texture
-	characterSprite.setTexture(characterTexture);
+	sprite.setTexture(texture);
 
 	AddSkill("ORA");
 }
@@ -45,11 +45,11 @@ void Barbarian::CallSkill(Monster & monster, int skill_number)
 }
 
 sf::Sprite Barbarian::getSprite() {
-	return characterSprite;
+	return sprite;
 }
 
 void Barbarian::setSpritePos(int x, int y) {
-	characterSprite.setPosition(x, y);
+	sprite.setPosition(x, y);
 }
 
 class ORA : public Barbarian::Skill {

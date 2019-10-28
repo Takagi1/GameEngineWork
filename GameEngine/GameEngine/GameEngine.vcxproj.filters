@@ -87,6 +87,9 @@
     <ClInclude Include="StatusEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ranger.h">
+      <Filter>Header Files\Character\Champions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
