@@ -13,14 +13,12 @@ public:
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
 	virtual void OnDestroy() override;
-	virtual void Update(const float dtAsSeconds) override ;
+	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view) override ;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual void Input(sf::RenderWindow& window) override;
 
 	sf::Sprite m_BackgroundSprite;
 	sf::Texture m_BackgroundTexture;
-
-	bool isMap;
 
 	MapCharacter playerCharacter;
 

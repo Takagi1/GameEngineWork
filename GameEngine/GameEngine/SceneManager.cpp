@@ -69,6 +69,6 @@ void SceneManager::endBattle() {
 	currentScene = saveScene;
 }
 
-void SceneManager::callUpdate(float dtAsSeconds) {
-	currentScene->Update(dtAsSeconds);
+void SceneManager::callUpdate(float dtAsSeconds, sf::RenderWindow& window, sf::View& view) {
+	currentScene->Update(dtAsSeconds, window, view);
 }

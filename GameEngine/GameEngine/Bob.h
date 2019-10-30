@@ -20,4 +20,10 @@ public:
 
 	virtual void Run() override; //Run from battle
 
+	virtual Food GetFood1() override;
+
+	virtual Food GetFood2() override;
+
+	virtual Food GetFood3() override;
+
 };

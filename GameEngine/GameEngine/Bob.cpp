@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Bob.h"
 #include "Blob.h"
+#include "Food.h"
 
 Bob::Bob()
 {
@@ -44,6 +45,24 @@ size_t Bob::GetSkillSize()
 }
 void Bob::Run()
 {
+}
+Food Bob::GetFood1()
+{
+	Food food;
+
+	food.creature = "Bob";
+
+	food.strength = 2;
+
+	return food;
+}
+Food Bob::GetFood2()
+{
+	return Food();
+}
+Food Bob::GetFood3()
+{
+	return Food();
 }
 	/*AI should figure out what it is going to do. for now make it simple
 	BasicAction(guide_);

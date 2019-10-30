@@ -41,10 +41,14 @@ void Engine::start()
 	sceneManager->ScenePtrSet(sceneManager);
 	sceneManager->BuildScene(sceneManager->TEST);
 
+
+	//Create camera
+
+	sf::View view (sf::FloatRect(0, 0, 1280, 720));
+	r_Window.setView(view);
 	
 	while (r_Window.isOpen())
 	{
-
 		//May need to change logic if battle needs to be sperated from 
 		//Scene because of the way input's are handeled
 
@@ -69,6 +73,7 @@ void Engine::start()
 			r_Window.close();
 		}
 
+		//Problem is cannot resize the window back to max
 		//this does not break but needs <Windows.h> to work
 		//also not soution to problem
 		if (Keyboard::isKeyPressed(Keyboard::BackSpace)) {
@@ -76,7 +81,9 @@ void Engine::start()
 		}
 
 		//Call scene update
-		sceneManager->callUpdate(dtAsSeconds);
+		sceneManager->callUpdate(dtAsSeconds, r_Window, view);
+
+		r_Window.setView(view);
 
 		//Call draw
 		sceneManager->currentScene->Draw(r_Window);

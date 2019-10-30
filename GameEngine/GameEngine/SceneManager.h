@@ -31,7 +31,7 @@ public:
 	void endBattle();
 
 	//call current scene update
-	void callUpdate(float dtAsSeconds);
+	void callUpdate(float dtAsSeconds, sf::RenderWindow& window, sf::View& view);
 private:
 
 

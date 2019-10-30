@@ -258,9 +258,58 @@ void Battle::Input(sf::RenderWindow& r_Window)
 	}
 }
 	
-void Battle::Update(const float dtAsSeconds)
+void Battle::Update(float dtAsSeconds, sf::RenderWindow& window, sf::View& view)
 {
 
+}
+
+
+void Battle::SwitchOutline(sf::Text& current, sf::Text& selected)
+{
+	current.setOutlineThickness(0);
+	selected.setOutlineThickness(5);
+}
+
+void Battle::TurnComplete() {
+	//test for battle resolution
+	if (monsterPtr.isDead) {
+		managerPtr->endBattle();
+	}
+
+	//check if all champions are dead
+
+	if (current_menu == BLOB) {
+		current_menu = MONSTER;
+		if (first == 1) {
+			turn += 1;
+		}
+	}
+
+	else if (current_menu == MONSTER) {
+		current_menu = BLOB;
+		if (first == 0) {
+			turn += 1;
+		}
+	}
+
+
+	//reset options if they were invalid
+	if (options[0].getFillColor() == sf::Color::Black) options[0].setFillColor(sf::Color::Red);
+	if (options[1].getFillColor() == sf::Color::Black) options[1].setFillColor(sf::Color::Red);
+
+	//reset menu pointers 
+	optionPointer = 0;
+	options[0].setOutlineThickness(5);
+	options[1].setOutlineThickness(0);
+	options[2].setOutlineThickness(0);
+}
+
+void Battle::SkillDisplayChange() {
+	for (size_t i = 0; i < 4 || i < number_of_skills; i++)
+	{
+
+		skills[i].setString(playerPtr.skills[i + skillOffset]->name);
+	}
 }
 
 void Battle::Draw(sf::RenderWindow& r_Window)
@@ -320,54 +369,6 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	//display the menu
 
 	r_Window.display();
-}
-
-void Battle::SwitchOutline(sf::Text& current,sf::Text& selected)
-{
-	current.setOutlineThickness(0);
-	selected.setOutlineThickness(5);
-}
-
-void Battle::TurnComplete() {
-	//test for battle resolution
-	if (monsterPtr.isDead) {
-		managerPtr->endBattle();
-	}
-
-	//check if all champions are dead
-
-	if (current_menu == BLOB) {
-		current_menu = MONSTER;
-		if (first == 1) {
-			turn += 1;
-		}
-	}
-
-	else if (current_menu == MONSTER) {
-		current_menu = BLOB;
-		if (first == 0) {
-			turn += 1;
-		}
-	}
-
-
-	//reset options if they were invalid
-	if (options[0].getFillColor() == sf::Color::Black) options[0].setFillColor(sf::Color::Red);
-	if (options[1].getFillColor() == sf::Color::Black) options[1].setFillColor(sf::Color::Red);
-
-	//reset menu pointers 
-	optionPointer = 0;
-	options[0].setOutlineThickness(5);
-	options[1].setOutlineThickness(0);
-	options[2].setOutlineThickness(0);
-}
-
-void Battle::SkillDisplayChange() {
-	for (size_t i = 0; i < 4 || i < number_of_skills; i++)
-	{
-		
-		skills[i].setString(playerPtr.skills[i + skillOffset]->name);
-	}
 }
 
 //Todo for battle

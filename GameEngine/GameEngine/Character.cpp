@@ -22,7 +22,6 @@ void Character::CallSkill(Character& target, int skill_number)
 
 void Character::setTexture(std::string name)
 {
-	
 	if (!texture.loadFromFile(name)) {
 		//put error here 
 	}

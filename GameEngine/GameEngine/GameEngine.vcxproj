@@ -169,6 +169,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Blob.h" />
     <ClInclude Include="Fire1.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="MonList.h" />
     <ClInclude Include="MapCharacter.h" />
     <ClInclude Include="Monster.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Skill.h" />
     <ClInclude Include="StatusEffect.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Town.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
@@ -188,6 +190,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Fire1.cpp" />
+    <ClCompile Include="Food.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapCharacter.cpp" />
     <ClCompile Include="pch.cpp">
@@ -198,6 +201,7 @@
     </ClCompile>
     <ClCompile Include="StatusEffect.cpp" />
     <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Town.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>

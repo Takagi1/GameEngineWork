@@ -10,14 +10,24 @@ Test::Test(Blob& player_) : playerPtr(player_){}
 
 bool Test::OnCreate(SceneManager* const &_transfer) {
 
-	//is this a map scene?
-	isMap = true;
+	//For setting up tiles
+	//create tiles based on size of screen
+	//then set up there locations and what part of the sprite sheet the tile shows.
+	//mabye in update create a loop of the tiles to display all the tiles
+	//set in collsion detection in update
+	//
+
 
 	//get background texture
 	m_BackgroundTexture.loadFromFile("background.png");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
+
+	//Size of tile here (25,25)?
+	//set up rectangle display on the sprite list
+	//
+
 
 	//Set up Pointers
 
@@ -94,8 +104,11 @@ void Test::Input(sf::RenderWindow& window) {
 
 // Move Bob based on the input this frame,
 // the time elapsed, and the speed.
-void Test::Update(float dtAsSeconds) {
+void Test::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
 	playerCharacter.update(dtAsSeconds);
+	// Set center of the camera to the player
+	view.setCenter(playerCharacter.position.x, playerCharacter.position.y);
+
 	/*//Example of changing scene
 	if (playerCharacter.position.y <= 400) {
 

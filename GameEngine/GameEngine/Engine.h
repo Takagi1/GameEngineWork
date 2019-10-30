@@ -10,9 +10,6 @@ private:
 
 	//private functions for internal use only
 
-	// For player input while in battle
-	void battleInput();
-
 	// A regular RenderWindow
 	RenderWindow r_Window;
 
@@ -25,6 +22,4 @@ public:
 
 	//start will call all the private functions
 	void start();
-	
-	void DrawThread();
 };

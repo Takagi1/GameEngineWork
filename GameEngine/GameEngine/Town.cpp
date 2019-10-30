@@ -67,7 +67,7 @@ void Town::Input(sf::RenderWindow& window) {
 
 // Move Bob based on the input this frame,
 // the time elapsed, and the speed.
-void Town::Update(float dtAsSeconds) {
+void Town::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
 	playerCharacter.update(dtAsSeconds);
 
 	if (playerCharacter.position.y <= 400) {

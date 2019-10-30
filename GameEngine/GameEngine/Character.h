@@ -7,7 +7,6 @@
 
 //Forward decleration
 
-class Skill;
 
 class Character
 {
@@ -20,8 +19,6 @@ private:
 public:
 
 //Blob only variables and functions
-
-	std::vector<int*> stomach; //set as 0 if monster.  is used to determine what is in blobs stomach
 
 	int level = 0; //Character current level
 	int exp = 0; //Current exp
