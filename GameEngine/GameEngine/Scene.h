@@ -23,9 +23,9 @@ public:
 	//sf::Sprite m_BackgroundSprite;
 	//sf::Texture m_BackgroundTexture;
 
-	// Is this scene a map? Note: this can be changed if no scene switch is used to create a battle view which might be better
-	//bool isMap;
-
 	//MapCharacter playerCharacter;
+
+	//for paused menu
+	//sf::RectangleShape menu;
 };
 #endif // !SCENE_H

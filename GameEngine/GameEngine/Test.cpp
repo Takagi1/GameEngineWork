@@ -6,6 +6,9 @@
 
 Monster* encounterPtr;
 
+bool isPaused = false;
+sf::Event inp;
+
 Test::Test(Blob& player_) : playerPtr(player_){}
 
 bool Test::OnCreate(SceneManager* const &_transfer) {
@@ -28,12 +31,16 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	//set up rectangle display on the sprite list
 	//
 
-
+	
 	//Set up Pointers
 
 	managerPtr = _transfer;
 
 	//set up where the player starts
+
+	menu.setOutlineColor(sf::Color::Red);
+	menu.setOutlineThickness(5);
+
 
 	return true;
 }
@@ -45,60 +52,80 @@ void Test::OnDestroy()
 	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }
 
-void Test::Input(sf::RenderWindow& window) {
+void Test::Input(sf::RenderWindow& r_Window) {
 
-	// Handle the player moving
-	if (Keyboard::isKeyPressed(Keyboard::A))
-	{
-		playerCharacter.moveLeft();
-	}
-	else
-	{
-		playerCharacter.stopLeft();
-	}
+	while (r_Window.pollEvent(inp)) {
+		//Paused inputs 
+		if (isPaused) {
+			//Status menu
 
-	if (Keyboard::isKeyPressed(Keyboard::D))
-	{
-		playerCharacter.moveRight();
-	}
-	else
-	{
-		playerCharacter.stopRight();
-	}
+			//Stomach menu
 
-	if (Keyboard::isKeyPressed(Keyboard::W))
-	{
-		playerCharacter.moveUp();
-	}
-	else
-	{
-		playerCharacter.stopUp();
-	}
+			//Info menu
+		}
 
-	if (Keyboard::isKeyPressed(Keyboard::S))
-	{
-		playerCharacter.moveDown();
-	}
-	else
-	{
-		playerCharacter.stopDown();
-	}
+		// handle things when not paused
+		if (!isPaused) {
 
-	if (Keyboard::isKeyPressed(Keyboard::B)) {
-		//Test call prototype scene change
-	//managerPtr->BuildScene(SceneManager::TOWN);
+			if (Keyboard::isKeyPressed(Keyboard::A))
+			{
+				playerCharacter.moveLeft();
+			}
+			else
+			{
+				playerCharacter.stopLeft();
+			}
 
-		//create a new encounterPtr every time this is called
-		
+			if (Keyboard::isKeyPressed(Keyboard::D))
+			{
+				playerCharacter.moveRight();
+			}
+			else
+			{
+				playerCharacter.stopRight();
+			}
 
-		//delete previous encounter
-		delete(encounterPtr);
-		//create new one
-		encounterPtr = new Bob();
-		//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
-		
+			if (Keyboard::isKeyPressed(Keyboard::W))
+			{
+				playerCharacter.moveUp();
+			}
+			else
+			{
+				playerCharacter.stopUp();
+			}
 
-		managerPtr->BuildBattle(*encounterPtr);
+			if (Keyboard::isKeyPressed(Keyboard::S))
+			{
+				playerCharacter.moveDown();
+			}
+			else
+			{
+				playerCharacter.stopDown();
+			}
+		}
+		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::B) {
+			//Test call prototype scene change
+		//managerPtr->BuildScene(SceneManager::TOWN);
+
+			//create a new encounterPtr every time this is called
+
+
+			//delete previous encounter
+			delete(encounterPtr);
+			//create new one
+			encounterPtr = new Bob();
+			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
+
+
+			managerPtr->BuildBattle(*encounterPtr);
+		}
+
+		//Time should pause here
+		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::P) {
+
+			if (!isPaused) isPaused = true;
+			else isPaused = false;
+		}
 	}
 }
 
@@ -106,6 +133,7 @@ void Test::Input(sf::RenderWindow& window) {
 // the time elapsed, and the speed.
 void Test::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
 	playerCharacter.update(dtAsSeconds);
+
 	// Set center of the camera to the player
 	view.setCenter(playerCharacter.position.x, playerCharacter.position.y);
 
@@ -132,6 +160,19 @@ void Test::Draw(sf::RenderWindow& r_Window){
 	r_Window.draw(m_BackgroundSprite);
 
 	r_Window.draw(playerCharacter.getSprite());
+
+
+	//should draw over all things on screen
+	if (isPaused) {
+		float setX = r_Window.getSize().x;
+		float setY = r_Window.getSize().y;
+
+		menu.setSize(sf::Vector2f(setX, setY / 2));
+		menu.setPosition(30, setY / 2);
+		//draw paused menu here
+
+		r_Window.draw(menu);
+	}
 
 	// Show everything we have just drawn
 	r_Window.display();

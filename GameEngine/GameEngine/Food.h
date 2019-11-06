@@ -7,16 +7,16 @@ class Food {
 
 public:
 
-	Food();
-
 	std::string creature;
-	int number; //Used to determine what stage of food this is
 
-	int strength;
-	int dexterity;
+	struct effects {
+		int strength;
+		int dexterity;
 
-	bool hasSkill;
-	
-	Skill* skill;
+		bool hasSkill;
+
+		Skill* skill;
+	};
+	effects amount[3];
 
 };

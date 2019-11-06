@@ -28,6 +28,10 @@ public:
 	SceneManager* managerPtr;
 
 	//Battle* battle;
+
+	//Paused menu 
+	sf::RectangleShape menu;
+
 };
 #endif //TEST_H
 

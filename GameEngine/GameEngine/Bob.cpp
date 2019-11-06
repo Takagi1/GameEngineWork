@@ -46,23 +46,15 @@ size_t Bob::GetSkillSize()
 void Bob::Run()
 {
 }
-Food Bob::GetFood1()
+Food Bob::GetFood()
 {
 	Food food;
 
 	food.creature = "Bob";
 
-	food.strength = 2;
+	food.amount[0].strength = 2;
 
 	return food;
-}
-Food Bob::GetFood2()
-{
-	return Food();
-}
-Food Bob::GetFood3()
-{
-	return Food();
 }
 	/*AI should figure out what it is going to do. for now make it simple
 	BasicAction(guide_);

@@ -12,6 +12,8 @@ class Food;
 class Blob : public Character
 {
 public:
+
+	//Used to keep track of what you have
 	struct count {
 		std::string creature_name = "";
 		int number_of_creatures = 0;
@@ -20,9 +22,29 @@ public:
 		int vector_location_3 = 0;
 	};
 
+	//used to store information about chomping
+	struct infoStorage {
+		int strength;
+
+		std::string skill_name = "No skill";
+	};
+
+	//used to store what is in the stomach
+	struct guts {
+		//image here
+		std::string name = ""; //name of creature
+	};
+
+
+
 	Blob(); //Constructor
 
-	std::vector<Food*> stomach; //Is used to determine what is in blobs stomach
+
+	std::forward_list<std::pair<std::pair<std::string, int> , infoStorage > > info; //first set is the creatures name, the pair is how many and the infoStorage is what you get at that amount
+
+
+	//stomach should contain the sprite of the creature and its name.  the stomach menu will output the sprites image and its name
+	std::vector<guts> stomach; //Is used to determine what is in blobs stomach
 
 	std::forward_list<count> stomachCount; //Used to determine how many copys of a creature do you have in your stomach
 
@@ -34,7 +56,7 @@ public:
 
 	virtual void AddSkill(Skill* skill) override; //Add a skill to the blob
 
-	void RemoveSkill(Skill* skill); //Remove skill from blob
+	void RemoveSkill(std::string name_); //Remove skill from blob
 
 	virtual size_t GetSkillSize() override; //Get the number of skill the blob has
 
