@@ -6,23 +6,6 @@ using namespace sf;
 class MapCharacter
 {
 
-private:
-
-	// Is left button pressed
-	bool m_LeftPressed;
-
-	// Is right button pressed
-	bool m_RightPressed;
-
-	// Is up button pressed
-	bool m_UpPressed;
-
-	// Is down button pressed
-	bool m_DownPressed;
-
-	//speed in pixels per second
-	float speed;
-
 public:
 
 	//Constructor
@@ -34,35 +17,14 @@ public:
 	//send copy of the sprite to main 
 	Sprite getSprite();
 
-	
 	Texture texture;
 	Sprite sprite;
 
-	// Player movement 
+//Movement 
 
-	// Move player left
-	void moveLeft();
+	std::pair<int, int> location;
 
-	// Move player right
-	void moveRight();
-
-	// Move player up
-	void moveUp();
-
-	// Move player down
-	void moveDown();
-
-	// Stop movement left
-	void stopLeft();
-
-	// Stop movement right
-	void stopRight();
-
-	// Stop movement up
-	void stopUp();
-
-	// Stop movement down
-	void stopDown();
+	void Move(int x, int y);
 
 	//Update
 	void update(float deltaTime);

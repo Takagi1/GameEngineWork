@@ -19,4 +19,6 @@ public:
 
 	void Draw(sf::RenderWindow& r_Window);
 
+	bool isMoveable = true; //Is this tile movable
+
 };

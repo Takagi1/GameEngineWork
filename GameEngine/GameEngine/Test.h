@@ -22,16 +22,24 @@ public:
 
 	MapCharacter playerCharacter;
 
-	//Pointers
+//Pointers for player and scene
 
 	Blob& playerPtr;
 	SceneManager* managerPtr;
 
-	//Battle* battle;
+	Tile map[5][5];
+
+//Menu info
 
 	//Paused menu 
 	sf::RectangleShape menu;
 
+	sf::Text stomachMenu;
+	sf::Text infoMenu;
+
+	scroll selectMenu;
+
+	MenuDisplay menuDisplay;
 };
 #endif //TEST_H
 
