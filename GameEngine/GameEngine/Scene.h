@@ -3,6 +3,7 @@
 #define SCENE_H
 #include <SFML\Graphics.hpp>
 #include "SceneManager.h"
+#include "Tile.h"
 #include "MapCharacter.h"
 #include <array>
 
@@ -10,7 +11,8 @@
 class Scene
 {
 public:
-	explicit Scene() {
+
+	Scene() {
 		font.loadFromFile("OpenSans-Light.ttf");
 	};
 
@@ -19,15 +21,17 @@ public:
 	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;
 	virtual void Input(sf::RenderWindow& window) = 0;
+
 	
 	sf::Font font;   // Declare and load a font
 
 	enum MenuDisplay
 	{
 		SELECT = 0,
-		STATUS
+		STATUS,
+		STOMACH,
+		INFO
 	};
-
 
 	struct scroll {
 		std::vector<sf::Text> options;
@@ -48,7 +52,14 @@ public:
 		};
 	};
 
+	//Might be a terrible way of orginizing the info
+	std::vector<Text> CreateInfoDisplay(); 
 
+	//Use to Quickly setup text
+	void SetupText(Text* text);
+
+
+	Blob *playerPtr;
 	//Things that must be included in inheriting scenes
 
 	// Declare a sprite and a Texture for the background

@@ -39,9 +39,7 @@ public:
 
 	Blob(); //Constructor
 
-
 	std::forward_list<std::pair<std::pair<std::string, int> , infoStorage > > info; //first set is the creatures name, the pair is how many and the infoStorage is what you get at that amount
-
 
 	//stomach should contain the sprite of the creature and its name.  the stomach menu will output the sprites image and its name
 	std::vector<guts> stomach; //Is used to determine what is in blobs stomach

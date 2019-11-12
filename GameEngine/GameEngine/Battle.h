@@ -7,7 +7,9 @@ class Battle : public Scene
 {
 
 public:
-	explicit Battle(Blob& blob_, Monster& monster_);
+	
+
+	explicit Battle(Blob *blob_, Monster& monster_);
 
 	enum CURRENT_MENU {
 		BLOB = 0,
@@ -52,7 +54,6 @@ public:
 
 	//The party, monster, and sceneManager
 
-	Blob& playerPtr;
 	Monster& monsterPtr;
 	SceneManager* managerPtr;
 };

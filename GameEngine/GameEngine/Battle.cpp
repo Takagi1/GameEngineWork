@@ -13,7 +13,9 @@ int skillOffset; //Used to scroll down the list of skills
 
 size_t number_of_skills;
 
-Battle::Battle(Blob& blob_, Monster& monster_) : playerPtr(blob_), monsterPtr(monster_){}
+Battle::Battle(Blob *blob_, Monster& monster_) :  monsterPtr(monster_){
+	playerPtr = blob_;
+}
 
 bool Battle::OnCreate(SceneManager * const & _transfer)
 {
@@ -25,7 +27,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	skillOffset = 0;
 
 	//Who goes first 
-	if (playerPtr.speed >= monsterPtr.speed)
+	if (playerPtr->speed >= monsterPtr.speed)
 	{
 		current_menu = BLOB;
 		first = 0;
@@ -52,7 +54,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	//Set up character sprite positions
 	sf::IntRect(50, 50, 50, 50); //This is a test 
 
-	playerPtr.setSpritePos(200, 400);
+	playerPtr->setSpritePos(200, 400);
 	monsterPtr.setSpritePos(600, 200);
 
 	//Set up the menu box
@@ -63,7 +65,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	font.loadFromFile("OpenSans-Light.ttf");
 
 	//Set up guide name display
-	characterName1.setString(playerPtr.name);
+	characterName1.setString(playerPtr->name);
 	characterName1.setFont(font);
 	characterName1.setCharacterSize(30);
 	characterName1.setStyle(sf::Text::Bold);
@@ -71,7 +73,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	characterName1.setPosition(200, 400);
 
 	//Set up Guide current health
-	healthDisplay1.setString(std::to_string(playerPtr.health) + " / " + std::to_string(playerPtr.maxHealth));
+	healthDisplay1.setString(std::to_string(playerPtr->health) + " / " + std::to_string(playerPtr->maxHealth));
 	healthDisplay1.setFont(font);
 	healthDisplay1.setCharacterSize(30);
 	healthDisplay1.setStyle(sf::Text::Bold);
@@ -169,12 +171,12 @@ void Battle::Input(sf::RenderWindow& r_Window)
 				{
 					//select attack
 					if (optionPointer == 0) {
-						playerPtr.Attack(monsterPtr);
+						playerPtr->Attack(monsterPtr);
 					}
 					//select skills
 					if (optionPointer == 1) {
 						current_menu = SKILL;
-						number_of_skills = playerPtr.GetSkillSize();
+						number_of_skills = playerPtr->GetSkillSize();
 					}
 					//select run
 					if (optionPointer == 2) {
@@ -247,7 +249,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			break;
 
 		case MONSTER:
-			monsterPtr.MonsterAction(playerPtr);
+			monsterPtr.MonsterAction(*playerPtr);
 			TurnComplete();
 			break;
 
@@ -308,7 +310,7 @@ void Battle::SkillDisplayChange() {
 	for (size_t i = 0; i < 4 || i < number_of_skills; i++)
 	{
 
-		skills[i].setString(playerPtr.skills[i + skillOffset]->name);
+		skills[i].setString(playerPtr->skills[i + skillOffset]->name);
 	}
 }
 
@@ -361,7 +363,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 
 	//Render all characters here 
 
-	r_Window.draw(playerPtr.getSprite());
+	r_Window.draw(playerPtr->getSprite());
 	r_Window.draw(monsterPtr.getSprite());
 
 	//add in test render for attack check.

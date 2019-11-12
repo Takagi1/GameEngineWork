@@ -17,7 +17,8 @@ public:
 
 	void SetLocation(int x, int y);
 
-	void Draw(sf::RenderWindow& r_Window);
+	//send copy of the sprite to main 
+	sf::Sprite getSprite();
 
 	bool isMoveable = true; //Is this tile movable
 

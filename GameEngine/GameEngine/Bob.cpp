@@ -33,7 +33,7 @@ void Bob::Attack(Character & target)
 {
 }
 
-void Bob::MonsterAction(Character & blob_)
+void Bob::MonsterAction(Character&  blob_)
 {
 }
 void Bob::AddSkill(Skill * skill)

@@ -8,8 +8,22 @@ Blob::Blob() {
 
 	name = "Blob";
 
+//Setup attributes
+	strength = 10;
+	dexterity = 10;
+	magic = 10;
+	vitality = 10;
+	defense = 10;
 	speed = 10;
 
+//Set health, maxhealth, energy, and maxenergy
+
+	maxHealth = vitality * 5;
+	health = maxHealth;
+
+	maxEnergy = 100;
+	energy = maxEnergy;
+	
 	setTexture("Robo.png");
 
 	setSprite();

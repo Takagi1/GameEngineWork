@@ -23,7 +23,7 @@ void Tile::SetLocation(int x, int y)
 	sprite.setPosition(x, y);
 }
 
-void Tile::Draw(sf::RenderWindow& r_Window)
+sf::Sprite Tile::getSprite()
 {
-	r_Window.draw(sprite);
+	return sprite;
 }

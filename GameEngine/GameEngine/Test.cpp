@@ -3,7 +3,6 @@
 #include "Debug.h"
 #include "Blob.h"
 #include "Bob.h"
-#include "Tile.h"
 
 Monster* encounterPtr;
 
@@ -11,7 +10,9 @@ bool isPaused = false;
 sf::Event inp;
 Tile map[25];
 
-Test::Test(Blob& player_) : playerPtr(player_){}
+Test::Test(Blob * player_) {
+	playerPtr = player_;
+}
 
 bool Test::OnCreate(SceneManager* const &_transfer) {
 
@@ -30,22 +31,30 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
+	m_BackgroundSprite.setPosition(100, 100);
+
 	//Set inital position
-	playerCharacter.location.operator=<0, 0>;
+	playerCharacter.location = std::make_pair(1, 1);
 
 
 //create full map here
 	
 	//for each tile in map set the scenes tile set and there location in space (remember center should be 50,50)
-	map[0][0].SetLocation(50,50);
-
-	map[0][1].SetLocation(50, 150);
-
-	map[0][2].SetLocation(50, 250);
-
-	map[0][3].SetLocation(50, 350);
-
-	map[0][4].SetLocation(50, 450);
+	
+	for (int i = 0; i > 5; i++) {
+		for (int j = 0; j > 5; j++) {
+			map[i][j].SetLocation(i * 100 + 50, j * 100 + 50);
+			map[i][j].SetTexture("background.png");
+			map[i][j].SetSprite();
+			if (i == 0) {
+				map[i][j].isMoveable = false;
+			}
+			else if (j == 0){
+				map[i][j].isMoveable = false;
+			}
+		}
+	}
+	//Shity thing is that 
 
 
 	//Set up Pointers
@@ -60,21 +69,19 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	sf::Text statusMenu;
 	selectMenu.options.push_back(statusMenu);
 	selectMenu.options[0].setString("Stats");
-	selectMenu.options[0].setFillColor(sf::Color::Red);
-	selectMenu.options[0].setFont(font);
-	selectMenu.options[0].setCharacterSize(30);
-	selectMenu.options[0].setStyle(sf::Text::Bold);
-	selectMenu.options[0].setOutlineColor(sf::Color::Blue);
+	SetupText(&selectMenu.options[0]);
 	selectMenu.options[0].setOutlineThickness(5);
+	
 
 	sf::Text stomachMenu;
 	selectMenu.options.push_back(stomachMenu);
 	selectMenu.options[1].setString("Stomach");
-	selectMenu.options[1].setFillColor(sf::Color::Red);
-	selectMenu.options[1].setFont(font);
-	selectMenu.options[1].setCharacterSize(30);
-	selectMenu.options[1].setStyle(sf::Text::Bold);
-	selectMenu.options[1].setOutlineColor(sf::Color::Blue);
+	SetupText(&selectMenu.options[1]);
+
+	sf:Text infoMenu;
+	selectMenu.options.push_back(infoMenu);
+	selectMenu.options[2].setString("Info");
+	SetupText(&selectMenu.options[2]);
 
 	return true;
 }
@@ -95,32 +102,41 @@ void Test::Input(sf::RenderWindow& r_Window) {
 			if (inp.type == sf::Event::KeyPressed) {
 				if (menuDisplay == SELECT) {
 					if (inp.key.code == sf::Keyboard::Right) {
-						if (selectMenu.menuPtr == 0) {
-							selectMenu.MenuScroll(-1);
-						}
-						else {
-							selectMenu.MenuScroll(1);
-						}
+						selectMenu.MenuScroll(1);	
 					}
 					if (inp.key.code == sf::Keyboard::Left) {
-						if (selectMenu.menuPtr == 2) {
-							selectMenu.MenuScroll(1);
+						selectMenu.MenuScroll(-1);
+					}
+					if (inp.key.code == sf::Keyboard::X) {
+						if (selectMenu.menuPtr == 0) {
+							//Status menu
+							//Should output players current stats and abilites
+
+							menuDisplay = STATUS;
 						}
-						else {
-							selectMenu.MenuScroll(-1);
+						else if (selectMenu.menuPtr == 1) {
+							//Stomach menu
+							//show side by side with image then name
+
+							menuDisplay = STOMACH;
+						}
+						else if (selectMenu.menuPtr == 2) {
+							//Info menu
+							//display info menu
+
+							menuDisplay = INFO;
 						}
 					}
 				}
+				
+
+				if (menuDisplay != SELECT) {
+					if (inp.key.code == sf::Keyboard::BackSpace)
+					{
+						menuDisplay = SELECT;
+					}
+				}
 			}
-
-			//Status menu
-			//Should output players current stats and abilites
-
-			//Stomach menu
-			//show side by side with image then name
-
-			//Info menu
-			//display infomenu
 		}
 
 		// handle things when not paused
@@ -129,7 +145,6 @@ void Test::Input(sf::RenderWindow& r_Window) {
 			//after movement rotate player to face the direction they are moveing
 			if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::A)
 			{
-				//map check here
 				if (map[playerCharacter.location.first - 1][playerCharacter.location.second].isMoveable) {
 					playerCharacter.Move(-1, 0);
 				}
@@ -144,16 +159,15 @@ void Test::Input(sf::RenderWindow& r_Window) {
 
 			if (Keyboard::isKeyPressed(Keyboard::W))
 			{
-				if (map[playerCharacter.location.first][playerCharacter.location.second + 1].isMoveable) {
-					playerCharacter.Move(0, 1);
+				if (map[playerCharacter.location.first][playerCharacter.location.second - 1].isMoveable) {
+					playerCharacter.Move(0, -1);
 				}
 			}
 
-
 			if (Keyboard::isKeyPressed(Keyboard::S))
 			{
-				if (map[playerCharacter.location.first][playerCharacter.location.second - 1].isMoveable) {
-					playerCharacter.Move(0, -1);
+				if (map[playerCharacter.location.first][playerCharacter.location.second + 1].isMoveable) {
+					playerCharacter.Move(0, 1);
 				}
 			}
 
@@ -182,6 +196,24 @@ void Test::Input(sf::RenderWindow& r_Window) {
 			else isPaused = false;
 		}
 	}
+}
+
+
+std::vector<Text> Test::CreateInfoDisplay()
+{
+	std::forward_list<std::string> strings;
+	std::vector<Text> text;
+	for (std::forward_list<std::pair<std::pair<std::string, int>, Blob::infoStorage > >::iterator its = playerPtr->info.begin(); its != playerPtr->info.end(); ++its) {
+		strings.push_front(its->first.first);
+	}
+	strings.unique();
+	for (std::forward_list<std::string>::iterator its = strings.begin(); its != strings.end(); ++its) {
+		Text tex;
+		tex.setString(*its);
+		text.push_back(tex);
+	}
+
+	return text;
 }
 
 // Move Bob based on the input this frame,
@@ -235,14 +267,39 @@ void Test::Draw(sf::RenderWindow& r_Window){
 
 		sf::Vector2f menuSize = menu.getPosition();
 
-		selectMenu.options[0].setPosition(menuSize.x + 10, menuSize.y + 25);
+		if (menuDisplay == SELECT) {
+			selectMenu.options[0].setPosition(menuSize.x + 10, menuSize.y + 25);
+			selectMenu.options[1].setPosition(menuSize.x + 10, menuSize.y + 60);
+			selectMenu.options[2].setPosition(menuSize.x + 10, menuSize.y + 100);
 
-		selectMenu.options[1].setPosition(menuSize.x + 10, menuSize.y + 60);
+			r_Window.draw(selectMenu.options[0]);
+			r_Window.draw(selectMenu.options[1]);
+			r_Window.draw(selectMenu.options[2]);
+		}
+		else if (menuDisplay == STATUS) {
+			//Display stats here
 
-		r_Window.draw(selectMenu.options[0]);
-		r_Window.draw(selectMenu.options[1]);
+			Text text;
+			SetupText(&text);
+			
+			int a = playerPtr->health;
+			
+			text.setString("Health: " + std::to_string(a) + " / " + std::to_string(playerPtr->maxHealth));
+			text.setPosition(menuSize.x + 10, menuSize.y + 30);
+			r_Window.draw(text);
 
+			text.setString("Strength: " + std::to_string(playerPtr->strength));
+			text.setPosition(menuSize.x + 10, menuSize.y + 60);
+			r_Window.draw(text);
+
+		}
+		else if (menuDisplay == INFO) {
+			scroll infoScroll;
+			infoScroll.options = CreateInfoDisplay();
+		}
 	}
+
+
 
 	// Show everything we have just drawn
 	r_Window.display();

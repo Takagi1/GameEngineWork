@@ -29,12 +29,12 @@ void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 	//int ti = &party->party.size;
 	switch (scene_) {
 	case TEST:
-		currentScene = new Test(blob);
+		currentScene = new Test(&blob);
 		currentScene->OnCreate(this);
 
 		break;
 	case TOWN:
-		currentScene = new Town(blob);
+		currentScene = new Town(&blob);
 		currentScene->OnCreate(this);
 		break;
 
@@ -59,7 +59,7 @@ void SceneManager::BuildBattle(Monster &_encouter) {
 	saveScene = currentScene;
 
 	//set current scene to battle
-	currentScene = new Battle(blob, _encouter);
+	currentScene = new Battle(&blob, _encouter);
 	currentScene->OnCreate(this);
 }
 

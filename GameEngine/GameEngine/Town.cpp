@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "Town.h"
 
-Town::Town(Blob& player_) : playerPtr(player_) {}
+
+
+Town::Town(Blob* player_) {
+	playerPtr = player_;
+}
 
 
 bool Town::OnCreate(SceneManager* const &_transfer) {
@@ -28,41 +32,7 @@ void Town::OnDestroy()
 void Town::Input(sf::RenderWindow& window) {
 
 	// Handle the player moving
-	if (Keyboard::isKeyPressed(Keyboard::A))
-	{
-		playerCharacter.moveLeft();
-	}
-	else
-	{
-		playerCharacter.stopLeft();
-	}
 
-	if (Keyboard::isKeyPressed(Keyboard::D))
-	{
-		playerCharacter.moveRight();
-	}
-	else
-	{
-		playerCharacter.stopRight();
-	}
-
-	if (Keyboard::isKeyPressed(Keyboard::W))
-	{
-		playerCharacter.moveUp();
-	}
-	else
-	{
-		playerCharacter.stopUp();
-	}
-
-	if (Keyboard::isKeyPressed(Keyboard::S))
-	{
-		playerCharacter.moveDown();
-	}
-	else
-	{
-		playerCharacter.stopDown();
-	}
 }
 
 // Move Bob based on the input this frame,
