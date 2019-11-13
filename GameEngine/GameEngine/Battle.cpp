@@ -45,6 +45,8 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 
 //Set up the visuals here
 
+	
+
 	//Get background texture
 	backgroundTexture.loadFromFile("background.png");
 
@@ -54,13 +56,13 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	//Set up character sprite positions
 	sf::IntRect(50, 50, 50, 50); //This is a test 
 
-	playerPtr->setSpritePos(200, 400);
-	monsterPtr.setSpritePos(600, 200);
+	playerPtr->setSpritePos(0, -200);
+	monsterPtr.setSpritePos(100, -200);
 
 	//Set up the menu box
 	menu.setOutlineColor(sf::Color::Red);
 	menu.setOutlineThickness(5);
-
+	
 	//Set font for text
 	font.loadFromFile("OpenSans-Light.ttf");
 
@@ -82,32 +84,19 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 
 	//Set up first option
 	options[0].setString("Attack");
-	options[0].setFont(font);
-	options[0].setCharacterSize(30);
-	options[0].setStyle(sf::Text::Bold);
-	options[0].setFillColor(sf::Color::Red);
-	options[0].setPosition(300, 500);
-	options[0].setOutlineColor(sf::Color::Blue);
+	SetupText(&options[0]);
+	options[0].setPosition(-300, 0);
 	options[0].setOutlineThickness(5);
-
 
 	//Set up skills
 	options[1].setString("Skill");
-	options[1].setFont(font);
-	options[1].setCharacterSize(30);
-	options[1].setStyle(sf::Text::Bold);
-	options[1].setFillColor(sf::Color::Red);
-	options[1].setPosition(500, 500);
-	options[1].setOutlineColor(sf::Color::Blue);
-
+	SetupText(&options[1]);
+	options[1].setPosition(-200, 0);
+	
 	//Set up run
 	options[2].setString("Run");
-	options[2].setFont(font);
-	options[2].setCharacterSize(30);
-	options[2].setStyle(sf::Text::Bold);
-	options[2].setFillColor(sf::Color::Red);
-	options[2].setPosition(700, 500);
-	options[2].setOutlineColor(sf::Color::Blue);
+	SetupText(&options[2]);
+	options[2].setPosition(-100, 0);
 
 	//Set up skill display
 	skills[0].setFont(font);
@@ -161,7 +150,6 @@ void Battle::Input(sf::RenderWindow& r_Window)
 	while (r_Window.pollEvent(input)) {
 		switch (current_menu)
 		{
-
 
 		//Guide inputs
 		case BLOB:
@@ -262,7 +250,8 @@ void Battle::Input(sf::RenderWindow& r_Window)
 	
 void Battle::Update(float dtAsSeconds, sf::RenderWindow& window, sf::View& view)
 {
-
+	//Reset the camera to 0
+	view.setCenter(0, 0);
 }
 
 
@@ -325,9 +314,9 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 	float setX = r_Window.getSize().x;
 	float setY = r_Window.getSize().y;
 
-	menu.setSize(sf::Vector2f(setX, setY/2));
-	menu.setPosition(0, setY / 2);
-
+	menu.setSize(sf::Vector2f(setX - 10, setY / 2));
+	menu.setPosition((setX/2)*-1 + 5, -10);
+	
 	r_Window.draw(menu);
 
 	switch (current_menu) {

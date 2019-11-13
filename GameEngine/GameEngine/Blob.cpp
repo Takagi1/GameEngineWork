@@ -2,7 +2,6 @@
 #include "Blob.h"
 #include "Food.h"
 
-
 Blob::Blob() {
 	stomach.resize(3); //Set inital stomach size
 
@@ -32,6 +31,7 @@ Blob::Blob() {
 void Blob::Attack(Character & target)
 {
 	//Put attack here
+	target.takeDamage(10);
 }
 
 void Blob::Run()
@@ -44,7 +44,6 @@ void Blob::Run()
 //what connects the two togheter?  
 
 //you could have a list of pictures that would be the creatueres
-//
 
 void Blob::Chomp(Food* food)
 {
@@ -109,8 +108,6 @@ void Blob::Chomp(Food* food)
 		stomachCount.push_front(note);
 	}
 
-
-
 	//For adding to info
 	for (std::forward_list<std::pair<std::pair<std::string, int>, infoStorage > >::iterator its = info.begin(); its != info.end(); ++its) {
 		//have you eaten this creature before?
@@ -171,7 +168,6 @@ void Blob::AddSkill(Skill* skill) {
 			}
 		}
 	}
-	
 }
 
 void Blob::RemoveSkill(std::string name_) {
@@ -197,10 +193,9 @@ void Blob::RemoveSkill(std::string name_) {
 			}
 		}
 	}
-
 }
+
 size_t Blob::GetSkillSize()
 {
-
 	return skills.size();
 }

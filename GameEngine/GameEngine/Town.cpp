@@ -7,7 +7,6 @@ Town::Town(Blob* player_) {
 	playerPtr = player_;
 }
 
-
 bool Town::OnCreate(SceneManager* const &_transfer) {
 
 	//is this a map scene?
@@ -44,17 +43,4 @@ void Town::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view)
 		//Test call prototype scene change
 		//currentScene = sceneManager.BuildScene(sceneManager.TEST);
 	}
-}
-
-void Town::Draw(sf::RenderWindow& r_Window) {
-
-	// Rub out the last frame
-	r_Window.clear(sf::Color::White);
-	// Draw the background
-	r_Window.draw(m_BackgroundSprite);
-
-	r_Window.draw(playerCharacter.getSprite());
-
-	// Show everything we have just drawn
-	r_Window.display();
 }
