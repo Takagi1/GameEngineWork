@@ -15,6 +15,7 @@ public:
 
 	Character* character; //Reference if needed to effect self
 	std::string name; //Name of ability
+	Element element; //Element of ability
 
 	virtual void Effect(Character& character) = 0;
 };

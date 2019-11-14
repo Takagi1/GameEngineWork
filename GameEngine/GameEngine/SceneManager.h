@@ -17,6 +17,8 @@ public:
 	SceneManager();
 
 	void ScenePtrSet(SceneManager* const &_sceneManager);
+
+	void Start();
 	Blob blob;
 
 	class Scene* currentScene;
@@ -34,6 +36,10 @@ public:
 	void callUpdate(float dtAsSeconds, sf::RenderWindow& window, sf::View& view);
 private:
 
+	// A regular RenderWindow
+	RenderWindow r_Window;
 
+	// For changing scene's
+	SceneManager* sceneManager;
 };
 #endif // !SCENEMANAGER_H

@@ -23,6 +23,15 @@ void Tile::SetLocation(int x, int y)
 	sprite.setPosition(x, y);
 }
 
+void Tile::CalledEffect()
+{
+
+}
+
+void Tile::TickEffect()
+{
+}
+
 sf::Sprite Tile::getSprite()
 {
 	return sprite;

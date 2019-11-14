@@ -41,7 +41,7 @@ void Character::setSpritePos(int x, int y) {
 	sprite.setPosition(x, y);
 }
 
-void Character::takeDamage(double damage)
+void Character::takeDamage(double damage, Element element_)
 {
 	damage = damage - defense;
 	if (damage <= 0) {

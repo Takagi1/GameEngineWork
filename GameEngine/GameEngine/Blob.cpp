@@ -31,7 +31,7 @@ Blob::Blob() {
 void Blob::Attack(Character & target)
 {
 	//Put attack here
-	target.takeDamage(10);
+	target.takeDamage(10, Element::Normal);
 }
 
 void Blob::Run()

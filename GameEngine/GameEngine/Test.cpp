@@ -168,6 +168,11 @@ void Test::Input(sf::RenderWindow& r_Window) {
 				}
 			}
 
+			if (Keyboard::isKeyPressed(Keyboard::X))
+			{
+				map[playerCharacter.location.first][playerCharacter.location.second].CalledEffect();
+			}
+
 		}
 		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::B) {
 			//Test call prototype scene change

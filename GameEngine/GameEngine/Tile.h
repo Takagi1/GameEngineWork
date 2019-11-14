@@ -17,8 +17,11 @@ public:
 
 	void SetLocation(int x, int y);
 
-	//send copy of the sprite to main 
-	sf::Sprite getSprite();
+	void CalledEffect(); //Player interact
+
+	void TickEffect(); //What happens every tick
+
+	sf::Sprite getSprite(); //send copy of the sprite to main 
 
 	bool isMoveable = true; //Is this tile movable
 

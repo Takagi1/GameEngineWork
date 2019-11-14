@@ -17,10 +17,6 @@ public:
 	sf::Sprite m_BackgroundSprite;
 	sf::Texture m_BackgroundTexture;
 
-	bool isMap;
-
-	MapCharacter playerCharacter;
-
 	//Pointers
 
 	SceneManager* managerPtr;

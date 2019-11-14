@@ -13,16 +13,7 @@
 
 Engine::Engine()
 {    
-	// Get the screen resolution and create an SFML window and View
-	Vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
-
-	//RenderWindow window
-
-	r_Window.create(VideoMode(1280, 720),
-		"Simple Game Engine",
-		Style::Default);
+	
 }
 
 

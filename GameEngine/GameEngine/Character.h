@@ -8,6 +8,14 @@
 //Forward decleration
 
 
+//Elemental type
+enum class Element
+{
+	Normal,
+	Fire,
+	Water
+};
+
 class Character
 {
 private:
@@ -49,6 +57,9 @@ public:
 
 	bool isDead = false; //Is Character dead?
 
+//Type resitances
+	//create reference that allow you to check how elements effect damage
+
 //Turn Start
 	void TurnStart(); //Used when turn starts
 
@@ -82,7 +93,7 @@ public:
 
 //Misc functions
 
-	void takeDamage(double damage);//Used to take damage
+	void takeDamage(double damage, Element element_);//Used to take damage
 };
 
 
