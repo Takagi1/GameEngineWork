@@ -76,8 +76,6 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		}
 	}
 
-
-
 	// Show everything we have just drawn
 	r_Window.display();
 }

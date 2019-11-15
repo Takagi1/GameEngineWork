@@ -5,19 +5,25 @@
 
 Bob::Bob()
 {
-	//Set attributes 
+	//Setup attributes
+	strength = 3;
+	dexterity = 3;
+	magic = 3;
+	vitality = 3;
+	defense = 3;
+	speed = 3;
 
-	strength = 1;
+	//Set elemental resistance
+	elementMod[Element::Normal] = 0;
+	elementMod[Element::Fire] = 0;
+	elementMod[Element::Water] = 0;
 
-	defense = 1;
-
-	//calculate max health
-	maxHealth = 28;
-
-	//set health to max
+	//Set health, maxhealth, energy, and maxenergy
+	maxHealth = vitality * 5;
 	health = maxHealth;
 
-	speed = 1;
+	maxEnergy = 100;
+	energy = maxEnergy;
 
 	//set exp value 
 	exp = 5;
@@ -31,21 +37,28 @@ Bob::Bob()
 
 void Bob::Attack(Character & target)
 {
+	int damage = 5;
+	target.takeDamage(5, Element::Normal);
 }
 
 void Bob::MonsterAction(Character&  blob_)
 {
+	Attack(blob_);
 }
+
 void Bob::AddSkill(Skill * skill)
 {
 }
+
 size_t Bob::GetSkillSize()
 {
 	return size_t();
 }
+
 void Bob::Run()
 {
 }
+
 Food Bob::GetFood()
 {
 	Food food;

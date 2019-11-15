@@ -15,6 +15,11 @@ Blob::Blob() {
 	defense = 10;
 	speed = 10;
 
+//Set elemental resistance
+	elementMod[Element::Normal] = 0;
+	elementMod[Element::Fire] = 0;
+	elementMod[Element::Water] = 0;
+
 //Set health, maxhealth, energy, and maxenergy
 
 	maxHealth = vitality * 5;

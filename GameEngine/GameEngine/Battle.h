@@ -8,13 +8,13 @@ class Battle : public Scene
 
 public:
 	
-
 	explicit Battle(Blob *blob_, Monster& monster_);
 
 	enum CURRENT_MENU {
 		BLOB = 0,
 		MONSTER,
-		SKILL
+		SKILL,
+		CHOMP
 	};
 
 	virtual bool OnCreate(SceneManager* const &_transfer) override;
@@ -46,11 +46,12 @@ public:
 	sf::Text characterName1;
 	sf::Text healthDisplay1;
 
-	std::array<sf::Text, 3> options; //For displaying main battle menu options
+	sf::Text text;
+
+	scroll optionsMenu; //For displaying main battle menu options
 	std::array<sf::Text, 5> skills; //For displaying skills
 
 	sf::RectangleShape menu;
-
 
 	//The party, monster, and sceneManager
 

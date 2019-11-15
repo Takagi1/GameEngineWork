@@ -33,7 +33,6 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	//Set inital position
 	playerCharacter.location = std::make_pair(1, 1);
 
-
 //create full map here
 	
 	//for each tile in map set the scenes tile set and there location in space (remember center should be 50,50)
@@ -52,7 +51,6 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 		}
 	}
 	//Shity thing is that 
-
 
 	//Set up Pointers
 
@@ -87,23 +85,28 @@ void Test::OnDestroy()
 {
 	//if (partyPtr) delete partyPtr;// , partyPtr = nullptr;
 
-	if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
+	//if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }
 
 void Test::Input(sf::RenderWindow& r_Window) {
 
 	while (r_Window.pollEvent(inp)) {
+
 		//Paused inputs 
 		if (isPaused) {
+
 			//Controls 
 			if (inp.type == sf::Event::KeyPressed) {
 				if (menuDisplay == SELECT) {
+
 					if (inp.key.code == sf::Keyboard::Right) {
 						selectMenu.MenuScroll(1);	
 					}
+
 					if (inp.key.code == sf::Keyboard::Left) {
 						selectMenu.MenuScroll(-1);
 					}
+
 					if (inp.key.code == sf::Keyboard::X) {
 						if (selectMenu.menuPtr == 0) {
 							//Status menu
@@ -126,7 +129,6 @@ void Test::Input(sf::RenderWindow& r_Window) {
 					}
 				}
 				
-
 				if (menuDisplay != SELECT) {
 					if (inp.key.code == sf::Keyboard::BackSpace)
 					{
@@ -172,7 +174,6 @@ void Test::Input(sf::RenderWindow& r_Window) {
 			{
 				map[playerCharacter.location.first][playerCharacter.location.second].CalledEffect();
 			}
-
 		}
 		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::B) {
 			//Test call prototype scene change
@@ -180,13 +181,11 @@ void Test::Input(sf::RenderWindow& r_Window) {
 
 			//create a new encounterPtr every time this is called
 
-
 			//delete previous encounter
 			delete(encounterPtr);
 			//create new one
 			encounterPtr = new Bob();
 			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
-
 
 			managerPtr->BuildBattle(*encounterPtr);
 		}
@@ -204,11 +203,14 @@ void Test::Input(sf::RenderWindow& r_Window) {
 std::vector<Text> Test::CreateInfoDisplay()
 {
 	std::forward_list<std::string> strings;
+
 	std::vector<Text> text;
 	for (std::forward_list<std::pair<std::pair<std::string, int>, Blob::infoStorage > >::iterator its = playerPtr->info.begin(); its != playerPtr->info.end(); ++its) {
 		strings.push_front(its->first.first);
 	}
+
 	strings.unique();
+
 	for (std::forward_list<std::string>::iterator its = strings.begin(); its != strings.end(); ++its) {
 		Text tex;
 		tex.setString(*its);

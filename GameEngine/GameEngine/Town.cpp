@@ -9,9 +9,6 @@ Town::Town(Blob* player_) {
 
 bool Town::OnCreate(SceneManager* const &_transfer) {
 
-	//is this a map scene?
-	isMap = true;
-
 	//get background texture
 	m_BackgroundTexture.loadFromFile("background.png");
 

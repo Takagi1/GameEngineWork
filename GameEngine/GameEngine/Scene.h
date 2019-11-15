@@ -4,9 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include "SceneManager.h"
 #include "Tile.h"
-#include "MapCharacter.h"
 #include <array>
-
 
 class Scene
 {
@@ -57,7 +55,6 @@ public:
 
 	//Use to Quickly setup text
 	void SetupText(Text* text);
-
 
 	Blob *playerPtr;
 	//Things that must be included in inheriting scenes

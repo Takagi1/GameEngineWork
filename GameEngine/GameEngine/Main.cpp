@@ -2,7 +2,7 @@
 //
 
 #include "pch.h"
-#include "Engine.h"
+#include "SceneManager.h"
 #include "Debug.h"
 
 
@@ -12,11 +12,11 @@ int main()
 	Debug::DebugInit(name + "_Log");
 	Debug::Info("Starting the Engine", __FILE__, __LINE__);
 
-	// Declare an instance of Engine
-	Engine engine;
+	// Declare an instance of SceneManger
+	SceneManager sceneManager;
 
 	// Start the engine
-	engine.start();
+	sceneManager.Start();
 	
 	getchar();
 	// Quit the game

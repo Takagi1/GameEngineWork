@@ -8,14 +8,6 @@
 //Forward decleration
 
 
-//Elemental type
-enum class Element
-{
-	Normal,
-	Fire,
-	Water
-};
-
 class Character
 {
 private:
@@ -54,11 +46,12 @@ public:
 
 	int energy = 100; //Characters current energy
 	int maxEnergy = 100; //Characters max Energy
-
+	
 	bool isDead = false; //Is Character dead?
 
 //Type resitances
 	//create reference that allow you to check how elements effect damage
+	std::map<Element, int> elementMod;
 
 //Turn Start
 	void TurnStart(); //Used when turn starts

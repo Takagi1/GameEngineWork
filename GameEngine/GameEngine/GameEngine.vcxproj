@@ -166,7 +166,6 @@
     <ClInclude Include="Bob.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="Engine.h" />
     <ClInclude Include="Blob.h" />
     <ClInclude Include="Fire1.h" />
     <ClInclude Include="Food.h" />
@@ -189,7 +188,6 @@
     <ClCompile Include="Bob.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Fire1.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />

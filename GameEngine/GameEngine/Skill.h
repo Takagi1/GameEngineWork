@@ -5,6 +5,15 @@
 
 class Character;
 
+
+//Elemental type
+enum class Element
+{
+	Normal,
+	Fire,
+	Water
+};
+
 class Skill {
 
 public:

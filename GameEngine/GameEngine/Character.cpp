@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Character.h"
-#include "Skill.h"
 
 void Character::TurnStart()
 {
@@ -44,20 +43,39 @@ void Character::setSpritePos(int x, int y) {
 void Character::takeDamage(double damage, Element element_)
 {
 	damage = damage - defense;
+
 	if (damage <= 0) {
 		damage = 0;
 	}
+
+	std::map<Element, int>::iterator its;
+	
 	//get random
 	int random = rand() % 51 + 50;
 
 	float randomFloat = random / 100.0f;
 
-	health -= ceil((damage - defense)  * randomFloat);
+	//Get characters elemental resistance
+	its = elementMod.find(element_);
+
+//Element resistance modifications
+
+	if (its->second == 2) {
+		//Immunity Message?
+	}
+	else {
+		randomFloat -= its->second * 50;
+		if (randomFloat <= 0) {
+			health -= 1;
+		}
+		else {
+			health -= ceil(damage * randomFloat);
+		}
+	}
 
 	//Handles character death
 	if (health <= 0) {
 		health = 0;
 		isDead = true;
-
 	}
 }

@@ -3,6 +3,7 @@
 #define SCENEMANAGER_H
 #include "Blob.h"
 #include "Monster.h"
+#include "MapCharacter.h"
 
 class SceneManager {
 public:
@@ -14,15 +15,12 @@ public:
 	};
 	
 	//Constructor
-	SceneManager();
+	SceneManager(); //Constructor
+	void Start(); //Start game
 
-	void ScenePtrSet(SceneManager* const &_sceneManager);
-
-	void Start();
 	Blob blob;
 
 	class Scene* currentScene;
-	SceneManager* managerPtr;
 
 	class Scene* saveScene;
 
@@ -32,10 +30,8 @@ public:
 	//return to scene after battle
 	void endBattle();
 
-	//call current scene update
-	void callUpdate(float dtAsSeconds, sf::RenderWindow& window, sf::View& view);
-private:
 
+private:
 	// A regular RenderWindow
 	RenderWindow r_Window;
 

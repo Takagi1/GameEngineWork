@@ -6,9 +6,10 @@
 //for inputs
 sf::Event input;
 
-int optionPointer; //Used to determine what is being pointed at on the first menu, 0 is first, 1 is second, 2 is third(is always skills)
+//For keeping track of menu pointers (might be better method of keeping track off it)
 
 int skillPointer; //Used to indicate what skill your pointing at
+
 int skillOffset; //Used to scroll down the list of skills
 
 size_t number_of_skills;
@@ -21,7 +22,6 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 {
 	//Set up variables
 	turn = 0;
-	optionPointer = 0;
 	number_of_skills = 0;
 	skillPointer = 0;
 	skillOffset = 0;
@@ -68,35 +68,34 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 
 	//Set up guide name display
 	characterName1.setString(playerPtr->name);
-	characterName1.setFont(font);
-	characterName1.setCharacterSize(30);
-	characterName1.setStyle(sf::Text::Bold);
-	characterName1.setFillColor(sf::Color::Black);
-	characterName1.setPosition(200, 400);
+	SetupText(&characterName1);
+	characterName1.setPosition(200, 100);
 
 	//Set up Guide current health
 	healthDisplay1.setString(std::to_string(playerPtr->health) + " / " + std::to_string(playerPtr->maxHealth));
-	healthDisplay1.setFont(font);
-	healthDisplay1.setCharacterSize(30);
-	healthDisplay1.setStyle(sf::Text::Bold);
-	healthDisplay1.setFillColor(sf::Color::Black);
-	healthDisplay1.setPosition(200, 450);
+	SetupText(&healthDisplay1);
+	healthDisplay1.setPosition(200, 150);
+
+	//Setup disposible textset
+	SetupText(&text);
 
 	//Set up first option
-	options[0].setString("Attack");
-	SetupText(&options[0]);
-	options[0].setPosition(-300, 0);
-	options[0].setOutlineThickness(5);
+	text.setString("Attack");
+	text.setPosition(-300, 0);
+	text.setOutlineThickness(5);
+	optionsMenu.options.push_back(text);
 
 	//Set up skills
-	options[1].setString("Skill");
-	SetupText(&options[1]);
-	options[1].setPosition(-200, 0);
+	text.setString("Skill");
+	text.setPosition(-200, 0);
+	text.setOutlineThickness(0);
+	optionsMenu.options.push_back(text);
 	
 	//Set up run
-	options[2].setString("Run");
-	SetupText(&options[2]);
-	options[2].setPosition(-100, 0);
+	text.setString("Run");
+	text.setPosition(-100, 0);
+	text.setOutlineThickness(0);
+	optionsMenu.options.push_back(text);
 
 	//Set up skill display
 	skills[0].setFont(font);
@@ -153,44 +152,30 @@ void Battle::Input(sf::RenderWindow& r_Window)
 
 		//Guide inputs
 		case BLOB:
-
 			if (input.type == sf::Event::KeyPressed) {
 				if (input.key.code == sf::Keyboard::X)
 				{
 					//select attack
-					if (optionPointer == 0) {
+					if (optionsMenu.menuPtr == 0) {
 						playerPtr->Attack(monsterPtr);
+						TurnComplete();
 					}
 					//select skills
-					if (optionPointer == 1) {
+					if (optionsMenu.menuPtr == 1) {
 						current_menu = SKILL;
 						number_of_skills = playerPtr->GetSkillSize();
 					}
 					//select run
-					if (optionPointer == 2) {
+					if (optionsMenu.menuPtr == 2) {
 						//Run option here
 					}
 				}
 				else if (input.key.code == sf::Keyboard::Left) {
-					if (optionPointer == 0) {
-						optionPointer = 2;
-						SwitchOutline(options[0], options[2]);
-					} 
-					else {
-						SwitchOutline(options[optionPointer], options[optionPointer-1]);
-						optionPointer -= 1;
-					}
+					optionsMenu.MenuScroll(-1);
 				}
 
 				else if (input.key.code == sf::Keyboard::Right) {
-					if (optionPointer == 2) {
-						optionPointer = 0;
-						SwitchOutline(options[2], options[0]);
-					}
-					else {
-						SwitchOutline(options[optionPointer], options[optionPointer + 1]);
-						optionPointer += 1;
-					}
+					optionsMenu.MenuScroll(1);
 				}
 			}
 
@@ -233,7 +218,6 @@ void Battle::Input(sf::RenderWindow& r_Window)
 					}
 				}
 			}
-
 			break;
 
 		case MONSTER:
@@ -241,6 +225,21 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			TurnComplete();
 			break;
 
+		case CHOMP:
+
+			if (input.type == sf::Event::KeyPressed) {
+				
+				if (input.key.code == sf::Keyboard::Left) {
+
+
+				}
+				
+				if (input.key.code == sf::Keyboard::Left) {
+
+				}
+			}
+
+			break;
 		default:
 			//error here
 			break;
@@ -264,7 +263,8 @@ void Battle::SwitchOutline(sf::Text& current, sf::Text& selected)
 void Battle::TurnComplete() {
 	//test for battle resolution
 	if (monsterPtr.isDead) {
-		managerPtr->endBattle();
+		current_menu == CHOMP;
+		//managerPtr->endBattle();
 	}
 
 	//check if all champions are dead
@@ -285,14 +285,14 @@ void Battle::TurnComplete() {
 
 
 	//reset options if they were invalid
-	if (options[0].getFillColor() == sf::Color::Black) options[0].setFillColor(sf::Color::Red);
-	if (options[1].getFillColor() == sf::Color::Black) options[1].setFillColor(sf::Color::Red);
+	//if (optionsMenu.options[0].getFillColor() == sf::Color::Black) optionsMenu.options[0].setFillColor(sf::Color::Red);
+	//if (optionsMenu.options[1].getFillColor() == sf::Color::Black) optionsMenu.options[1].setFillColor(sf::Color::Red);
 
 	//reset menu pointers 
-	optionPointer = 0;
-	options[0].setOutlineThickness(5);
-	options[1].setOutlineThickness(0);
-	options[2].setOutlineThickness(0);
+	optionsMenu.menuPtr = 0;
+	optionsMenu.options[0].setOutlineThickness(5);
+	optionsMenu.options[1].setOutlineThickness(0);
+	optionsMenu.options[2].setOutlineThickness(0);
 }
 
 void Battle::SkillDisplayChange() {
@@ -325,9 +325,9 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 		r_Window.draw(characterName1);
 		r_Window.draw(healthDisplay1);
 
-		r_Window.draw(options[0]);
-		r_Window.draw(options[1]);
-		r_Window.draw(options[2]);
+		r_Window.draw(optionsMenu.options[0]);
+		r_Window.draw(optionsMenu.options[1]);
+		r_Window.draw(optionsMenu.options[2]);
 
 		break;  
 
@@ -343,6 +343,19 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 
 		break;
 
+	case CHOMP:
+
+		SetupText(&text);
+		text.setPosition(-100, -100);
+		text.setString("Chomp");
+		r_Window.draw(text);
+
+		text.setPosition(0, -100);
+		text.setString("Kill");
+
+		r_Window.draw(text);
+
+		break;
 	default:
 
 		//put error here
