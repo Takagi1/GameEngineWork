@@ -2,9 +2,12 @@
 #include "Bob.h"
 #include "Blob.h"
 #include "Food.h"
+#include "Fire1.h"
 
 Bob::Bob()
 {
+	name = "Bob";
+
 	//Setup attributes
 	strength = 3;
 	dexterity = 3;
@@ -25,9 +28,6 @@ Bob::Bob()
 	maxEnergy = 100;
 	energy = maxEnergy;
 
-	//set exp value 
-	exp = 5;
-
 	//get background texture
 	setTexture("Choas.png");
 
@@ -35,13 +35,13 @@ Bob::Bob()
 	setSprite();
 }
 
-void Bob::Attack(Character & target)
+void Bob::Attack(Character * target)
 {
 	int damage = 5;
-	target.takeDamage(5, Element::Normal);
+	target->takeDamage(5, Element::Normal);
 }
 
-void Bob::MonsterAction(Character&  blob_)
+void Bob::MonsterAction(Character *  blob_)
 {
 	Attack(blob_);
 }
@@ -59,13 +59,22 @@ void Bob::Run()
 {
 }
 
-Food Bob::GetFood()
+Food* Bob::GetFood()
 {
-	Food food;
+	Food* food = new Food();
 
-	food.creature = "Bob";
+	food->creature = "Bob";
 
-	food.amount[0].strength = 2;
+	food->amount[0].strength = 2;
+	food->amount[0].dexterity = 1;
+	food->amount[0].hasSkill = true;
+	food->amount[0].skill = new Fire1();
+
+	food->amount[1].strength = 4;
+	food->amount[1].dexterity = 2;
+
+	food->amount[2].strength = 6;
+	food->amount[2].dexterity = 3;
 
 	return food;
 }

@@ -4,6 +4,7 @@
 class Fire1 : public Skill {
 public:
 
-	Fire1(Character* self, std::string name_);
-	virtual void Effect(Character* character_);
+	Fire1();
+
+	virtual void Effect(Character* character_) override;
 };

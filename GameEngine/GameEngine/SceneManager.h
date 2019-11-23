@@ -25,11 +25,10 @@ public:
 	class Scene* saveScene;
 
 	void BuildScene(SCENE_NUMBER scene_);
-	void BuildBattle(Monster& _encouter);
+	void BuildBattle(Monster* _encouter);
 
 	//return to scene after battle
 	void endBattle();
-
 
 private:
 	// A regular RenderWindow

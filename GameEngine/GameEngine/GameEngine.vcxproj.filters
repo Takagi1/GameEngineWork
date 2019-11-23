@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Monsters">
       <UniqueIdentifier>{7960dd80-30f3-48f1-b1eb-fd0f8146bce1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Status effects">
+      <UniqueIdentifier>{4db41b35-2016-49b4-b0b6-7f0df33e3b54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Status effects">
+      <UniqueIdentifier>{f21ca8ed-16e1-420a-8801-c4ded9b10aab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -63,9 +69,6 @@
     <ClInclude Include="MonList.h">
       <Filter>Header Files\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="StatusEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Blob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files\Scene%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusEffect.h">
+      <Filter>Header Files\Status effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Burn.h">
+      <Filter>Header Files\Status effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +125,6 @@
     <ClCompile Include="Battle.cpp">
       <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
-    <ClCompile Include="StatusEffect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -139,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Scene%27s</Filter>
+    </ClCompile>
+    <ClCompile Include="Burn.cpp">
+      <Filter>Source Files\Status effects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

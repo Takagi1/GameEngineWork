@@ -108,7 +108,7 @@ void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 }
 
 //Transition to battle
-void SceneManager::BuildBattle(Monster &_encouter) {
+void SceneManager::BuildBattle(Monster *_encouter) {
 	//save the current scene 
 	saveScene = currentScene;
 

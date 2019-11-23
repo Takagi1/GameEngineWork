@@ -24,7 +24,9 @@ public:
 
 	//used to store information about chomping
 	struct infoStorage {
-		int strength;
+		int strength = 0;
+		int dexterity = 0;
+		int magic = 0;
 
 		std::string skill_name = "No skill";
 	};
@@ -36,8 +38,9 @@ public:
 	};
 
 
-
 	Blob(); //Constructor
+
+//Containers
 
 	std::forward_list<std::pair<std::pair<std::string, int> , infoStorage > > info; //first set is the creatures name, the pair is how many and the infoStorage is what you get at that amount
 
@@ -47,6 +50,10 @@ public:
 	std::forward_list<count> stomachCount; //Used to determine how many copys of a creature do you have in your stomach
 
 	std::forward_list<std::pair<std::string, int>> skill_names; //list of skills that blob has, use with add skill to make change skill during level
+
+//Fuctions
+
+
 
 	void Chomp(Food* food);
 
@@ -58,7 +65,7 @@ public:
 
 	virtual size_t GetSkillSize() override; //Get the number of skill the blob has
 
-	virtual void Attack(Character& target) override; //Characters basic attack
+	virtual void Attack(Character* target) override; //Characters basic attack
 
 	virtual void Run() override; //Run from battle
 };

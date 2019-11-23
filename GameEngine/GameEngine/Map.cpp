@@ -31,13 +31,13 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		sf::Vector2f menuSize = menu.getPosition();
 
 		if (menuDisplay == SELECT) {
-			selectMenu.options[0].setPosition(menuSize.x + 10, menuSize.y + 25);
-			selectMenu.options[1].setPosition(menuSize.x + 10, menuSize.y + 60);
-			selectMenu.options[2].setPosition(menuSize.x + 10, menuSize.y + 100);
+			selectMenu.display[0].setPosition(menuSize.x + 10, menuSize.y + 25);
+			selectMenu.display[1].setPosition(menuSize.x + 10, menuSize.y + 60);
+			selectMenu.display[2].setPosition(menuSize.x + 10, menuSize.y + 100);
 
-			r_Window.draw(selectMenu.options[0]);
-			r_Window.draw(selectMenu.options[1]);
-			r_Window.draw(selectMenu.options[2]);
+			r_Window.draw(selectMenu.display[0]);
+			r_Window.draw(selectMenu.display[1]);
+			r_Window.draw(selectMenu.display[2]);
 		}
 		else if (menuDisplay == STATUS) {
 			//Display stats here

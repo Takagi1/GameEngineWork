@@ -1,15 +1,18 @@
 #pragma once
 
+//Forward Decleration
+
+class Character;
+
 class StatusEffect {
 public:
 
-	int timeLeft;
-	bool& status;
+	int timeLeft; //How long will the effect last?
 
-	StatusEffect(int timeLeft_ , bool& status_);
-	//~StatEffect();
+	bool isActive; //Does this skill effect trigger somthing every turn?
 
-	void StatusTick();
+	virtual void InflictEffect(Character* target_) = 0;
 
+	virtual void RemoveEffect(Character* target_) = 0;
 
 };

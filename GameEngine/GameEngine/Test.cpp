@@ -61,22 +61,18 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	menu.setOutlineColor(sf::Color::Red);
 	menu.setOutlineThickness(5);
 
-	sf::Text statusMenu;
-	selectMenu.options.push_back(statusMenu);
-	selectMenu.options[0].setString("Stats");
-	SetupText(&selectMenu.options[0]);
-	selectMenu.options[0].setOutlineThickness(5);
-	
+	sf::Text text;
+	SetupText(&text);
+	text.setString("Stats");
+	text.setOutlineThickness(5);
+	selectMenu.AddText(text,0);
 
-	sf::Text stomachMenu;
-	selectMenu.options.push_back(stomachMenu);
-	selectMenu.options[1].setString("Stomach");
-	SetupText(&selectMenu.options[1]);
+	text.setString("Stomach");
+	text.setOutlineThickness(0);
+	selectMenu.AddText(text,1);
 
-	sf:Text infoMenu;
-	selectMenu.options.push_back(infoMenu);
-	selectMenu.options[2].setString("Info");
-	SetupText(&selectMenu.options[2]);
+	text.setString("Info");
+	selectMenu.AddText(text,2);
 
 	return true;
 }
@@ -187,7 +183,7 @@ void Test::Input(sf::RenderWindow& r_Window) {
 			encounterPtr = new Bob();
 			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
 
-			managerPtr->BuildBattle(*encounterPtr);
+			managerPtr->BuildBattle(encounterPtr);
 		}
 
 		//Time should pause here

@@ -8,7 +8,7 @@ class Battle : public Scene
 
 public:
 	
-	explicit Battle(Blob *blob_, Monster& monster_);
+	explicit Battle(Blob *blob_, Monster* monster_);
 
 	enum CURRENT_MENU {
 		BLOB = 0,
@@ -40,21 +40,25 @@ public:
 
 	sf::Font font; // Declare and load a font
 
-	sf::Text characterName0;
-	sf::Text healthDisplay0;
+	sf::Text playerName;
+	sf::Text playerHealthDisplay;
+	sf::Text playerEnergyDisplay;
 
-	sf::Text characterName1;
-	sf::Text healthDisplay1;
+	sf::Text monsterName;
+	sf::Text monsterHealthDisplay;
+	sf::Text monsterEnergyDisplay;
 
 	sf::Text text;
 
 	scroll optionsMenu; //For displaying main battle menu options
-	std::array<sf::Text, 5> skills; //For displaying skills
+	scroll chompMenu;
+	scroll skills;
+	//std::array<sf::Text, 5> skills; //For displaying skills
 
 	sf::RectangleShape menu;
 
 	//The party, monster, and sceneManager
 
-	Monster& monsterPtr;
+	Monster* monsterPtr;
 	SceneManager* managerPtr;
 };

@@ -14,9 +14,9 @@ public:
 	//Constructor
 	Bob();
 
-	virtual void Attack(Character& target) override;
+	virtual void Attack(Character* target) override;
 
-	virtual void MonsterAction(Character& blob_) override;  //Basic ai
+	virtual void MonsterAction(Character* blob_) override;  //Basic ai
 
-	virtual Food GetFood() override;
+	virtual Food* GetFood() override;
 };

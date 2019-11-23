@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Blob.h"
 #include "Food.h"
+#include "Burn.h"
 
 Blob::Blob() {
 	stomach.resize(3); //Set inital stomach size
@@ -33,10 +34,10 @@ Blob::Blob() {
 	setSprite();
 }
 
-void Blob::Attack(Character & target)
+void Blob::Attack(Character * target)
 {
 	//Put attack here
-	target.takeDamage(10, Element::Normal);
+	target->takeDamage(10, Element::Normal);
 }
 
 void Blob::Run()
@@ -58,7 +59,7 @@ void Blob::Chomp(Food* food)
 
 	bool doesExist = false; //Does this creature already exist?
 	int infoSearch = 0; //How many creatures are in the stomach now?
-
+	
 	for (std::forward_list<count>::iterator its = stomachCount.begin(); its != stomachCount.end(); ++its) {
 		if (its->creature_name == food->creature) {
 			doesExist = true;
@@ -67,6 +68,7 @@ void Blob::Chomp(Food* food)
 				//add stats from food one
 
 				strength += food->amount[1].strength;
+				dexterity += food->amount[1].dexterity;
 				if (food->amount[1].hasSkill) {
 					AddSkill(food->amount[1].skill);
 				}
@@ -79,6 +81,7 @@ void Blob::Chomp(Food* food)
 				//add stats from food one
 
 				strength += food->amount[2].strength;
+				dexterity += food->amount[2].dexterity;
 				if (food->amount[2].hasSkill) {
 					AddSkill(food->amount[2].skill);
 				}
@@ -99,6 +102,7 @@ void Blob::Chomp(Food* food)
 		//add stats from food one
 
 		strength += food->amount[0].strength;
+		dexterity += food->amount[0].dexterity;
 		if (food->amount[0].hasSkill) {
 			AddSkill(food->amount[0].skill);
 		}
@@ -121,6 +125,7 @@ void Blob::Chomp(Food* food)
 		if (its->first != std::make_pair(food->creature, infoSearch)) {
 			infoStorage store;
 			store.strength = food->amount[infoSearch - 1].strength;
+			store.dexterity = food->amount[infoSearch - 1].dexterity;
 			info.push_front(std::make_pair(std::make_pair(food->creature, infoSearch), store));
 		}
 	}

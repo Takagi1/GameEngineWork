@@ -3,18 +3,29 @@
 
 void Character::TurnStart()
 {
-	for (std::forward_list<StatusEffect>::iterator itCondition = conditions.begin(); itCondition != conditions.end(); ++itCondition) {
-		itCondition->StatusTick();
-		//conditions.remove_if(itCondition->timeLeft == 0);
+	//Tick down a turn
+	for (std::forward_list<StatusEffect*>::iterator itCondition = conditions.begin(); itCondition != conditions.end(); ++itCondition) {
+		if (itCondition._Ptr->_Myval->isActive) {
+			itCondition._Ptr->_Myval->InflictEffect(this);
+		}
+
+		itCondition._Ptr->_Myval->timeLeft -= 1;
+		if (itCondition._Ptr->_Myval->timeLeft == 0) {
+			itCondition._Ptr->_Myval->RemoveEffect(this);
+		}
+
+		//Remove if done 
+		conditions.remove(itCondition._Ptr->_Myval);
 	}
 }
 
-void Character::InflictStatus(StatusEffect effect)
+//Use to inflict staus effects to characters
+void Character::InflictStatus(StatusEffect* effect)
 {
 	conditions.push_front(effect);
 }
 
-void Character::CallSkill(Character& target, int skill_number)
+void Character::CallSkill(Character* target, int skill_number)
 {
 	skills[skill_number]->Effect(target);
 }
@@ -44,34 +55,32 @@ void Character::takeDamage(double damage, Element element_)
 {
 	damage = damage - defense;
 
-	if (damage <= 0) {
-		damage = 0;
-	}
-
 	std::map<Element, int>::iterator its;
-	
-	//get random
-	int random = rand() % 51 + 50;
-
-	float randomFloat = random / 100.0f;
 
 	//Get characters elemental resistance
 	its = elementMod.find(element_);
-
-//Element resistance modifications
+	
+	//Element resistance modifications
 
 	if (its->second == 2) {
 		//Immunity Message?
 	}
 	else {
-		randomFloat -= its->second * 50;
-		if (randomFloat <= 0) {
-			health -= 1;
-		}
-		else {
-			health -= ceil(damage * randomFloat);
-		}
+		damage -= its->second * 50;	
 	}
+	
+	if (damage <= 0) {
+		damage = 1;
+	}
+	else {
+		//get random
+		int random = rand() % 51 + 50;
+
+		float randomFloat = random / 100.0f;
+		damage = ceil(damage * randomFloat);
+	}
+
+	health -= damage;
 
 	//Handles character death
 	if (health <= 0) {

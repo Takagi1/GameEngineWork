@@ -10,4 +10,5 @@
 #define PCH_H
 
 // TODO: add headers that you want to pre-compile here
+#include "SFML/Graphics.hpp"
 #endif //PCH_H

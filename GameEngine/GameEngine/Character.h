@@ -20,10 +20,6 @@ public:
 
 //Blob only variables and functions
 
-	int level = 0; //Character current level
-	int exp = 0; //Current exp
-	int expNext = 10; //Exp to next level
-
 	virtual void AddSkill(Skill* skill) = 0; //Add a skill to the blob
 
 	virtual size_t GetSkillSize() = 0; //Get the number of skill the blob has
@@ -58,9 +54,9 @@ public:
 
 //Status Effects
 
-	std::forward_list<StatusEffect> conditions; //Status effects on character
+	std::forward_list<StatusEffect*> conditions; //Status effects on character
 
-	void InflictStatus(StatusEffect effect); //Use to inflict status effect on character
+	void InflictStatus(StatusEffect* effect); //Use to inflict status effect on character
 
 	bool stuck = false; //Will stop the character from moveing
 
@@ -70,9 +66,9 @@ public:
 
 //Menu options
 
-	virtual void Attack(Character& target) = 0; //Characters basic attack
+	virtual void Attack(Character* target) = 0; //Characters basic attack
 
-	void CallSkill(Character& target, int skill_number); //Use skills if you have any 
+	void CallSkill(Character* target, int skill_number); //Use skills if you have any 
 
 //Drawing Functions
 
