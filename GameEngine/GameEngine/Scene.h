@@ -19,7 +19,6 @@ public:
 	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;
 	virtual void Input(sf::RenderWindow& window) = 0;
-
 	
 	sf::Font font;   // Declare and load a font
 
@@ -32,19 +31,21 @@ public:
 	};
 	
 	struct scroll {
-		std::vector<String> options;
+		std::vector<std::string> options;
 		std::vector<sf::Text> display;
 		int menuPtr = 0;
 		int menuOffset = 0;
 		int maxOffset = 0;
 
-		void AddOptions(String name) {
+		void AddOptions(std::string name) {
 			options.push_back(name);
 			if (options.size() > 5) {
 				maxOffset = options.size() - 5;
 			}
+			else {
+				display[options.size() - 1].setString(name);
+			}
 		}
-
 		
 		void AddText(sf::Text text, int num) {
 			display.push_back(text);
@@ -96,10 +97,10 @@ public:
 	};
 
 	//Might be a terrible way of orginizing the info
-	std::vector<String> CreateInfoDisplay(); 
+	std::vector<std::string> CreateInfoDisplay(); 
 
 	//Use to Quickly setup text
-	void SetupText(Text* text);
+	void SetupText(Text * text);
 
 	Blob *playerPtr;
 	//Things that must be included in inheriting scenes

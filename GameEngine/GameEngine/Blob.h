@@ -40,6 +40,16 @@ public:
 
 	Blob(); //Constructor
 
+//Skills
+
+	std::vector<Skill*> skills; //Skills character has
+
+	void AddSkill(Skill* skill); //Add a skill to the blob
+
+	void CallSkill(Character* target, int skill_number); //Use skills if you have any 
+
+	size_t GetSkillSize(); //Get the number of skill the blob has
+
 //Containers
 
 	std::forward_list<std::pair<std::pair<std::string, int> , infoStorage > > info; //first set is the creatures name, the pair is how many and the infoStorage is what you get at that amount
@@ -53,21 +63,15 @@ public:
 
 //Fuctions
 
-
-
 	void Chomp(Food* food);
 
 	void Digest(std::string creature); //Give the creature name to remove
 
-	virtual void AddSkill(Skill* skill) override; //Add a skill to the blob
-
 	void RemoveSkill(std::string name_); //Remove skill from blob
-
-	virtual size_t GetSkillSize() override; //Get the number of skill the blob has
 
 	virtual void Attack(Character* target) override; //Characters basic attack
 
-	virtual void Run() override; //Run from battle
+	void Run(); //Run from battle
 };
 
 

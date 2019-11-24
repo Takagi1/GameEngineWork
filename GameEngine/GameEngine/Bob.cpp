@@ -46,19 +46,6 @@ void Bob::MonsterAction(Character *  blob_)
 	Attack(blob_);
 }
 
-void Bob::AddSkill(Skill * skill)
-{
-}
-
-size_t Bob::GetSkillSize()
-{
-	return size_t();
-}
-
-void Bob::Run()
-{
-}
-
 Food* Bob::GetFood()
 {
 	Food* food = new Food();

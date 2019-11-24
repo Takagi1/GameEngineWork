@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "Scene.h"
 
-std::vector<String> Scene::CreateInfoDisplay()
+std::vector<std::string> Scene::CreateInfoDisplay()
 {
 	std::forward_list<std::string> strings;
-	std::vector<String> text;
+	std::vector<std::string> text;
 	for (std::forward_list<std::pair<std::pair<std::string, int>, Blob::infoStorage > >::iterator its = playerPtr->info.begin(); its != playerPtr->info.end(); ++its) {
 		strings.push_front(its->first.first);
 	}

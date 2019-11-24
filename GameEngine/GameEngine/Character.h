@@ -17,15 +17,6 @@ private:
 	sf::Sprite sprite;
 
 public:
-
-//Blob only variables and functions
-
-	virtual void AddSkill(Skill* skill) = 0; //Add a skill to the blob
-
-	virtual size_t GetSkillSize() = 0; //Get the number of skill the blob has
-
-	virtual void Run() = 0; //Run from battle
-
 //Attributes
 
 	std::string name = ""; //Name of character
@@ -60,15 +51,9 @@ public:
 
 	bool stuck = false; //Will stop the character from moveing
 
-//Setup Skills
-
-	std::vector<Skill*> skills; //Skills character has
-
 //Menu options
 
 	virtual void Attack(Character* target) = 0; //Characters basic attack
-
-	void CallSkill(Character* target, int skill_number); //Use skills if you have any 
 
 //Drawing Functions
 

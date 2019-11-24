@@ -8,9 +8,11 @@ private:
 
 	sf::Texture texture;
 
+
 public:
 	Tile();
 
+	sf::RectangleShape rec;
 	void SetTexture(std::string name);
 
 	void SetSprite();

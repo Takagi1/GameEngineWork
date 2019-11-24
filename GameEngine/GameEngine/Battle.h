@@ -22,10 +22,8 @@ public:
 	virtual void Input(sf::RenderWindow& window) override;
 	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view) override;
 	virtual void Draw(sf::RenderWindow& r_Window) override;
- 
-	void SwitchOutline(sf::Text& current, sf::Text& selected);
+
 	void TurnComplete();
-	void SkillDisplayChange();
 	
 	int turn; //Current turn
 
@@ -53,7 +51,6 @@ public:
 	scroll optionsMenu; //For displaying main battle menu options
 	scroll chompMenu;
 	scroll skills;
-	//std::array<sf::Text, 5> skills; //For displaying skills
 
 	sf::RectangleShape menu;
 

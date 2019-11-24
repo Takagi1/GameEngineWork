@@ -40,6 +40,11 @@ void Blob::Attack(Character * target)
 	target->takeDamage(10, Element::Normal);
 }
 
+void Blob::CallSkill(Character* target, int skill_number)
+{
+	skills[skill_number]->Effect(target);
+}
+
 void Blob::Run()
 {
 	//Run from battle comand

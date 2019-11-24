@@ -130,26 +130,34 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 
 	//Set up skill display
 	text.setCharacterSize(20);
+	
+	text.setString("");
+
 	if (playerPtr->skills.size() > 0) {
-		for (int i = 0; i > playerPtr->skills.size(); i++) {
+		for (int i = 0; i < playerPtr->skills.size(); i++) {
+			if (i == 0) {
+				text.setPosition(100, 0);
+				skills.AddText(text, 0);
+			}
+			if (i == 1) {
+				text.setPosition(300, 600);
+				skills.AddText(text, 1);
+			}
+			if (i == 2) {
+				text.setPosition(300, 450);
+				skills.AddText(text, 2);
+			}
+			if (i == 3) {
+				text.setPosition(300, 300);
+				skills.AddText(text, 3);
+			}
+			if (i == 4) {
+				text.setPosition(300, 150);
+				skills.AddText(text, 4);
+			}
 			skills.AddOptions(playerPtr->skills[i]->name);
 		}
 	}
-	
-	text.setPosition(100, 0);
-	skills.AddText(text,0);
-	
-	text.setPosition(300, 600);
-	skills.AddText(text,1);
-
-	text.setPosition(300, 450);
-	skills.AddText(text,2);
-
-	text.setPosition(300, 300);
-	skills.AddText(text,3);
-
-	text.setPosition(300, 150);
-	skills.AddText(text,4);
 
 	return true;
 }
@@ -226,8 +234,6 @@ void Battle::Input(sf::RenderWindow& r_Window)
 					if (skillOffset != 0)
 					{
 						skillOffset -= 1;
-						//add in new scroll system
-						//SkillDisplayChange();
 					}
 					else if (skillPointer != 0) 
 					{
@@ -293,13 +299,6 @@ void Battle::Update(float dtAsSeconds, sf::RenderWindow& window, sf::View& view)
 {
 	//Reset the camera to 0
 	view.setCenter(0, 0);
-}
-
-
-void Battle::SwitchOutline(sf::Text& current, sf::Text& selected)
-{
-	current.setOutlineThickness(0);
-	selected.setOutlineThickness(5);
 }
 
 void Battle::TurnComplete() {
@@ -386,17 +385,16 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 
 		//Should display 5 skills at once 
 		try {
-			//skills.display.setString(playerPtr->skills.at(0)->name);
+			r_Window.draw(skills.display.at(0));
+			r_Window.draw(skills.display.at(1));
+			r_Window.draw(skills.display.at(2));
+			r_Window.draw(skills.display.at(3));
+			r_Window.draw(skills.display.at(4));
 		}
 		catch (const std::out_of_range& oor) {
 			std::cerr << "Out of Range error: " << oor.what() << '\n';
 		}
 
-		r_Window.draw(skills.display[0]);
-		r_Window.draw(skills.display[1]);
-		r_Window.draw(skills.display[2]);
-		r_Window.draw(skills.display[3]);
-		r_Window.draw(skills.display[4]);
 
 		break;
 

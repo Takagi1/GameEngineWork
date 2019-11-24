@@ -6,7 +6,6 @@
 
 Monster* encounterPtr;
 sf::Event inp;
-Tile map[25];
 
 Test::Test(Blob * player_) {
 	playerPtr = player_;
@@ -31,27 +30,29 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 	m_BackgroundSprite.setPosition(100, 100);
 
 	//Set inital position
-	playerCharacter.location = std::make_pair(1, 1);
+	playerCharacter.location = std::make_pair(0, 0);
 
 //create full map here
 	
 	//for each tile in map set the scenes tile set and there location in space (remember center should be 50,50)
 	
-	for (int i = 0; i > 5; i++) {
-		for (int j = 0; j > 5; j++) {
-			map[i][j].SetLocation(i * 100 + 50, j * 100 + 50);
-			map[i][j].SetTexture("background.png");
-			map[i][j].SetSprite();
-			if (i == 0) {
-				map[i][j].isMoveable = false;
-			}
-			else if (j == 0){
-				map[i][j].isMoveable = false;
-			}
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			Tile tile;
+			map.push_back(tile);
+			//map[(i * 5) + j].SetLocation((i * 100) + 50, (j * 100) + 50);
+			//map[(i * 5) + j].SetTexture("background.png");
+			
+			//map[(i * 5) + j].SetSprite();
+			sf::RectangleShape a(Vector2f(100, 100));
+			a.setFillColor(sf::Color::Red);
+			a.setOutlineThickness(3);
+			a.setOutlineColor(sf::Color::Blue);
+			a.setPosition(-600 + ((i * 100 ) + 50), -200 +(j * 100) + 50);
+			map[(i * 5) + j].rec = a;
+
 		}
 	}
-	//Shity thing is that 
-
 	//Set up Pointers
 
 	managerPtr = _transfer;
@@ -133,42 +134,66 @@ void Test::Input(sf::RenderWindow& r_Window) {
 				}
 			}
 		}
-
+		//Double press seems to be occuring when you press a button 
 		// handle things when not paused
 		if (!isPaused) {
 
 			//after movement rotate player to face the direction they are moveing
 			if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::A)
 			{
-				if (map[playerCharacter.location.first - 1][playerCharacter.location.second].isMoveable) {
-					playerCharacter.Move(-1, 0);
+				try {
+					if (map.at(((playerCharacter.location.first - 1) * 5) + playerCharacter.location.second).isMoveable) {
+						playerCharacter.Move(-1, 0);
+					}
 				}
+				catch (const std::out_of_range& oor) {
+					std::cerr << "Out of Range error: " << oor.what() << '\n';
+				}
+			
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::D))
 			{
-				if (map[playerCharacter.location.first + 1][playerCharacter.location.second].isMoveable) {
-					playerCharacter.Move(1, 0);
+				try {
+					if (map.at(((playerCharacter.location.first + 1) * 5) + playerCharacter.location.second).isMoveable) {
+						playerCharacter.Move(1, 0);
+					}
 				}
+				catch (const std::out_of_range& oor) {
+					std::cerr << "Out of Range error: " << oor.what() << '\n';
+				}
+				std::cerr << "current location " << playerCharacter.location.first << " " << playerCharacter.location.second << '\n';
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::W))
 			{
-				if (map[playerCharacter.location.first][playerCharacter.location.second - 1].isMoveable) {
-					playerCharacter.Move(0, -1);
+				try {
+					if (map.at((playerCharacter.location.first * 5) + playerCharacter.location.second - 1).isMoveable) {
+						playerCharacter.Move(0, -1);
+					}
 				}
+				catch (const std::out_of_range& oor) {
+					std::cerr << "Out of Range error: " << oor.what() << '\n';
+				}
+				std::cerr << "current location " << playerCharacter.location.first << " " << playerCharacter.location.second << '\n';
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::S))
 			{
-				if (map[playerCharacter.location.first][playerCharacter.location.second + 1].isMoveable) {
-					playerCharacter.Move(0, 1);
+				try {
+					if (map.at((playerCharacter.location.first * 5) + playerCharacter.location.second + 1).isMoveable) {
+						playerCharacter.Move(0, 1);
+					}
 				}
+				catch (const std::out_of_range& oor) {
+					std::cerr << "Out of Range error: " << oor.what() << '\n';
+				}
+				std::cerr << "current location " << playerCharacter.location.first << " " << playerCharacter.location.second << '\n';
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::X))
 			{
-				map[playerCharacter.location.first][playerCharacter.location.second].CalledEffect();
+				map[(playerCharacter.location.first * 5) + playerCharacter.location.second].CalledEffect();
 			}
 		}
 		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::B) {

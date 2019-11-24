@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Map.h"
 
-
-
 void Map::Draw(sf::RenderWindow & r_Window)
 {
 
@@ -10,9 +8,19 @@ void Map::Draw(sf::RenderWindow & r_Window)
 	r_Window.clear(sf::Color::White);
 
 	// Draw the background
-	r_Window.draw(m_BackgroundSprite);
+	//r_Window.draw(m_BackgroundSprite);
+	for (int i = 0; i < 25; i++) {
+		/*sf::RectangleShape a(Vector2f(20,20));
+		a.setFillColor(sf::Color::Red);
+		a.setOutlineThickness(3);
+		a.setOutlineColor(sf::Color::Blue);
+		a.setPosition(-500 + (i * 50), i * 2);
+		*/
+		r_Window.draw(map[i].rec);
 
-	r_Window.draw(playerCharacter.getSprite());
+	}
+
+	r_Window.draw(playerCharacter.rec);
 
 
 	//should draw over all things on screen

@@ -24,4 +24,6 @@ public:
 	scroll selectMenu;
 
 	MenuDisplay menuDisplay;
+
+	std::vector<Tile> map;
 };

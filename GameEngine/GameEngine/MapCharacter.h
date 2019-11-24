@@ -16,10 +16,12 @@ public:
 
 	//send copy of the sprite to main 
 	Sprite getSprite();
+	
 
 	Texture texture;
 	Sprite sprite;
-
+	
+	RectangleShape rec;
 //Movement 
 
 	std::pair<int, int> location;

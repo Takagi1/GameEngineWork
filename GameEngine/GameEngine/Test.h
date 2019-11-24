@@ -20,11 +20,7 @@ public:
 
 //Pointers for player and scene
 
-	
 	SceneManager* managerPtr;
-
-	Tile map[5][5];
-
 
 };
 #endif //TEST_H

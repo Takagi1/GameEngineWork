@@ -25,11 +25,6 @@ void Character::InflictStatus(StatusEffect* effect)
 	conditions.push_front(effect);
 }
 
-void Character::CallSkill(Character* target, int skill_number)
-{
-	skills[skill_number]->Effect(target);
-}
-
 void Character::setTexture(std::string name)
 {
 	if (!texture.loadFromFile(name)) {
