@@ -162,14 +162,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Battle.h" />
+    <ClInclude Include="BlobSprite.h" />
     <ClInclude Include="Bob.h" />
-    <ClInclude Include="Burn.h" />
+    <ClInclude Include="Dodger.h" />
+    <ClInclude Include="DodgerSprite.h" />
+    <ClInclude Include="Fire2.h" />
+    <ClInclude Include="PlayerIdle.h" />
+    <ClInclude Include="Poison.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Blob.h" />
     <ClInclude Include="Fire1.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="Headbut.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MonList.h" />
     <ClInclude Include="MapCharacter.h" />
@@ -182,15 +190,24 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Town.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Venom.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BlobSprite.cpp" />
+    <ClCompile Include="Dodger.cpp" />
+    <ClCompile Include="DodgerSprite.cpp" />
+    <ClCompile Include="PlayerIdle.cpp" />
+    <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Blob.cpp" />
     <ClCompile Include="Bob.cpp" />
-    <ClCompile Include="Burn.cpp" />
+    <ClCompile Include="Fire2.cpp" />
+    <ClCompile Include="Poison.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Fire1.cpp" />
+    <ClCompile Include="Headbut.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapCharacter.cpp" />
@@ -210,6 +227,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Venom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

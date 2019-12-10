@@ -3,12 +3,12 @@
 
 //Forward delcarations
 
-class Bob : public Monster
+class Dodger : public Monster
 {
 public:
 
 	//Constructor
-	Bob();
+	Dodger();
 
 	virtual void MonsterAction(Character* blob_) override;  //Basic ai
 

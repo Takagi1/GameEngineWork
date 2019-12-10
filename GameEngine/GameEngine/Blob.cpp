@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "Blob.h"
 #include "Food.h"
-#include "Burn.h"
+#include "Headbut.h"
 
 Blob::Blob() {
-	stomach.resize(3); //Set inital stomach size
+	stomach.resize(2); //Set inital stomach size
 
 	name = "Blob";
+
+	//Set intital animation to idle 
+	//animationController.Play(PlayerIdle());
 
 //Setup attributes
 	strength = 10;
@@ -17,9 +20,10 @@ Blob::Blob() {
 	speed = 10;
 
 //Set elemental resistance
-	elementMod[Element::Normal] = 0;
+	elementMod[Element::Physical] = 0;
 	elementMod[Element::Fire] = 0;
-	elementMod[Element::Water] = 0;
+	elementMod[Element::Ice] = 0;
+	elementMod[Element::Poison] = 0;
 
 //Set health, maxhealth, energy, and maxenergy
 
@@ -29,20 +33,18 @@ Blob::Blob() {
 	maxEnergy = 100;
 	energy = maxEnergy;
 	
+//Give basic attack
+	
+	AddSkill(new Headbut());
+
 	setTexture("Robo.png");
 
 	setSprite();
 }
 
-void Blob::Attack(Character * target)
-{
-	//Put attack here
-	target->takeDamage(10, Element::Normal);
-}
-
 void Blob::CallSkill(Character* target, int skill_number)
 {
-	skills[skill_number]->Effect(target);
+	skills[skill_number]->Effect(target, this);
 }
 
 void Blob::Run()
@@ -74,6 +76,9 @@ void Blob::Chomp(Food* food)
 
 				strength += food->amount[1].strength;
 				dexterity += food->amount[1].dexterity;
+				magic += food->amount[1].magic;
+				defense += food->amount[1].defense;
+				speed += food->amount[1].speed;
 				if (food->amount[1].hasSkill) {
 					AddSkill(food->amount[1].skill);
 				}
@@ -87,6 +92,9 @@ void Blob::Chomp(Food* food)
 
 				strength += food->amount[2].strength;
 				dexterity += food->amount[2].dexterity;
+				magic += food->amount[2].magic;
+				defense += food->amount[2].defense;
+				speed += food->amount[2].speed;
 				if (food->amount[2].hasSkill) {
 					AddSkill(food->amount[2].skill);
 				}
@@ -108,6 +116,9 @@ void Blob::Chomp(Food* food)
 
 		strength += food->amount[0].strength;
 		dexterity += food->amount[0].dexterity;
+		magic += food->amount[0].magic;
+		defense += food->amount[0].defense;
+		speed += food->amount[0].speed;
 		if (food->amount[0].hasSkill) {
 			AddSkill(food->amount[0].skill);
 		}

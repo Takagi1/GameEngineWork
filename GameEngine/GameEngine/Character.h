@@ -4,6 +4,7 @@
 #include <forward_list>
 #include "StatusEffect.h"
 #include "Skill.h"
+#include "AnimationController.h"
 
 //Forward decleration
 
@@ -17,13 +18,20 @@ private:
 	sf::Sprite sprite;
 
 public:
+	AnimationController animationController;
+
+//Character orientation
+
 //Attributes
 
 	std::string name = ""; //Name of character
 
+	//Offensive Stats
+
 	int strength = 0; //Characters current Strength, used for physical attacks
 	int dexterity = 0; //Characters current dexterity, used for accuracy and evasion
 	int magic = 0; //Characters current Magic, used for magical attacks
+
 	int vitality = 0; //Characters current vitality, used to determine blobs health
 	int defense = 0; //Characters current defense, used to determine damage
 	int speed = 0; //Characters current speed, used to determine who goes first in combat
@@ -51,10 +59,6 @@ public:
 
 	bool stuck = false; //Will stop the character from moveing
 
-//Menu options
-
-	virtual void Attack(Character* target) = 0; //Characters basic attack
-
 //Drawing Functions
 
 	void setTexture(std::string name); //Set character texture
@@ -67,7 +71,8 @@ public:
 
 //Misc functions
 
-	void takeDamage(double damage, Element element_);//Used to take damage
+	void takeDamage(double damage, Element element_, bool Pierce); //Used to take damage
+	
 };
 
 

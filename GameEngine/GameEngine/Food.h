@@ -10,12 +10,19 @@ public:
 	std::string creature;
 
 	struct effects {
-		int strength;
-		int dexterity;
+		int strength = 0;
+		int dexterity = 0;
+		int magic = 0;
+		int defense = 0;
+		int speed = 0;
 
-		bool hasSkill;
+		//Add in elemental resistance
 
-		Skill* skill;
+		std::map<Element, int> res;
+
+		bool hasSkill = false;
+
+		Skill* skill = NULL;
 	};
 	effects amount[3];
 

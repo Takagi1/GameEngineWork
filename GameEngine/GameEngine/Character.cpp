@@ -46,9 +46,8 @@ void Character::setSpritePos(int x, int y) {
 	sprite.setPosition(x, y);
 }
 
-void Character::takeDamage(double damage, Element element_)
+void Character::takeDamage(double damage, Element element_, bool Pierce)
 {
-	damage = damage - defense;
 
 	std::map<Element, int>::iterator its;
 
@@ -56,18 +55,28 @@ void Character::takeDamage(double damage, Element element_)
 	its = elementMod.find(element_);
 	
 	//Element resistance modifications
-
 	if (its->second == 2) {
 		//Immunity Message?
+		return;
+	}
+	//Critical damage
+	else if (its->second == -3){
+		damage *= 100;
 	}
 	else {
-		damage -= its->second * 50;	
+		damage *= its->second * 25;
 	}
 	
+	//if attack not pierceing, remove defense
+	if (!Pierce) {
+		damage = damage - defense;
+	}
+
 	if (damage <= 0) {
 		damage = 1;
 	}
-	else {
+	else 
+	{
 		//get random
 		int random = rand() % 51 + 50;
 

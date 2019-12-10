@@ -10,11 +10,18 @@ public:
 	virtual void Input(sf::RenderWindow& window) = 0;
 
 	bool isPaused = false;
-	MapCharacter playerCharacter;
+
+	//Local Monsters
+	std::vector<MapCharacter> mapCharacters;
 
 //Maps background
 	sf::Sprite m_BackgroundSprite;
 	sf::Texture m_BackgroundTexture;
+
+	std::vector<Tile> map;
+
+	int mapLength;
+	int mapWidth;
 
 //Menu info
 
@@ -25,5 +32,4 @@ public:
 
 	MenuDisplay menuDisplay;
 
-	std::vector<Tile> map;
 };

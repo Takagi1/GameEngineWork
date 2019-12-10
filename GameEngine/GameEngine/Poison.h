@@ -1,11 +1,14 @@
 #pragma once
 #include "StatusEffect.h"
 
-class Burn : public StatusEffect {
+/*
+Summary: DOT effect
+*/
+
+class Poison : public StatusEffect {
 	int damage;
 public:
-	Burn(int damage_value);
-
+	Poison(int damage_value, int time);
 
 	virtual void InflictEffect(Character* target_) override;
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "Skill.h"
 
-class Fire1 : public Skill {
+class Venom : public Skill {
 public:
 
-	Fire1();
+	Venom();
 
 	virtual void Effect(Character* target, Character* caster) override;
 };

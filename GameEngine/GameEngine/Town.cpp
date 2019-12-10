@@ -34,9 +34,9 @@ void Town::Input(sf::RenderWindow& window) {
 // Move Bob based on the input this frame,
 // the time elapsed, and the speed.
 void Town::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
-	playerCharacter.update(dtAsSeconds);
+	mapCharacters[0].update(dtAsSeconds);
 
-	if (playerCharacter.position.y <= 400) {
+	if (mapCharacters[0].position.y <= 400) {
 		//Test call prototype scene change
 		//currentScene = sceneManager.BuildScene(sceneManager.TEST);
 	}

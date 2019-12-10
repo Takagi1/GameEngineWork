@@ -28,7 +28,7 @@ public:
 	void BuildBattle(Monster* _encouter);
 
 	//return to scene after battle
-	void endBattle();
+	void endBattle(bool run);
 
 private:
 	// A regular RenderWindow

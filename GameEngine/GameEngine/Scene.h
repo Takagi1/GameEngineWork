@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include "SceneManager.h"
 #include "Tile.h"
+#include <iostream>
 #include <array>
 
 class Scene
@@ -33,13 +34,14 @@ public:
 	struct scroll {
 		std::vector<std::string> options;
 		std::vector<sf::Text> display;
-		int menuPtr = 0;
-		int menuOffset = 0;
-		int maxOffset = 0;
+		int menuPtr = 0; //What is currently being pointed at?
+		int menuOffset = 0; //How far have you scrolled
+		int maxOffset = 0; //Max size of offset
+		int displayLength = 5;
 
 		void AddOptions(std::string name) {
 			options.push_back(name);
-			if (options.size() > 5) {
+			if (options.size() > displayLength) {
 				maxOffset = options.size() - 5;
 			}
 			else {
@@ -87,12 +89,25 @@ public:
 			display[menuPtr].setOutlineThickness(5);
 		};
 
+
+		//It might be better to simply change the text rather then create more texts?
 		void DisplayChange(int offset) {
 			display[0].setString(options[0 + offset]);
 			display[1].setString(options[1 + offset]);
 			display[2].setString(options[2 + offset]);
 			display[3].setString(options[3 + offset]);
 			display[4].setString(options[4 + offset]);
+		}
+
+		void Draw(sf::RenderWindow& r_Window) {
+			try {
+				for (int i = 0; i < display.size(); i++) {
+					r_Window.draw(display.at(i));
+				}
+			}
+			catch (const std::out_of_range& oor) {
+				std::cerr << "Out of Range error: " << oor.what() << '\n';
+			}
 		}
 	};
 

@@ -69,8 +69,6 @@ public:
 
 	void RemoveSkill(std::string name_); //Remove skill from blob
 
-	virtual void Attack(Character* target) override; //Characters basic attack
-
 	void Run(); //Run from battle
 };
 

@@ -9,9 +9,10 @@ class Character;
 //Elemental type
 enum class Element
 {
-	Normal,
+	Physical,
 	Fire,
-	Water
+	Ice,
+	Poison
 };
 
 class Skill {
@@ -20,8 +21,10 @@ public:
 
 	std::string name; //Name of ability
 	Element element; //Element of ability
+	bool pierce; //Ignore defense?
 
 	bool isBuff = false; //Does the skill target yourself?
 
-	virtual void Effect(Character* character) = 0;
+	//Use caster to get there stats
+	virtual void Effect(Character* target, Character* caster) = 0;
 };

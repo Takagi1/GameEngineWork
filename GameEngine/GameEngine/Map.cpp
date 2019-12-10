@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Map.h"
-
+#include <string>
 void Map::Draw(sf::RenderWindow & r_Window)
 {
 
@@ -9,7 +9,7 @@ void Map::Draw(sf::RenderWindow & r_Window)
 
 	// Draw the background
 	//r_Window.draw(m_BackgroundSprite);
-	for (int i = 0; i < 25; i++) {
+	for (int i = 0; i < (mapLength * mapWidth) ; i++) {
 		/*sf::RectangleShape a(Vector2f(20,20));
 		a.setFillColor(sf::Color::Red);
 		a.setOutlineThickness(3);
@@ -17,10 +17,17 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		a.setPosition(-500 + (i * 50), i * 2);
 		*/
 		r_Window.draw(map[i].rec);
-
+		sf::Text tex;
+		SetupText(&tex);
+		tex.setCharacterSize(15);
+		tex.setFillColor(sf::Color::Black);
+		std::string word = std::to_string(i);
+		tex.setString(word);
+		tex.setPosition(map[i].rec.getPosition() + Vector2f(25,25));
+		r_Window.draw(tex);
 	}
 
-	r_Window.draw(playerCharacter.rec);
+	r_Window.draw(mapCharacters[0].getRect());
 
 
 	//should draw over all things on screen
@@ -31,7 +38,7 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		menu.setSize(sf::Vector2f(setX / 1.5, setY / 1.5));
 
 		//Rule seems to be that position has to be twise what size is divided by
-		menu.setPosition(playerCharacter.position.x - setX / 3, playerCharacter.position.y - setY / 3);
+		menu.setPosition(mapCharacters[0].position.x - setX / 3, mapCharacters[0].position.y - setY / 3);
 
 		//draw paused menu here
 		r_Window.draw(menu);

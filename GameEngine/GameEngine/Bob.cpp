@@ -12,14 +12,16 @@ Bob::Bob()
 	strength = 3;
 	dexterity = 3;
 	magic = 3;
+
 	vitality = 3;
 	defense = 3;
 	speed = 3;
 
 	//Set elemental resistance
-	elementMod[Element::Normal] = 0;
+	elementMod[Element::Physical] = 0;
 	elementMod[Element::Fire] = 0;
-	elementMod[Element::Water] = 0;
+	elementMod[Element::Ice] = 0;
+	elementMod[Element::Poison] = 0;
 
 	//Set health, maxhealth, energy, and maxenergy
 	maxHealth = vitality * 5;
@@ -35,15 +37,10 @@ Bob::Bob()
 	setSprite();
 }
 
-void Bob::Attack(Character * target)
-{
-	int damage = 5;
-	target->takeDamage(5, Element::Normal);
-}
-
 void Bob::MonsterAction(Character *  blob_)
 {
-	Attack(blob_);
+	//Perform test attack
+	blob_->takeDamage(5, Element::Physical, false);
 }
 
 Food* Bob::GetFood()

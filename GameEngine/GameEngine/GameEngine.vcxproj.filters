@@ -37,6 +37,18 @@
     <Filter Include="Header Files\Status effects">
       <UniqueIdentifier>{f21ca8ed-16e1-420a-8801-c4ded9b10aab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{8042ffc3-b531-47dd-a291-5d8dc45128fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animation">
+      <UniqueIdentifier>{64be87bc-4515-48f9-8e96-2f7b78f8ef3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Monsters\Map Sprite">
+      <UniqueIdentifier>{eda13c3e-2985-4beb-97dc-6ef980123048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Monster\Map Sprite">
+      <UniqueIdentifier>{00f34af7-6869-4142-945c-da8c77e722f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -96,8 +108,35 @@
     <ClInclude Include="StatusEffect.h">
       <Filter>Header Files\Status effects</Filter>
     </ClInclude>
-    <ClInclude Include="Burn.h">
+    <ClInclude Include="Headbut.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Poison.h">
       <Filter>Header Files\Status effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire2.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Venom.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdle.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Dodger.h">
+      <Filter>Header Files\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgerSprite.h">
+      <Filter>Header Files\Monster\Map Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="BlobSprite.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,8 +185,35 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Scene%27s</Filter>
     </ClCompile>
-    <ClCompile Include="Burn.cpp">
+    <ClCompile Include="Headbut.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Poison.cpp">
       <Filter>Source Files\Status effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire2.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Venom.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdle.cpp">
+      <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Dodger.cpp">
+      <Filter>Source Files\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="DodgerSprite.cpp">
+      <Filter>Source Files\Monsters\Map Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="BlobSprite.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

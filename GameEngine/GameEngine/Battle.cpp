@@ -1,5 +1,4 @@
 #include "pch.h"
-#include <iostream>
 #include <algorithm>
 #include "Battle.h"
 
@@ -44,8 +43,6 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	managerPtr = _transfer;	//connection to SceneManager
 
 //Set up the visuals here
-
-	
 
 	//Get background texture
 	backgroundTexture.loadFromFile("background.png");
@@ -98,23 +95,17 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	//Setup disposible textset
 	SetupText(&text);
 
-	//Set up first option
-	text.setString("Attack");
-	text.setPosition(-300, 0);
-	text.setOutlineThickness(5);
-	optionsMenu.AddText(text,0);
-
 	//Set up skills
 	text.setString("Skill");
 	text.setPosition(-200, 0);
-	text.setOutlineThickness(0);
-	optionsMenu.AddText(text,1);
+	text.setOutlineThickness(5);
+	optionsMenu.AddText(text,0);
 	
 	//Set up run
 	text.setString("Run");
 	text.setPosition(-100, 0);
 	text.setOutlineThickness(0);
-	optionsMenu.AddText(text,2);
+	optionsMenu.AddText(text,1);
 
 	text.setString("Chomp");
 	text.setPosition(-100, 0);
@@ -136,11 +127,13 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	if (playerPtr->skills.size() > 0) {
 		for (int i = 0; i < playerPtr->skills.size(); i++) {
 			if (i == 0) {
-				text.setPosition(100, 0);
+				text.setPosition(60, 0);
+				text.setOutlineThickness(5);
 				skills.AddText(text, 0);
 			}
 			if (i == 1) {
-				text.setPosition(300, 600);
+				text.setPosition(150, 0);
+				text.setOutlineThickness(0);
 				skills.AddText(text, 1);
 			}
 			if (i == 2) {
@@ -181,19 +174,14 @@ void Battle::Input(sf::RenderWindow& r_Window)
 			if (input.type == sf::Event::KeyPressed) {
 				if (input.key.code == sf::Keyboard::X)
 				{
-					//select attack
+					//Open up skill menu
 					if (optionsMenu.menuPtr == 0) {
-						playerPtr->Attack(monsterPtr);
-						TurnComplete();
-					}
-					//select skills
-					if (optionsMenu.menuPtr == 1) {
 						current_menu = SKILL;
 						number_of_skills = playerPtr->GetSkillSize();
 					}
 					//select run
-					if (optionsMenu.menuPtr == 2) {
-						//Run option here
+					if (optionsMenu.menuPtr == 1) {
+						managerPtr->endBattle(true);
 					}
 				}
 				else if (input.key.code == sf::Keyboard::Left) {
@@ -219,6 +207,7 @@ void Battle::Input(sf::RenderWindow& r_Window)
 						else {
 							playerPtr->CallSkill(monsterPtr, skillPointer + skillOffset);
 						}
+						TurnComplete();
 					}
 					catch (const std::out_of_range& oor) {
 						std::cerr << "Out of Range error: " << oor.what() << '\n';
@@ -279,10 +268,10 @@ void Battle::Input(sf::RenderWindow& r_Window)
 				if (input.key.code == sf::Keyboard::X) {
 					if (chompMenu.menuPtr == 0) {
 						playerPtr->Chomp(monsterPtr->GetFood());
-						managerPtr->endBattle();
+						managerPtr->endBattle(false);
 					}
 					else {
-						managerPtr->endBattle();
+						managerPtr->endBattle(false);
 					}
 				}
 			}
@@ -339,7 +328,6 @@ void Battle::TurnComplete() {
 	optionsMenu.menuPtr = 0;
 	optionsMenu.display[0].setOutlineThickness(5);
 	optionsMenu.display[1].setOutlineThickness(0);
-	optionsMenu.display[2].setOutlineThickness(0);
 }
 
 void Battle::Draw(sf::RenderWindow& r_Window)
@@ -368,9 +356,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 		r_Window.draw(monsterHealthDisplay);
 		r_Window.draw(monsterEnergyDisplay);
 
-		r_Window.draw(optionsMenu.display[0]);
-		r_Window.draw(optionsMenu.display[1]);
-		r_Window.draw(optionsMenu.display[2]);
+		optionsMenu.Draw(r_Window);
 
 		break;  
 
@@ -384,17 +370,7 @@ void Battle::Draw(sf::RenderWindow& r_Window)
 		r_Window.draw(monsterEnergyDisplay);
 
 		//Should display 5 skills at once 
-		try {
-			r_Window.draw(skills.display.at(0));
-			r_Window.draw(skills.display.at(1));
-			r_Window.draw(skills.display.at(2));
-			r_Window.draw(skills.display.at(3));
-			r_Window.draw(skills.display.at(4));
-		}
-		catch (const std::out_of_range& oor) {
-			std::cerr << "Out of Range error: " << oor.what() << '\n';
-		}
-
+		skills.Draw(r_Window);
 
 		break;
 

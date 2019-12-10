@@ -117,8 +117,8 @@ void SceneManager::BuildBattle(Monster *_encouter) {
 	currentScene->OnCreate(this);
 }
 
-
-void SceneManager::endBattle() {
+void SceneManager::endBattle(bool run) {
+	//if run is true dont destroy the map monster
 	currentScene->OnDestroy();
 	currentScene = saveScene;
 }
