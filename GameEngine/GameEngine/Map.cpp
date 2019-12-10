@@ -17,6 +17,8 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		a.setPosition(-500 + (i * 50), i * 2);
 		*/
 		r_Window.draw(map[i].rec);
+
+		//Count number of tiles
 		sf::Text tex;
 		SetupText(&tex);
 		tex.setCharacterSize(15);
@@ -27,7 +29,10 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		r_Window.draw(tex);
 	}
 
-	r_Window.draw(mapCharacters[0].getRect());
+	for (auto& characters : mapCharacters) {
+		r_Window.draw(characters->getRect());
+	}
+	
 
 
 	//should draw over all things on screen
@@ -38,7 +43,7 @@ void Map::Draw(sf::RenderWindow & r_Window)
 		menu.setSize(sf::Vector2f(setX / 1.5, setY / 1.5));
 
 		//Rule seems to be that position has to be twise what size is divided by
-		menu.setPosition(mapCharacters[0].position.x - setX / 3, mapCharacters[0].position.y - setY / 3);
+		menu.setPosition(mapCharacters[0]->position.x - setX / 3, mapCharacters[0]->position.y - setY / 3);
 
 		//draw paused menu here
 		r_Window.draw(menu);
@@ -93,4 +98,8 @@ void Map::Draw(sf::RenderWindow & r_Window)
 
 	// Show everything we have just drawn
 	r_Window.display();
+}
+
+void Map::DestroyMonster() {
+	
 }

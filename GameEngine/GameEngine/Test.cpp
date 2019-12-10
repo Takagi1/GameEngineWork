@@ -2,7 +2,6 @@
 #include "Test.h"
 #include "Debug.h"
 #include "Blob.h"
-#include "Dodger.h"
 #include "BlobSprite.h"
 #include "DodgerSprite.h"
 
@@ -71,11 +70,16 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 //Create monsters and player
 
 	//Player
-	BlobSprite blobSprite;
-	blobSprite.location = std::make_pair(1, 1);
+	BlobSprite* blobSprite = new BlobSprite();
+	blobSprite->location = std::make_pair(1, 1);
+
+	//Dodger
+	DodgerSprite* dodgerSprite = new DodgerSprite();
+	dodgerSprite->location = std::make_pair(3, 3);
 
 	//Setup
 	mapCharacters.push_back(blobSprite);
+	mapCharacters.push_back(dodgerSprite);
 	
 	//Set up Pointers
 
@@ -169,60 +173,60 @@ void Test::Input(sf::RenderWindow& r_Window) {
 				{
 					
 					try {
-						if (map.at(((mapCharacters[0].location.second - 1) * mapWidth) + mapCharacters[0].location.first).isMoveable == true) {
-							mapCharacters[0].Move(0, -1);
-							mapCharacters[0].dir = MapCharacter::Direction::Up;
+						if (map.at(((mapCharacters[0]->location.second - 1) * mapWidth) + mapCharacters[0]->location.first).isMoveable == true) {
+							mapCharacters[0]->Move(0, -1);
+							mapCharacters[0]->dir = MapCharacter::Direction::Up;
 						}
 					}
 					catch (const std::out_of_range& oor) {
 						std::cerr << "Out of Range error: " << oor.what() << '\n';
 					}
-					std::cerr << "current location " << mapCharacters[0].location.first << " " << mapCharacters[0].location.second << " " << (mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first << '\n';
+					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::Down))
 				{
 					try {
-						if (map.at(((mapCharacters[0].location.second + 1) * mapWidth) + mapCharacters[0].location.first ).isMoveable == true){
-							mapCharacters[0].Move(0,1);
-							mapCharacters[0].dir = MapCharacter::Direction::Down;
+						if (map.at(((mapCharacters[0]->location.second + 1) * mapWidth) + mapCharacters[0]->location.first ).isMoveable == true){
+							mapCharacters[0]->Move(0,1);
+							mapCharacters[0]->dir = MapCharacter::Direction::Down;
 						} 
 					}
 					catch (const std::out_of_range& oor) {
 						std::cerr << "Out of Range error: " << oor.what() << '\n';
 					}
-					std::cerr << "current location " << mapCharacters[0].location.first << " " << mapCharacters[0].location.second << " " << (mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first << '\n';
+					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))
 				{
 					try {
-						if (map.at((mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first + 1).isMoveable) {
-							mapCharacters[0].Move(1, 0);
+						if (map.at((mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first + 1).isMoveable) {
+							mapCharacters[0]->Move(1, 0);
 						}
 					}
 					catch (const std::out_of_range& oor) {
 						std::cerr << "Out of Range error: " << oor.what() << '\n';
 					}
-					std::cerr << "current location " << mapCharacters[0].location.first << " " << mapCharacters[0].location.second << " " << (mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first << '\n';
+					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left))
 				{
 					try {
-						if (map.at((mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first - 1 ).isMoveable) {
-							mapCharacters[0].Move(-1,0);
+						if (map.at((mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first - 1 ).isMoveable) {
+							mapCharacters[0]->Move(-1,0);
 						}
 					}
 					catch (const std::out_of_range& oor) {
 						std::cerr << "Out of Range error: " << oor.what() << '\n';
 					}
-					std::cerr << "current location " << mapCharacters[0].location.first << " " << mapCharacters[0].location.second << " " << (mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first << '\n';
+					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::X))
 				{
-					map[(mapCharacters[0].location.second * mapWidth) + mapCharacters[0].location.first].CalledEffect();
+					map[(mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first].CalledEffect();
 				}
 			}
 		}
@@ -235,7 +239,8 @@ void Test::Input(sf::RenderWindow& r_Window) {
 			//delete previous encounter
 			if (encounterPtr != NULL) { delete(encounterPtr); }
 			//create new one
-			encounterPtr = new Dodger();
+			//encounterPtr =
+			encounterPtr = mapCharacters[1]->CallMonster();
 			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
 
 			managerPtr->BuildBattle(encounterPtr);
@@ -275,10 +280,33 @@ std::vector<Text> Test::CreateInfoDisplay()
 // the time elapsed, and the speed.
 void Test::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
 	//check to see if the movement will cause the player the collision
-	mapCharacters[0].update(dtAsSeconds);
+
+	//Rough collision detection (must improve)
+	if (mapCharacters.size() > 1) {
+		if (mapCharacters[0]->collision(mapCharacters[1])) {
+			//delete previous encounter
+			if (encounterPtr != NULL) { delete(encounterPtr); }
+			//create new one
+			encounterPtr = mapCharacters[1]->monster;
+			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
+			managerPtr->BuildBattle(encounterPtr);
+
+			if (&encounterPtr->isDead) {
+				mapCharacters.erase(mapCharacters.begin() + 1);
+			}
+			else {
+				mapCharacters[1]->monster = mapCharacters[1]->CallMonster();
+			}
+		}
+
+	}
+
+	for (auto& character : mapCharacters) {
+		character->update(dtAsSeconds);
+	}
 
 	// Set center of the camera to the player
-	view.setCenter(mapCharacters[0].position.x, mapCharacters[0].position.y);
+	view.setCenter(mapCharacters[0]->position.x, mapCharacters[0]->position.y);
 
 	//if any map monsters intersect with player engage battle here
 

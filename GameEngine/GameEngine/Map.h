@@ -9,10 +9,12 @@ public:
 	virtual void Draw(sf::RenderWindow& r_Window) override;
 	virtual void Input(sf::RenderWindow& window) = 0;
 
+	void DestroyMonster();
+
 	bool isPaused = false;
 
 	//Local Monsters
-	std::vector<MapCharacter> mapCharacters;
+	std::vector<MapCharacter*> mapCharacters;
 
 //Maps background
 	sf::Sprite m_BackgroundSprite;

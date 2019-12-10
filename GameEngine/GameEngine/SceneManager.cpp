@@ -113,7 +113,7 @@ void SceneManager::BuildBattle(Monster *_encouter) {
 	saveScene = currentScene;
 
 	//set current scene to battle
-	currentScene = new Battle(&blob, _encouter);
+	currentScene = new Battle(&blob, &_encouter);
 	currentScene->OnCreate(this);
 }
 
@@ -121,4 +121,5 @@ void SceneManager::endBattle(bool run) {
 	//if run is true dont destroy the map monster
 	currentScene->OnDestroy();
 	currentScene = saveScene;
+
 }

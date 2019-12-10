@@ -168,6 +168,7 @@
     <ClInclude Include="BlobSprite.h" />
     <ClInclude Include="Bob.h" />
     <ClInclude Include="Dodger.h" />
+    <ClInclude Include="DodgerIdle.h" />
     <ClInclude Include="DodgerSprite.h" />
     <ClInclude Include="Fire2.h" />
     <ClInclude Include="PlayerIdle.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BlobSprite.cpp" />
     <ClCompile Include="Dodger.cpp" />
+    <ClCompile Include="DodgerIdle.cpp" />
     <ClCompile Include="DodgerSprite.cpp" />
     <ClCompile Include="PlayerIdle.cpp" />
     <ClCompile Include="AnimationController.cpp" />

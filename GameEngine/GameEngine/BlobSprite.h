@@ -4,4 +4,6 @@
 class BlobSprite : public MapCharacter {
 public:
 	BlobSprite();
+
+	virtual Monster* CallMonster() override;
 };

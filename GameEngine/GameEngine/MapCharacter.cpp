@@ -23,6 +23,16 @@ void MapCharacter::Move(int x, int y)
 	location.second += y;
 }
 
+bool MapCharacter::collision(MapCharacter* cha)
+{
+	if (location == cha->location) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 
 void MapCharacter::update(float deltaTime) {
 

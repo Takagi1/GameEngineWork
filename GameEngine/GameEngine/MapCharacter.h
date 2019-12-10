@@ -33,8 +33,8 @@ public:
 	Sprite getSprite();
 
 	RectangleShape getRect();
-	
-	Monster* monster;
+
+	Monster* monster = nullptr;
 
 	Texture texture;
 	Sprite sprite;
@@ -44,7 +44,9 @@ public:
 
 	void Move(int x, int y);
 
+	bool collision(MapCharacter* cha);
 
+	virtual Monster* CallMonster() = 0;
 	//Update
 	void update(float deltaTime);
 };

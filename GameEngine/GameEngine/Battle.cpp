@@ -13,7 +13,7 @@ int skillOffset; //Used to scroll down the list of skills
 
 size_t number_of_skills;
 
-Battle::Battle(Blob *blob_, Monster* monster_) :  monsterPtr(monster_){
+Battle::Battle(Blob *blob_, Monster** monster_) :  monsterPtr(*monster_){
 	playerPtr = blob_;
 }
 
@@ -53,7 +53,7 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	//Set up character sprite positions
 	sf::IntRect(50, 50, 50, 50); //This is a test 
 
-	playerPtr->setSpritePos(0, -200);
+	playerPtr->setSpritePos(-100, -200);
 	monsterPtr->setSpritePos(100, -200);
 
 	//Set up the menu box
@@ -63,29 +63,29 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	//Set font for text
 	font.loadFromFile("OpenSans-Light.ttf");
 
-	//Set up guide name display
+	//Set up Blob name display
 	playerName.setString(playerPtr->name);
 	SetupText(&playerName);
-	playerName.setPosition(-600, -300);
+	playerName.setPosition(-100, -300);
 
-	//Set up Guide current health
-	playerHealthDisplay.setString(std::to_string(playerPtr->health) + " / " + std::to_string(playerPtr->maxHealth));
+	//Set up Blob current health
+	playerHealthDisplay.setString("Health: " + std::to_string(playerPtr->health) + " / " + std::to_string(playerPtr->maxHealth));
 	SetupText(&playerHealthDisplay);
 	playerHealthDisplay.setPosition(-600, -250);
 
-	playerEnergyDisplay.setString(std::to_string(playerPtr->energy) + " / " + std::to_string(playerPtr->maxEnergy));
+	playerEnergyDisplay.setString("Energy: " + std::to_string(playerPtr->energy) + " / " + std::to_string(playerPtr->maxEnergy));
 	SetupText(&playerEnergyDisplay);
 	playerEnergyDisplay.setPosition(-600, -200);
 
 	//Set up monster name display
 	monsterName.setString(monsterPtr->name);
 	SetupText(&monsterName);
-	monsterName.setPosition(500, -300);
+	monsterName.setPosition(100, -300);
 
 	//Set up monster current health
-	monsterHealthDisplay.setString(std::to_string(monsterPtr->health) + " / " + std::to_string(monsterPtr->maxHealth));
+	monsterHealthDisplay.setString("Health: " + std::to_string(monsterPtr->health) + " / " + std::to_string(monsterPtr->maxHealth));
 	SetupText(&monsterHealthDisplay);
-	monsterHealthDisplay.setPosition(500, -250);
+	monsterHealthDisplay.setPosition(400, -250);
 
 	//Set up monster current energy
 	monsterEnergyDisplay.setString(std::to_string(monsterPtr->energy) + " / " + std::to_string(monsterPtr->maxEnergy));
@@ -127,12 +127,12 @@ bool Battle::OnCreate(SceneManager * const & _transfer)
 	if (playerPtr->skills.size() > 0) {
 		for (int i = 0; i < playerPtr->skills.size(); i++) {
 			if (i == 0) {
-				text.setPosition(60, 0);
+				text.setPosition(-100, 0);
 				text.setOutlineThickness(5);
 				skills.AddText(text, 0);
 			}
 			if (i == 1) {
-				text.setPosition(150, 0);
+				text.setPosition(0, 0);
 				text.setOutlineThickness(0);
 				skills.AddText(text, 1);
 			}
@@ -313,10 +313,10 @@ void Battle::TurnComplete() {
 	}
 	//refresh display
 
-	playerHealthDisplay.setString(std::to_string(playerPtr->health) + " / " + std::to_string(playerPtr->maxHealth));
-	playerEnergyDisplay.setString(std::to_string(playerPtr->energy) + " / " + std::to_string(playerPtr->maxEnergy));
+	playerHealthDisplay.setString("Health: " + std::to_string(playerPtr->health) + " / " + std::to_string(playerPtr->maxHealth));
+	playerEnergyDisplay.setString("Energy: " + std::to_string(playerPtr->energy) + " / " + std::to_string(playerPtr->maxEnergy));
 
-	monsterHealthDisplay.setString(std::to_string(monsterPtr->health) + " / " + std::to_string(monsterPtr->maxHealth));
+	monsterHealthDisplay.setString("Health: " + std::to_string(monsterPtr->health) + " / " + std::to_string(monsterPtr->maxHealth));
 	monsterEnergyDisplay.setString(std::to_string(monsterPtr->energy) + " / " + std::to_string(monsterPtr->maxEnergy));
 
 

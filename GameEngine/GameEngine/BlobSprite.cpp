@@ -9,3 +9,8 @@ BlobSprite::BlobSprite() {
 	animationController.Play(PlayerIdle());
 	//sprite.setTexture(texture);	
 }
+
+Monster * BlobSprite::CallMonster()
+{
+	return nullptr;
+}
