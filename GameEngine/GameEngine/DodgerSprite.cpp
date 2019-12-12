@@ -12,6 +12,10 @@ DodgerSprite::DodgerSprite() {
 
 	animationController.Play(DodgerIdle());
 	//sprite.setTexture(texture);	
+
+	sentence.push_front("Goodbye World!");
+	sentence.push_front("Hello World!");
+	
 }
 
 Monster* DodgerSprite::CallMonster() {

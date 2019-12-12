@@ -3,15 +3,21 @@
 
 class Map : public Scene {
 public:
-	virtual bool OnCreate(SceneManager* const &_transfer) = 0;
+	virtual bool OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, int X, int Y) = 0;
 	virtual void OnDestroy() = 0;
 	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view)  = 0;
 	virtual void Draw(sf::RenderWindow& r_Window) override;
-	virtual void Input(sf::RenderWindow& window) = 0;
+	virtual void Input(sf::RenderWindow& window) override;
 
-	void DestroyMonster();
+	//Pointers for player and scene
+	SceneManager* managerPtr;
+	Monster* encounterPtr;
+
 
 	bool isPaused = false;
+
+	bool toast = false;
+	std::forward_list<std::string> sentance;
 
 	//Local Monsters
 	std::vector<MapCharacter*> mapCharacters;

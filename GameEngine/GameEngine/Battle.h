@@ -1,8 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-
-
 class Battle : public Scene
 {
 
@@ -17,7 +15,7 @@ public:
 		CHOMP
 	};
 
-	virtual bool OnCreate(SceneManager* const &_transfer) override;
+	virtual bool OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, int X, int Y) override;
 	virtual void OnDestroy() override;
 	virtual void Input(sf::RenderWindow& window) override;
 	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view) override;

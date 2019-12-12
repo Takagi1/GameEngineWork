@@ -1,7 +1,6 @@
 #pragma once
 #ifndef SCENE_H
 #define SCENE_H
-#include <SFML\Graphics.hpp>
 #include "SceneManager.h"
 #include "Tile.h"
 #include <iostream>
@@ -15,7 +14,7 @@ public:
 		font.loadFromFile("OpenSans-Light.ttf");
 	};
 
-	virtual bool OnCreate(SceneManager* const &_transfer) = 0;
+	virtual bool OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, int x, int y) = 0;
 	virtual void OnDestroy() = 0;
 	virtual void Update(const float dtAsSeconds, sf::RenderWindow& window, sf::View& view) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;

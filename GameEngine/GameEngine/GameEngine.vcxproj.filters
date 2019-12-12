@@ -43,10 +43,10 @@
     <Filter Include="Source Files\Animation">
       <UniqueIdentifier>{64be87bc-4515-48f9-8e96-2f7b78f8ef3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Monsters\Map Sprite">
+    <Filter Include="Source Files\Map Sprite">
       <UniqueIdentifier>{eda13c3e-2985-4beb-97dc-6ef980123048}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Monster\Map Sprite">
+    <Filter Include="Header Files\Map Sprite">
       <UniqueIdentifier>{00f34af7-6869-4142-945c-da8c77e722f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -133,13 +133,16 @@
       <Filter>Header Files\Monster</Filter>
     </ClInclude>
     <ClInclude Include="DodgerSprite.h">
-      <Filter>Header Files\Monster\Map Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="BlobSprite.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Map Sprite</Filter>
     </ClInclude>
     <ClInclude Include="DodgerIdle.h">
       <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Header Files\Map Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="BlobSprite.h">
+      <Filter>Header Files\Map Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,13 +216,16 @@
       <Filter>Source Files\Monsters</Filter>
     </ClCompile>
     <ClCompile Include="DodgerSprite.cpp">
-      <Filter>Source Files\Monsters\Map Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="BlobSprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Map Sprite</Filter>
     </ClCompile>
     <ClCompile Include="DodgerIdle.cpp">
       <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>Source Files\Map Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="BlobSprite.cpp">
+      <Filter>Source Files\Map Sprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

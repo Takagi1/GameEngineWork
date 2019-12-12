@@ -5,15 +5,17 @@
 #include "BlobSprite.h"
 #include "DodgerSprite.h"
 
-Monster* encounterPtr;
-sf::Event inp;
+
 
 Test::Test(Blob * player_) {
 	playerPtr = player_;
 }
 
-bool Test::OnCreate(SceneManager* const &_transfer) {
+bool Test::OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, int X, int Y) {
 
+	//Set up Pointers
+
+	managerPtr = _transfer;
 	//For setting up tiles
 	//create tiles based on size of screen
 	//then set up there locations and what part of the sprite sheet the tile shows.
@@ -22,6 +24,7 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 
 	//should be where tileset is set
 
+	
 	//get background texture
 	m_BackgroundTexture.loadFromFile("background.png");
 
@@ -41,15 +44,17 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 		for (int j = 0; j < mapWidth; j++) {
 		//Setup Tile properties
 
-			Tile tile;
+			Tile tile(Tile::NoEffect);
 
 			//put just i for entire collum, put just j for entire row, put both for a secific tile 
-			if (j == 0 || i == 0) {
+			if (j == 0 || i == 0 || j == mapWidth - 1 || i == mapLength - 1) {
 				tile.isMoveable = false;
 			}
+			if (i == 3 && j == 0) {
+				tile.SetChangeScene(1, 1, 1);
+				
 
-			//map[(i * 5) + j].SetLocation((i * 100) + 50, (j * 100) + 50);
-			//map[(i * 5) + j].SetTexture("background.png");
+			}
 
 			//map[(i * 5) + j].SetSprite();
 
@@ -59,7 +64,7 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 			rectangle.setFillColor(sf::Color::Red);
 			rectangle.setOutlineThickness(3);
 			rectangle.setOutlineColor(sf::Color::Blue);
-			rectangle.setPosition(-600 + ((j * 100 ) + 50), -200 + (i * 100) + 50);
+			rectangle.setPosition((r_Window.getSize().x / 2 - rectangle.getLocalBounds().width / 2) + j * 100, (r_Window.getSize().y / 2 - rectangle.getLocalBounds().height / 2) + i * 100);
 
 			tile.rec = rectangle;
 
@@ -71,19 +76,21 @@ bool Test::OnCreate(SceneManager* const &_transfer) {
 
 	//Player
 	BlobSprite* blobSprite = new BlobSprite();
-	blobSprite->location = std::make_pair(1, 1);
+	blobSprite->location = std::make_pair(X, Y);
 
 	//Dodger
 	DodgerSprite* dodgerSprite = new DodgerSprite();
 	dodgerSprite->location = std::make_pair(3, 3);
 
+	//Dodger
+	DodgerSprite* dodger = new DodgerSprite();
+	dodgerSprite->location = std::make_pair(4, 3);
+	dodgerSprite->isPerson = true;
+
 	//Setup
 	mapCharacters.push_back(blobSprite);
 	mapCharacters.push_back(dodgerSprite);
-	
-	//Set up Pointers
-
-	managerPtr = _transfer;
+	mapCharacters.push_back(dodgerSprite);
 
 	//set up where the player starts
 
@@ -112,148 +119,8 @@ void Test::OnDestroy()
 
 	//if (managerPtr) delete managerPtr;// , managerPtr = nullptr;
 }
-//you can use IntRect for collision with monsters and player. will have to add in collision detection with update
 
 
-void Test::Input(sf::RenderWindow& r_Window) {
-
-	while (r_Window.pollEvent(inp)) {
-
-		//Paused inputs 
-		if (isPaused) {
-
-			//Controls 
-			if (inp.type == sf::Event::KeyPressed) {
-				if (menuDisplay == SELECT) {
-
-					if (inp.key.code == sf::Keyboard::Right) {
-						selectMenu.MenuScroll(1);	
-					}
-
-					if (inp.key.code == sf::Keyboard::Left) {
-						selectMenu.MenuScroll(-1);
-					}
-
-					if (inp.key.code == sf::Keyboard::X) {
-						if (selectMenu.menuPtr == 0) {
-							//Status menu
-							//Should output players current stats and abilites
-
-							menuDisplay = STATUS;
-						}
-						else if (selectMenu.menuPtr == 1) {
-							//Stomach menu
-							//show side by side with image then name
-
-							menuDisplay = STOMACH;
-						}
-						else if (selectMenu.menuPtr == 2) {
-							//Info menu
-							//display info menu
-
-							menuDisplay = INFO;
-						}
-					}
-				}
-				
-				if (menuDisplay != SELECT) {
-					if (inp.key.code == sf::Keyboard::BackSpace)
-					{
-						menuDisplay = SELECT;
-					}
-				}
-			}
-		}
-		//Double press seems to be occuring when you press a button 
-		// handle things when not paused
-		if (!isPaused) {
-			if (inp.type == sf::Event::KeyPressed) {
-				//after movement rotate player to face the direction they are moveing
-				if (inp.key.code == sf::Keyboard::W || Keyboard::isKeyPressed(Keyboard::Up))
-				{
-					
-					try {
-						if (map.at(((mapCharacters[0]->location.second - 1) * mapWidth) + mapCharacters[0]->location.first).isMoveable == true) {
-							mapCharacters[0]->Move(0, -1);
-							mapCharacters[0]->dir = MapCharacter::Direction::Up;
-						}
-					}
-					catch (const std::out_of_range& oor) {
-						std::cerr << "Out of Range error: " << oor.what() << '\n';
-					}
-					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
-				}
-
-				if (Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::Down))
-				{
-					try {
-						if (map.at(((mapCharacters[0]->location.second + 1) * mapWidth) + mapCharacters[0]->location.first ).isMoveable == true){
-							mapCharacters[0]->Move(0,1);
-							mapCharacters[0]->dir = MapCharacter::Direction::Down;
-						} 
-					}
-					catch (const std::out_of_range& oor) {
-						std::cerr << "Out of Range error: " << oor.what() << '\n';
-					}
-					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
-				}
-
-				if (Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))
-				{
-					try {
-						if (map.at((mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first + 1).isMoveable) {
-							mapCharacters[0]->Move(1, 0);
-						}
-					}
-					catch (const std::out_of_range& oor) {
-						std::cerr << "Out of Range error: " << oor.what() << '\n';
-					}
-					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
-				}
-
-				if (Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left))
-				{
-					try {
-						if (map.at((mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first - 1 ).isMoveable) {
-							mapCharacters[0]->Move(-1,0);
-						}
-					}
-					catch (const std::out_of_range& oor) {
-						std::cerr << "Out of Range error: " << oor.what() << '\n';
-					}
-					std::cerr << "current location " << mapCharacters[0]->location.first << " " << mapCharacters[0]->location.second << " " << (mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first << '\n';
-				}
-
-				if (Keyboard::isKeyPressed(Keyboard::X))
-				{
-					map[(mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first].CalledEffect();
-				}
-			}
-		}
-		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::B) {
-			//Test call prototype scene change
-		//managerPtr->BuildScene(SceneManager::TOWN);
-
-			//create a new encounterPtr every time this is called
-
-			//delete previous encounter
-			if (encounterPtr != NULL) { delete(encounterPtr); }
-			//create new one
-			//encounterPtr =
-			encounterPtr = mapCharacters[1]->CallMonster();
-			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
-
-			managerPtr->BuildBattle(encounterPtr);
-		}
-
-		//Time should pause here
-		if (inp.type == sf::Event::KeyPressed && inp.key.code == sf::Keyboard::P) {
-
-			if (!isPaused) isPaused = true;
-			else isPaused = false;
-		}
-	}
-}
 
 
 std::vector<Text> Test::CreateInfoDisplay()
@@ -281,46 +148,34 @@ std::vector<Text> Test::CreateInfoDisplay()
 void Test::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
 	//check to see if the movement will cause the player the collision
 
-	//Rough collision detection (must improve)
-	if (mapCharacters.size() > 1) {
-		if (mapCharacters[0]->collision(mapCharacters[1])) {
-			//delete previous encounter
-			if (encounterPtr != NULL) { delete(encounterPtr); }
-			//create new one
-			encounterPtr = mapCharacters[1]->monster;
-			//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
-			managerPtr->BuildBattle(encounterPtr);
-
-			if (&encounterPtr->isDead) {
-				mapCharacters.erase(mapCharacters.begin() + 1);
-			}
-			else {
-				mapCharacters[1]->monster = mapCharacters[1]->CallMonster();
-			}
-		}
-
+	map[(mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first].CalledEffect(&managerPtr);
+	for (auto& character : mapCharacters) {
+		character->update(dtAsSeconds, r_Window);
 	}
 
-	for (auto& character : mapCharacters) {
-		character->update(dtAsSeconds);
+	//collision detection
+	if (mapCharacters.size() > 1) {
+		for (int i = 1; i < mapCharacters.size(); i++) {
+			
+			if (mapCharacters[i]->rectangle.getGlobalBounds().intersects(mapCharacters[0]->rectangle.getGlobalBounds()) && mapCharacters[i]->isPerson == false) {
+				//delete previous encounter
+				if (encounterPtr != NULL) { delete(encounterPtr); }
+				//create new one
+				encounterPtr = mapCharacters[i]->monster;
+				//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
+				managerPtr->BuildBattle(encounterPtr);
+
+				if (&encounterPtr->isDead) {
+					mapCharacters.erase(mapCharacters.begin() + i);
+				}
+				else {
+					mapCharacters[i]->monster = mapCharacters[i]->CallMonster();
+				}
+			}
+		}
 	}
 
 	// Set center of the camera to the player
 	view.setCenter(mapCharacters[0]->position.x, mapCharacters[0]->position.y);
-
-	//if any map monsters intersect with player engage battle here
-
-	/*//Example of changing scene
-	if (playerCharacter.position.y <= 400) {
-
-		//Test call prototype scene change
-		//managerPtr->BuildScene(SceneManager::TOWN);
-
-		//Test battle call
-		Encounter encounterPtr;
-
-		managerPtr->BuildBattle(encounterPtr);
-	}
-	*/
 }
 

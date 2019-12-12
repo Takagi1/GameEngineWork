@@ -171,6 +171,7 @@
     <ClInclude Include="DodgerIdle.h" />
     <ClInclude Include="DodgerSprite.h" />
     <ClInclude Include="Fire2.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="PlayerIdle.h" />
     <ClInclude Include="Poison.h" />
     <ClInclude Include="Character.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Dodger.cpp" />
     <ClCompile Include="DodgerIdle.cpp" />
     <ClCompile Include="DodgerSprite.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="PlayerIdle.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Battle.cpp" />

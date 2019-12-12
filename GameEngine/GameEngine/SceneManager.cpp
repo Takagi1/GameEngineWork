@@ -1,12 +1,11 @@
 #include "pch.h"
 #include "SceneManager.h"
-#include "Test.h"
-#include "Town.h"
 #include <Windows.h>
 #include <WinUser.h>
-#include "Battle.h"
 #include "Debug.h"
-
+#include "Battle.h"
+#include "Test.h"
+#include "Town.h"
 
 // PURPOSE: Handeling the transition and loading of scene's
 
@@ -21,7 +20,7 @@ SceneManager::SceneManager() {
 
 	//RenderWindow window
 
-	r_Window.create(VideoMode(1280, 720),
+	r_Window.create(VideoMode(1920, 1080),
 		"Simple Game Engine",
 		Style::Default);
 }
@@ -33,10 +32,10 @@ void SceneManager::Start()
 	Clock clock;
 
 	//This might be the location for building the inital load system (save load?)
-	BuildScene(TEST);
+	BuildScene(TEST, 1, 1);
 
 	//Create camera
-	sf::View view(sf::FloatRect(0, 0, 1280, 720));
+	sf::View view(sf::FloatRect(0, 0, 1920, 1080));
 	r_Window.setView(view);
 
 	while (r_Window.isOpen())
@@ -77,7 +76,7 @@ void SceneManager::Start()
 
 //Loads Scene 
 //Note when inputing a scene, all caps is the enum case, lowercase is the class
-void SceneManager::BuildScene(SCENE_NUMBER scene_) {
+void SceneManager::BuildScene(SCENE_NUMBER scene_, int X, int Y) {
 
 	//Destroy scene if moveing to another
 	if (currentScene != NULL) {
@@ -92,12 +91,12 @@ void SceneManager::BuildScene(SCENE_NUMBER scene_) {
 	switch (scene_) {
 	case TEST:
 		currentScene = new Test(&blob);
-		currentScene->OnCreate(this);
+		currentScene->OnCreate(this, r_Window, X, Y);
 
 		break;
 	case TOWN:
 		currentScene = new Town(&blob);
-		currentScene->OnCreate(this);
+		currentScene->OnCreate(this, r_Window, X, Y);
 
 		break;
 	default:
@@ -114,7 +113,7 @@ void SceneManager::BuildBattle(Monster *_encouter) {
 
 	//set current scene to battle
 	currentScene = new Battle(&blob, &_encouter);
-	currentScene->OnCreate(this);
+	currentScene->OnCreate(this, r_Window, 0, 0);
 }
 
 void SceneManager::endBattle(bool run) {
@@ -122,4 +121,14 @@ void SceneManager::endBattle(bool run) {
 	currentScene->OnDestroy();
 	currentScene = saveScene;
 
+}
+
+SceneManager::SCENE_NUMBER SceneManager::IntToScene(int scene_number){
+	if(scene_number == 0){
+		return TEST;
+	}
+	else if (scene_number == 1) {
+		return TOWN;
+	}
+	 
 }

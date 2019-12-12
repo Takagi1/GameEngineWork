@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <forward_list>
 #include "Character.h"
 
 //Forward decleration

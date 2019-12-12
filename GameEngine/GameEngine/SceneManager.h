@@ -9,10 +9,11 @@ class SceneManager {
 public:
 	//HOLD is there to allow for the scene change system to work
 	enum SCENE_NUMBER {
-		HOLD = 0,
 		TEST,
 		TOWN
 	};
+
+	SCENE_NUMBER IntToScene(int scene_number);
 	
 	//Constructor
 	SceneManager(); //Constructor
@@ -21,10 +22,9 @@ public:
 	Blob blob;
 
 	class Scene* currentScene;
-
 	class Scene* saveScene;
 
-	void BuildScene(SCENE_NUMBER scene_);
+	void BuildScene(SCENE_NUMBER scene_, int X, int Y);
 	void BuildBattle(Monster* _encouter);
 
 	//return to scene after battle

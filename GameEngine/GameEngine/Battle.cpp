@@ -17,7 +17,7 @@ Battle::Battle(Blob *blob_, Monster** monster_) :  monsterPtr(*monster_){
 	playerPtr = blob_;
 }
 
-bool Battle::OnCreate(SceneManager * const & _transfer)
+bool Battle::OnCreate(SceneManager * const & _transfer, sf::RenderWindow& r_Window, int X, int Y)
 {
 	//Set up variables
 	turn = 0;

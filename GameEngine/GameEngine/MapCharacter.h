@@ -1,5 +1,6 @@
 #pragma once
 #include "AnimationController.h"
+#include <forward_list>
 
 using namespace sf;
 
@@ -34,19 +35,25 @@ public:
 
 	RectangleShape getRect();
 
+	RectangleShape rectangle;
+
 	Monster* monster = nullptr;
 
 	Texture texture;
 	Sprite sprite;
+
+	std::forward_list<std::string> sentence;
+
+	bool isPerson = false;
 //Movement 
 
 	std::pair<int, int> location;
 
 	void Move(int x, int y);
 
-	bool collision(MapCharacter* cha);
+	sf::FloatRect collision();
 
 	virtual Monster* CallMonster() = 0;
 	//Update
-	void update(float deltaTime);
+	void update(float deltaTime, sf::RenderWindow& r_Window);
 };

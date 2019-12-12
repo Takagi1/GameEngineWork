@@ -12,9 +12,7 @@ Sprite MapCharacter::getSprite()
 
 RectangleShape MapCharacter::getRect()
 {
-	sf::RectangleShape rec = animationController.GetRectangle();
-	rec.setPosition(position);
-	return rec;
+	return animationController.GetRectangle();
 }
 
 void MapCharacter::Move(int x, int y)
@@ -23,21 +21,35 @@ void MapCharacter::Move(int x, int y)
 	location.second += y;
 }
 
-bool MapCharacter::collision(MapCharacter* cha)
+FloatRect MapCharacter::collision()
 {
-	if (location == cha->location) {
-		return true;
+	FloatRect rec(0,0,50,50);
+	if (dir == Up) {
+		rec.left = position.x;
+		rec.top = position.y - 100;
 	}
-	else {
-		return false;
+	else if (dir == Right) {
+		rec.left = position.x + 100;
+		rec.top = position.y;
 	}
+	else if (dir == Down) {
+		rec.left = position.x;
+		rec.top = position.y + 100;
+	}
+	else if (dir == Left) {
+		rec.left = position.x - 100;
+		rec.top = position.y;
+	}
+	return rec;
 }
 
 
-void MapCharacter::update(float deltaTime) {
+void MapCharacter::update(float deltaTime,sf::RenderWindow& r_Window) {
 
 	//Now move sprite to its new position
-	position = Vector2f(-575 + ((location.first * 100) + 50), -175 + ((location.second * 100) + 50));
-	//rec.setPosition(position);
-	
+
+	rectangle = getRect();
+	position = Vector2f((r_Window.getSize().x / 2 - rectangle.getLocalBounds().width / 2) + location.first * 100, (r_Window.getSize().y / 2 - rectangle.getLocalBounds().height / 2) + location.second * 100);
+
+	rectangle.setPosition(position);
 } 
