@@ -4,6 +4,7 @@
 #include "Blob.h"
 #include "BlobSprite.h"
 #include "DodgerSprite.h"
+#include "Person.h"
 
 
 
@@ -17,13 +18,8 @@ bool Test::OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, 
 
 	managerPtr = _transfer;
 	//For setting up tiles
-	//create tiles based on size of screen
-	//then set up there locations and what part of the sprite sheet the tile shows.
-	//mabye in update create a loop of the tiles to display all the tiles
-	//set in collsion detection in update
 
 	//should be where tileset is set
-
 	
 	//get background texture
 	m_BackgroundTexture.loadFromFile("background.png");
@@ -50,11 +46,6 @@ bool Test::OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, 
 			if (j == 0 || i == 0 || j == mapWidth - 1 || i == mapLength - 1) {
 				tile.isMoveable = false;
 			}
-			if (i == 3 && j == 0) {
-				tile.SetChangeScene(1, 1, 1);
-				
-
-			}
 
 			//map[(i * 5) + j].SetSprite();
 
@@ -65,6 +56,11 @@ bool Test::OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, 
 			rectangle.setOutlineThickness(3);
 			rectangle.setOutlineColor(sf::Color::Blue);
 			rectangle.setPosition((r_Window.getSize().x / 2 - rectangle.getLocalBounds().width / 2) + j * 100, (r_Window.getSize().y / 2 - rectangle.getLocalBounds().height / 2) + i * 100);
+
+			if (i == 3 && j == 0) {
+				tile.SetChangeScene(1, 1, 1);
+				rectangle.setFillColor(sf::Color::Blue);
+			}
 
 			tile.rec = rectangle;
 
@@ -82,15 +78,14 @@ bool Test::OnCreate(SceneManager* const &_transfer, sf::RenderWindow& r_Window, 
 	DodgerSprite* dodgerSprite = new DodgerSprite();
 	dodgerSprite->location = std::make_pair(3, 3);
 
-	//Dodger
-	DodgerSprite* dodger = new DodgerSprite();
-	dodgerSprite->location = std::make_pair(4, 3);
-	dodgerSprite->isPerson = true;
+	//Person
+	Person* pop = new Person();
+	pop->location = std::make_pair(3, 4);
 
 	//Setup
 	mapCharacters.push_back(blobSprite);
 	mapCharacters.push_back(dodgerSprite);
-	mapCharacters.push_back(dodgerSprite);
+	mapCharacters.push_back(pop);
 
 	//set up where the player starts
 

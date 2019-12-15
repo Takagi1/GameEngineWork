@@ -117,6 +117,7 @@ public:
 	void SetupText(Text * text);
 
 	Blob *playerPtr;
+
 	//Things that must be included in inheriting scenes
 
 	// Declare a sprite and a Texture for the background
