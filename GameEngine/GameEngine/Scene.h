@@ -110,9 +110,6 @@ public:
 		}
 	};
 
-	//Might be a terrible way of orginizing the info
-	std::vector<std::string> CreateInfoDisplay(); 
-
 	//Use to Quickly setup text
 	void SetupText(Text * text);
 

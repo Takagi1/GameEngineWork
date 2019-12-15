@@ -32,7 +32,7 @@ void SceneManager::Start()
 	Clock clock;
 
 	//This might be the location for building the inital load system (save load?)
-	BuildScene(TEST, 1, 1);
+	BuildScene(TOWN, 1, 1);
 
 	//Create camera
 	sf::View view(sf::FloatRect(0, 0, 1920, 1080));

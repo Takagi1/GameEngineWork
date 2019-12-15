@@ -118,59 +118,6 @@ void Test::OnDestroy()
 
 
 
-std::vector<Text> Test::CreateInfoDisplay()
-{
-	std::forward_list<std::string> strings;
 
-	std::vector<Text> text;
-	for (std::forward_list<std::pair<std::pair<std::string, int>, Blob::infoStorage > >::iterator its = playerPtr->info.begin(); its != playerPtr->info.end(); ++its) {
-		strings.push_front(its->first.first);
-	}
 
-	strings.unique();
-
-	for (std::forward_list<std::string>::iterator its = strings.begin(); its != strings.end(); ++its) {
-		Text tex;
-		tex.setString(*its);
-		text.push_back(tex);
-	}
-
-	return text;
-}
-
-// Move Bob based on the input this frame,
-// the time elapsed, and the speed.
-void Test::Update(float dtAsSeconds, sf::RenderWindow& r_Window, sf::View& view) {
-	//check to see if the movement will cause the player the collision
-
-	map[(mapCharacters[0]->location.second * mapWidth) + mapCharacters[0]->location.first].CalledEffect(&managerPtr);
-	for (auto& character : mapCharacters) {
-		character->update(dtAsSeconds, r_Window);
-	}
-
-	//collision detection
-	if (mapCharacters.size() > 1) {
-		for (int i = 1; i < mapCharacters.size(); i++) {
-			
-			if (mapCharacters[i]->rectangle.getGlobalBounds().intersects(mapCharacters[0]->rectangle.getGlobalBounds()) && mapCharacters[i]->isPerson == false) {
-				//delete previous encounter
-				if (encounterPtr != NULL) { delete(encounterPtr); }
-				//create new one
-				encounterPtr = mapCharacters[i]->monster;
-				//Debug::Error("Encounter health not reseting properly", __FILE__, __LINE__);
-				managerPtr->BuildBattle(encounterPtr);
-
-				if (&encounterPtr->isDead) {
-					mapCharacters.erase(mapCharacters.begin() + i);
-				}
-				else {
-					mapCharacters[i]->monster = mapCharacters[i]->CallMonster();
-				}
-			}
-		}
-	}
-
-	// Set center of the camera to the player
-	view.setCenter(mapCharacters[0]->position.x, mapCharacters[0]->position.y);
-}
 
